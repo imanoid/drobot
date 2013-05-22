@@ -11,7 +11,7 @@ DRobotDC1394Device::DRobotDC1394Device( ) : DRobotCapture()
 
 	capture = cvCaptureFromCAM(CV_CAP_FIREWARE);
 
-	cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH,  320);	//opencv doesnt like 640x480
+	cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, 320);	//opencv doesnt like 640x480
 	cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, 240);	//as most webcams use YUYV/YUY2 codecs.
 	cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, 30 );			//Playstation Eye Only: Max FPS goes to 120!!!
 

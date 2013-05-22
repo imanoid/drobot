@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC  -O0 -ggdb -fpermissive   -shared -Wl,-soname,libDRobotLearning.so -o libDRobotLearning.so CMakeFiles/DRobotLearning.dir/DRobotPopulationCoding/DRobotPopulationCoding.cpp.o CMakeFiles/DRobotLearning.dir/DRobotPerceptron/DRobotPerceptron.cpp.o -lQtCore -lQtGui -lQtXml -lQtSvg -lqwt -lboost_thread-mt -lboost_system-mt -lboost_filesystem-mt -lpthread -lphidget21 

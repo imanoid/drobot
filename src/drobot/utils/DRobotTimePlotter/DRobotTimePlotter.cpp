@@ -53,7 +53,7 @@ DRobotTimePlotter::replot()
 {
 
 	for(int i=0; i<curves.size(); i++)
-		curves[i]->setData(x, y[i]);
+		curves[i]->setSamples(x, y[i]);
 
 	plotter->replot();
 }
