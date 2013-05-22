@@ -1,1 +1,0 @@
-/usr/bin/c++    -O0 -ggdb -fpermissive    CMakeFiles/DRobotFileSystemTest.dir/DRobotFileSystem.cpp.o CMakeFiles/DRobotFileSystemTest.dir/DRobotFileSystemTest.cpp.o  -o DRobotFileSystemTest -rdynamic -lQtCore -lQtGui -lQtXml -lQtSvg -lqwt -lboost_thread-mt -lboost_system-mt -lboost_filesystem-mt -lpthread -lphidget21 
