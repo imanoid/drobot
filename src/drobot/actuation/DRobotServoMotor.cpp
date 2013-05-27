@@ -18,7 +18,6 @@ DRobotServoMotor::~DRobotServoMotor()
 
 }
 
-
 void
 DRobotServoMotor::setInitialPosition()
 {
@@ -30,7 +29,6 @@ DRobotServoMotor::getInitialPosition()
 {
 	return iPosition;
 }
-
 
 void
 DRobotServoMotor::setInitialPosition(double iPosition)
@@ -45,8 +43,6 @@ DRobotServoMotor::setMotorPosition(double position)
 	CPhidgetServo_setPosition(servo, index, position);
 }
 
-
-
 double
 DRobotServoMotor::getMotorPosition()
 {
@@ -56,7 +52,6 @@ DRobotServoMotor::getMotorPosition()
 
 }
 
-
 void
 DRobotServoMotor::setMinMax(double min, double max)
 {
@@ -64,14 +59,21 @@ DRobotServoMotor::setMinMax(double min, double max)
 	this->max = max;
 }
 
+double
+DRobotServoMotor::getMin() {
+    return this->min;
+}
+
+double
+DRobotServoMotor::getMax() {
+    return this->max;
+}
 
 void
-DRobotServoMotor::setName(std::string name)
+DRobotServoMotor::setName(string name)
 {
 	this->name = name;
 }
-
-
 
 void
 DRobotServoMotor::setBoard(int board, int index)

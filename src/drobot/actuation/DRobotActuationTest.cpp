@@ -26,17 +26,16 @@ public:
 
 		std::vector<double> motors;
 
-		actuation->addServoMotor("Left eye pan",0,0,100,80,120);
-		actuation->addServoMotor("Left eye tilt",0,1,100,80,120);
+        actuation->addServoMotor("Left eye pan",0,0,100,80,120);
 
 		actuation->setInitialPositions();
 
 		while(1)
 		{
-
+            actuation->setMotorIncrement(0, 1);
 			actuation->displayMotorPositions();
 
-			usleep(5000);
+            usleep(5000000);
 
 			count++;
 		}

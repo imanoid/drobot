@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+using std::vector;
+
 #include "DRobotServoMotor.h"
 #include "phidget21.h"
 
@@ -40,6 +42,8 @@ public:
 	void
 	setMotorIncrement(int index, double increment);
 
+    vector<DRobotServoMotor*>
+    getMotors() {return this->motors;}
 
 	void
 	displayMotorPositions( );
@@ -58,15 +62,13 @@ private:
 
 	// Servo handle
 	CPhidgetServoHandle servo;
-
+    std::vector<DRobotServoMotor*> motors;
 
 public:
 
 	static const int L_EYE_PAN = 0;
 
 	static const int L_EYE_TILT = 1;
-
-	std::vector<DRobotServoMotor*> motors;
 
 };
 

@@ -1,5 +1,8 @@
 
 #include <iostream>
+#include <sstream>
+
+using std::stringstream;
 
 #include "DRobotActuationEvents.h"
 #include "DRobotActuation.h"
@@ -127,16 +130,18 @@ DRobotActuation::initCommunication()
 	const char *err;
 
 	//open the servo for device connections
-	CPhidget_open((CPhidgetHandle)servo, -1);
+    CPhidget_open((CPhidgetHandle)servo, -1);
 
 	//get the program to wait for an servo device to be attached
 	std::cout << "Waiting for Servo controller to be attached..." << std::endl;
 
-	if((result = CPhidget_waitForAttachment((CPhidgetHandle)servo, 10000)))
+    if((result = CPhidget_waitForAttachment((CPhidgetHandle)servo, 20000)))
 	{
 		CPhidget_getErrorDescription(result, &err);
-		std::cerr << "Problem waiting for attachment: " << err << std::endl;;
-		return;
+        stringstream errorMsg;
+        errorMsg << "Problem waiting for attachment: " << err;
+        std::cerr << errorMsg.str() << std::endl;
+        throw errorMsg.str();
 	}
 
 	//Display the properties of the attached servo device

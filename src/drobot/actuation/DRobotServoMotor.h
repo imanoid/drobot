@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+using std::string;
+
 #include "phidget21.h"
 
 namespace drobot {
@@ -33,11 +35,17 @@ public:
 	void
 	setInitialPosition();
 
-	void
-	setMinMax(double min, double max);
+    double
+    getMin();
+
+    double
+    getMax();
 
 	void
-	setName(std::string name);
+    setMinMax(double min, double max);
+
+	void
+    setName(string name);
 
 	void
 	setBoard(int board, int index);
@@ -46,12 +54,9 @@ public:
 private:
 
 	// Servo handle
-	CPhidgetServoHandle servo;
+    CPhidgetServoHandle servo;
 
-
-public:
-
-	std::string name;
+    string name;
 
 	double min;
 
