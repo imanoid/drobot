@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DROBOTSERVOMOTOR_H_
-#define _DROBOT_DROBOTSERVOMOTOR_H_
+#ifndef _DROBOT_DROBOTADVANCEDSERVOMOTOR_H_
+#define _DROBOT_DROBOTADVANCEDSERVOMOTOR_H_
 
 #include <string>
 #include <vector>
@@ -11,19 +11,20 @@ using std::string;
 
 namespace drobot {
 
-class DRobotServoMotor: public DRobotAbstractServoMotor {
+class DRobotAdvancedServoMotor: public DRobotAbstractServoMotor {
 
 public:
-	DRobotServoMotor(CPhidgetServoHandle servo);
+	DRobotAdvancedServoMotor(CPhidgetAdvancedServoHandle servo);
 
 	virtual double getMotorPosition();
 	virtual void setMotorPosition(double position);
     virtual void engage();
     virtual void disengage();
     virtual bool isEngaged();
+
 private:
 	// Servo handle
-	CPhidgetServoHandle servo;
+	CPhidgetAdvancedServoHandle servo;
 };
 
 }

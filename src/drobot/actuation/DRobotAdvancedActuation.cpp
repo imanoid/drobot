@@ -4,15 +4,15 @@
 using std::stringstream;
 
 #include "DRobotActuationEvents.h"
-#include "DRobotActuation.h"
+#include "DRobotAdvancedActuation.h"
 
 namespace drobot {
 
-DRobotActuation::DRobotActuation() :
+DRobotAdvancedActuation::DRobotAdvancedActuation() :
 		servo(0) {
 
 	//create the servo object
-	CPhidgetServo_create(&servo);
+	CPhidgetAdvancedServo_create (&servo);
 
 	//Set the handlers to be run when the device is plugged in or opened from software,
 	//unplugged or closed from software, or generates an error.
@@ -23,16 +23,16 @@ DRobotActuation::DRobotActuation() :
 	//Registers a callback that will run when the motor position is changed.
 	//Requires the handle for the Phidget, the function that will be called,
 	//and an arbitrary pointer that will be supplied to the callback function (may be NULL).
-	CPhidgetServo_set_OnPositionChange_Handler(servo, PositionChangeHandler,
-			NULL);
+	CPhidgetAdvancedServo_set_OnPositionChange_Handler(servo,
+			AdvancedPositionChangeHandler, NULL);
 
 	initCommunication();
 
 }
 
-void DRobotActuation::addServoMotor(std::string name, int board, int index,
+void DRobotAdvancedActuation::addServoMotor(std::string name, int board, int index,
 		double iPosition, double min, double max) {
-	DRobotServoMotor* motor = new DRobotServoMotor(servo);
+	DRobotAdvancedServoMotor* motor = new DRobotAdvancedServoMotor(servo);
 	motor->setName(name);
 	motor->setBoard(board, index);
 	motor->setInitialPosition(iPosition);
@@ -41,7 +41,7 @@ void DRobotActuation::addServoMotor(std::string name, int board, int index,
 	_motors.push_back(motor);
 }
 
-void DRobotActuation::initCommunication() {
+void DRobotAdvancedActuation::initCommunication() {
 
 	int result;
 	const char *err;
@@ -70,7 +70,7 @@ void DRobotActuation::initCommunication() {
 
 // Display the properties of the attached phidget to the screen.
 // We will be displaying the name, serial number and version of the attached device.
-int DRobotActuation::displayProperties() {
+int DRobotAdvancedActuation::displayProperties() {
 	int serialNo, version, numMotors;
 	const char* deviceType;
 
@@ -78,7 +78,7 @@ int DRobotActuation::displayProperties() {
 	CPhidget_getSerialNumber((CPhidgetHandle) servo, &serialNo);
 	CPhidget_getDeviceVersion((CPhidgetHandle) servo, &version);
 
-	CPhidgetServo_getMotorCount(servo, &numMotors);
+	CPhidgetAdvancedServo_getMotorCount(servo, &numMotors);
 
 	std::cout << deviceType << std::endl;
 	std::cout << "Serial number: " << serialNo << std::endl;

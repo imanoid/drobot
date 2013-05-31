@@ -8,7 +8,7 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
      ADD_DEFINITIONS( -DLINUX )
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
-SET( PROJECT_NAME DRobotActuation )
+SET( PROJECT_NAME DRobotVestibular )
 PROJECT ( ${PROJECT_NAME} )
 
 #################################################
@@ -61,14 +61,8 @@ MESSAGE(STATUS "Actuation LIBS: " ${LIBS})
 #   All component sources must be named here   #
 ################################################
 SET( PROJECT_SRCS
-  DRobotActuationEvents.cpp
-  DRobotAbstractServoMotor.cpp
-  DRobotAdvancedServoMotor.cpp
-  DRobotServoMotor.cpp
-  DRobotAbstractActuation.cpp
-  DRobotAdvancedActuation.cpp
-  DRobotActuation.cpp
-  DRobotActuationTest.cpp
+  DRobotVestibular.cpp
+  DRobotVestibularTest.cpp
 )
 
 ADD_LIBRARY( ${PROJECT_NAME} SHARED ${PROJECT_SRCS} )

@@ -1,87 +1,35 @@
-
 #include <iostream>
 
 #include "DRobotServoMotor.h"
 
+namespace drobot {
 
-namespace drobot
-{
-
-
-DRobotServoMotor::DRobotServoMotor( CPhidgetServoHandle servo )
-{
+DRobotServoMotor::DRobotServoMotor(CPhidgetServoHandle servo) {
 	this->servo = servo;
 }
 
-DRobotServoMotor::~DRobotServoMotor()
-{
-
+void DRobotServoMotor::setMotorPosition(double position) {
+	CPhidgetServo_setPosition(servo, this->getIndex(), position);
 }
 
-void
-DRobotServoMotor::setInitialPosition()
-{
-	setMotorPosition(iPosition);
-}
-
-double
-DRobotServoMotor::getInitialPosition()
-{
-	return iPosition;
-}
-
-void
-DRobotServoMotor::setInitialPosition(double iPosition)
-{
-	this->iPosition = iPosition;
-}
-
-
-void
-DRobotServoMotor::setMotorPosition(double position)
-{
-	CPhidgetServo_setPosition(servo, index, position);
-}
-
-double
-DRobotServoMotor::getMotorPosition()
-{
+double DRobotServoMotor::getMotorPosition() {
 	double position;
-	CPhidgetServo_getPosition(servo, index, &position);
+	CPhidgetServo_getPosition(servo, this->getIndex(), &position);
 	return position;
-
 }
 
-void
-DRobotServoMotor::setMinMax(double min, double max)
-{
-	this->min = min;
-	this->max = max;
+void DRobotServoMotor::engage() {
+	CPhidgetServo_setEngaged(servo, this->index, 1);
 }
 
-double
-DRobotServoMotor::getMin() {
-    return this->min;
+void DRobotServoMotor::disengage() {
+	CPhidgetServo_setEngaged(servo, this->index, 0);
 }
 
-double
-DRobotServoMotor::getMax() {
-    return this->max;
+bool DRobotServoMotor::isEngaged() {
+	int engaged = 0;
+	CPhidgetServo_getEngaged(servo, this->index, &engaged);
+	return engaged == 1;
 }
-
-void
-DRobotServoMotor::setName(string name)
-{
-	this->name = name;
-}
-
-void
-DRobotServoMotor::setBoard(int board, int index)
-{
-	this->board = board;
-	this->index = index;
-}
-
-
 
 }

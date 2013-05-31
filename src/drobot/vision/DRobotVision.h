@@ -1,4 +1,3 @@
-
 #ifndef _DROBOT_DROBOTVISION_H_
 #define _DROBOT_DROBOTVISION_H_
 
@@ -8,28 +7,24 @@
 #include "opencv2/opencv.hpp"
 #include "capture/DRobotCapture.h"
 
-
 namespace drobot {
 
-class DRobotVision
-{
+class DRobotVision {
 
 public:
 
-	DRobotVision( );
+	DRobotVision();
 
-	virtual ~DRobotVision( );
+	virtual ~DRobotVision();
 
 	cv::Mat
-	getFrame( );
+	getFrame();
 
 	void
-	applyTransforms ();
+	applyTransforms();
 
 	double
 	getTDPixelActivity();
-
-
 
 private:
 
@@ -39,7 +34,6 @@ private:
 //	CvCapture* capture2;
 
 public:
-
 
 	static const int FRAME_WIDTH = 240;
 
@@ -51,23 +45,20 @@ public:
 
 	cv::Mat frameGray; 			// current frame in grey scale
 
-	cv::Mat frameLPCortical;	// current log-polar frame in cortical coordinates
+	cv::Mat frameLPCortical;// current log-polar frame in cortical coordinates
 
 	cv::Mat pFrameLPCortical;	// previous log-polar frame
 
 	cv::Mat tdFrameLPCortical; // temporal-difference log-polar frame in cartesian coordinates
 
-	cv::Mat frameLPCartesian;	// current log-polar frame in cartesian coordinates
+	cv::Mat frameLPCartesian;// current log-polar frame in cartesian coordinates
 
 	cv::Mat pFrameLPCartesian;	// previous log-polar frame
 
 	cv::Mat tdFrameLPCartesian; // temporal-difference log-polar frame in cartesian coordinates
 
-
-
 };
 
 }
-
 
 #endif

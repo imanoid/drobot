@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DROBOTACTUATION_H_
-#define _DROBOT_DROBOTACTUATION_H_
+#ifndef _DROBOT_DROBOTADVANCEDACTUATION_H_
+#define _DROBOT_DROBOTADVANCEDACTUATION_H_
 
 #include <string>
 #include <vector>
@@ -7,15 +7,15 @@
 using std::vector;
 
 #include "DRobotAbstractActuation.h"
-#include "DRobotServoMotor.h"
+#include "DRobotAdvancedServoMotor.h"
 #include "phidget21.h"
 
 namespace drobot {
 
-class DRobotActuation: public DRobotAbstractActuation {
+class DRobotAdvancedActuation: public DRobotAbstractActuation {
 
 public:
-	DRobotActuation();
+	DRobotAdvancedActuation();
 
 	virtual void addServoMotor(std::string name, int board, int index,
 			double iPosition, double min, double max);
@@ -23,7 +23,7 @@ private:
 	void initCommunication();
 	virtual int displayProperties();
 	// Servo handle
-	CPhidgetServoHandle servo;
+	CPhidgetAdvancedServoHandle servo;
 
 };
 
