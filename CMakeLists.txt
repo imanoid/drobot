@@ -80,5 +80,6 @@ ADD_SUBDIRECTORY( src/drobot/utils )
 ADD_SUBDIRECTORY( src/drobot/actuation )
 ADD_SUBDIRECTORY( src/drobot/vision )
 ADD_SUBDIRECTORY( src/drobot/learning )
+ADD_SUBDIRECTORY( src/drobot/vestibular )
 ADD_SUBDIRECTORY( src/drobot/experiments/VisuoMotorLearning )
 

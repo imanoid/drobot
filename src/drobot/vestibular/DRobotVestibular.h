@@ -11,7 +11,7 @@ class DRobotVestibular {
 public:
 	DRobotVestibular();
 	DRobotVestibular(int serial);
-	DRobotVestibular(CPhidgetSpatialHandle* phid) :
+	DRobotVestibular(CPhidgetSpatialHandle phid) :
 			_phid(phid) {
 	}
 	virtual ~DRobotVestibular();
@@ -29,7 +29,7 @@ public:
 	vector<double> getMagneticFieldMin();
 	void zeroGyro();
 	int getDataRate();
-	void setDataRate(int, milliseconds);
+	void setDataRate(int milliseconds);
 	int getDataRateMax();
 	int getDataRateMin();
 	void setCompassCorrectionParameters(double magneticField,
