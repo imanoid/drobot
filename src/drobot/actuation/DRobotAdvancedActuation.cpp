@@ -1,8 +1,6 @@
 #include <iostream>
 #include <sstream>
 
-using std::stringstream;
-
 #include "DRobotActuationEvents.h"
 #include "DRobotAdvancedActuation.h"
 
@@ -54,7 +52,7 @@ void DRobotAdvancedActuation::initCommunication() {
 
 	if ((result = CPhidget_waitForAttachment((CPhidgetHandle) servo, 20000))) {
 		CPhidget_getErrorDescription(result, &err);
-		stringstream errorMsg;
+		std::stringstream errorMsg;
 		errorMsg << "Problem waiting for attachment: " << err;
 		std::cerr << errorMsg.str() << std::endl;
 		throw errorMsg.str();

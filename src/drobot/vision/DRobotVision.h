@@ -45,13 +45,13 @@ public:
 
 	cv::Mat frameGray; 			// current frame in grey scale
 
-	cv::Mat frameLPCortical;// current log-polar frame in cortical coordinates
+	cv::Mat frameLPCortical; // current log-polar frame in cortical coordinates
 
 	cv::Mat pFrameLPCortical;	// previous log-polar frame
 
 	cv::Mat tdFrameLPCortical; // temporal-difference log-polar frame in cartesian coordinates
 
-	cv::Mat frameLPCartesian;// current log-polar frame in cartesian coordinates
+	cv::Mat frameLPCartesian; // current log-polar frame in cartesian coordinates
 
 	cv::Mat pFrameLPCartesian;	// previous log-polar frame
 

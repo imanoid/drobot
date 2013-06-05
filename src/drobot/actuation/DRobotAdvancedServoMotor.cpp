@@ -1,8 +1,5 @@
 #include <iostream>
 
-using std::cout;
-using std::endl;
-
 #include "DRobotAdvancedServoMotor.h"
 
 namespace drobot {
@@ -13,7 +10,7 @@ DRobotAdvancedServoMotor::DRobotAdvancedServoMotor(
 }
 
 void DRobotAdvancedServoMotor::setMotorPosition(double position) {
-	cout << servo << " " << this->index << endl;
+	std::cout << servo << " " << this->index << std::endl;
 	CPhidgetAdvancedServo_setPosition(servo, this->index, position);
 }
 

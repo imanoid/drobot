@@ -1,8 +1,6 @@
 #include <iostream>
 #include <sstream>
 
-using std::stringstream;
-
 #include "DRobotActuationEvents.h"
 #include "DRobotAbstractActuation.h"
 
@@ -25,7 +23,7 @@ int DRobotAbstractActuation::getMotorPosition(int index) {
 	return _motors[index]->getMotorPosition();
 }
 
-vector<double> DRobotAbstractActuation::getMotorPositions() {
+std::vector<double> DRobotAbstractActuation::getMotorPositions() {
 	std::vector<double> mPositions;
 
 	for (int i = 0; i < _motors.size(); i++) {
@@ -59,13 +57,13 @@ void DRobotAbstractActuation::displayMotorPositions() {
 }
 
 void DRobotAbstractActuation::engage() {
-	for (vector<DRobotAbstractServoMotor*>::iterator iMotor = _motors.begin(); iMotor != _motors.end(); iMotor++) {
+	for (std::vector<DRobotAbstractServoMotor*>::iterator iMotor = _motors.begin(); iMotor != _motors.end(); iMotor++) {
 		(*iMotor)->engage();
 	}
 }
 
 void DRobotAbstractActuation::disengage() {
-	for (vector<DRobotAbstractServoMotor*>::iterator iMotor = _motors.begin(); iMotor != _motors.end(); iMotor++) {
+	for (std::vector<DRobotAbstractServoMotor*>::iterator iMotor = _motors.begin(); iMotor != _motors.end(); iMotor++) {
 		(*iMotor)->disengage();
 	}
 }

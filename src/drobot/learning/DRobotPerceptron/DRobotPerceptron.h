@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 //#include <boost/numeric/ublas/vector.hpp>
 //#include <boost/numeric/ublas/matrix.hpp>
@@ -19,10 +20,15 @@ public:
 
 	DRobotPerceptron(int nInputs, int nOutputs );
 
+	DRobotPerceptron(std::vector<std::string> inputNodes, std::vector<std::string> outputNodes);
+
 	virtual ~DRobotPerceptron( );
 
 	void
 	updateWeights(double reward, double lRate);
+
+	std::map<std::string, double>
+	mappedOutput(std::map<std::string, double> input);
 
 	double*
 	calculateOutput(double* input);
@@ -48,7 +54,8 @@ private:
 	int nInputs;
 	int nOutputs;
 
-
+	std::vector<std::string> inputNodes;
+	std::vector<std::string> outputNodes;
 };
 
 }

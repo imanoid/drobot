@@ -17,6 +17,7 @@ QT4_WRAP_CPP(
     DRobotColorRangeSelector/DRobotColorRangeSelector.h
     DRobotSliderGroup/DRobotSlider.h
     DRobotSliderGroup/DRobotSliderGroup.h
+    rs232/rs232.h
 
 )
 
@@ -39,6 +40,7 @@ SET(
 	 DRobotColorRangeSelector/DRobotColorRangeSelector.cpp
 	 DRobotSliderGroup/DRobotSlider.cpp
 	 DRobotSliderGroup/DRobotSliderGroup.cpp
+	 rs232/rs232.cpp
 
 )
 
@@ -69,6 +71,7 @@ ADD_SUBDIRECTORY( DRobotTimePlotter )
 ADD_SUBDIRECTORY( DRobotImageDisplay )
 ADD_SUBDIRECTORY( DRobotColorRangeSelector )
 ADD_SUBDIRECTORY( DRobotSliderGroup )
+ADD_SUBDIRECTORY( rs232 )
 
 #INSTALL(
 #  TARGETS drobot.DRobotPlotter

@@ -2,11 +2,6 @@
 #include <iostream>
 #include <sstream>
 
-using std::stringstream;
-using std::cout;
-using std::cerr;
-using std::endl;
-
 namespace drobot {
 
 DRobotVestibular::DRobotVestibular() {
@@ -18,9 +13,9 @@ DRobotVestibular::DRobotVestibular() {
 	const char *err;
 	if ((result = CPhidget_waitForAttachment((CPhidgetHandle) _phid, 10000))) {
 		CPhidget_getErrorDescription(result, &err);
-		stringstream errorMsg;
+		std::stringstream errorMsg;
 		errorMsg << "Problem waiting for attachment: " << err;
-		cerr << errorMsg.str() << endl;
+		std::cerr << errorMsg.str() << std::endl;
 		throw errorMsg.str();
 	}
 }
@@ -34,9 +29,9 @@ DRobotVestibular::DRobotVestibular(int serial) {
 	const char *err;
 	if ((result = CPhidget_waitForAttachment((CPhidgetHandle) _phid, 10000))) {
 		CPhidget_getErrorDescription(result, &err);
-		stringstream errorMsg;
+		std::stringstream errorMsg;
 		errorMsg << "Problem waiting for attachment: " << err;
-		cerr << errorMsg.str() << endl;
+		std::cerr << errorMsg.str() << std::endl;
 		throw errorMsg.str();
 	}
 
@@ -64,8 +59,8 @@ int DRobotVestibular::getCompassAxisCount() {
 	return *count;
 }
 
-vector<double> DRobotVestibular::getAcceleration() {
-	vector<double> accelerations;
+std::vector<double> DRobotVestibular::getAcceleration() {
+	std::vector<double> accelerations;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double acceleration;
 		CPhidgetSpatial_getAcceleration(_phid, dim, &acceleration);
@@ -74,8 +69,8 @@ vector<double> DRobotVestibular::getAcceleration() {
 	return accelerations;
 }
 
-vector<double> DRobotVestibular::getAccelerationMax() {
-	vector<double> accelerations;
+std::vector<double> DRobotVestibular::getAccelerationMax() {
+	std::vector<double> accelerations;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double acceleration;
 		CPhidgetSpatial_getAccelerationMax(_phid, dim, &acceleration);
@@ -84,8 +79,8 @@ vector<double> DRobotVestibular::getAccelerationMax() {
 	return accelerations;
 }
 
-vector<double> DRobotVestibular::getAccelerationMin() {
-	vector<double> accelerations;
+std::vector<double> DRobotVestibular::getAccelerationMin() {
+	std::vector<double> accelerations;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double acceleration;
 		CPhidgetSpatial_getAccelerationMin(_phid, dim, &acceleration);
@@ -94,11 +89,9 @@ vector<double> DRobotVestibular::getAccelerationMin() {
 	return accelerations;
 }
 
-vector<double> DRobotVestibular::getAngularRate() {
-	vector<double> angularRates;
-	cout << 1 << endl;
+std::vector<double> DRobotVestibular::getAngularRate() {
+	std::vector<double> angularRates;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
-		cout << 2 << endl;
 		double angularRate;
 		CPhidgetSpatial_getAngularRate(_phid, dim, &angularRate);
 		angularRates.push_back(angularRate);
@@ -106,8 +99,8 @@ vector<double> DRobotVestibular::getAngularRate() {
 	return angularRates;
 }
 
-vector<double> DRobotVestibular::getAngularRateMax() {
-	vector<double> angularRates;
+std::vector<double> DRobotVestibular::getAngularRateMax() {
+	std::vector<double> angularRates;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double angularRate;
 		CPhidgetSpatial_getAngularRateMax(_phid, dim, &angularRate);
@@ -116,8 +109,8 @@ vector<double> DRobotVestibular::getAngularRateMax() {
 	return angularRates;
 }
 
-vector<double> DRobotVestibular::getAngularRateMin() {
-	vector<double> angularRates;
+std::vector<double> DRobotVestibular::getAngularRateMin() {
+	std::vector<double> angularRates;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double angularRate;
 		CPhidgetSpatial_getAngularRateMin(_phid, dim, &angularRate);
@@ -126,8 +119,8 @@ vector<double> DRobotVestibular::getAngularRateMin() {
 	return angularRates;
 }
 
-vector<double> DRobotVestibular::getMagneticField() {
-	vector<double> magneticFields;
+std::vector<double> DRobotVestibular::getMagneticField() {
+	std::vector<double> magneticFields;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double magneticField;
 		CPhidgetSpatial_getMagneticField(_phid, dim, &magneticField);
@@ -136,8 +129,8 @@ vector<double> DRobotVestibular::getMagneticField() {
 	return magneticFields;
 }
 
-vector<double> DRobotVestibular::getMagneticFieldMax() {
-	vector<double> magneticFields;
+std::vector<double> DRobotVestibular::getMagneticFieldMax() {
+	std::vector<double> magneticFields;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double magneticField;
 		CPhidgetSpatial_getMagneticFieldMax(_phid, dim, &magneticField);
@@ -147,8 +140,8 @@ vector<double> DRobotVestibular::getMagneticFieldMax() {
 
 }
 
-vector<double> DRobotVestibular::getMagneticFieldMin() {
-	vector<double> magneticFields;
+std::vector<double> DRobotVestibular::getMagneticFieldMin() {
+	std::vector<double> magneticFields;
 	for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
 		double magneticField;
 		CPhidgetSpatial_getMagneticFieldMin(_phid, dim, &magneticField);
@@ -185,7 +178,7 @@ int DRobotVestibular::getDataRateMin() {
 }
 
 void DRobotVestibular::setCompassCorrectionParameters(double magneticField,
-		vector<double> offset, vector<double> gain, vector<double> T) {
+		std::vector<double> offset, std::vector<double> gain, std::vector<double> T) {
 	while (offset.size() < 3)
 		offset.push_back(0);
 	while (gain.size() < 3)

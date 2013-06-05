@@ -33,7 +33,7 @@ double DRobotAbstractServoMotor::getMax() {
 	return this->max;
 }
 
-void DRobotAbstractServoMotor::setName(string name) {
+void DRobotAbstractServoMotor::setName(std::string name) {
 	this->name = name;
 }
 

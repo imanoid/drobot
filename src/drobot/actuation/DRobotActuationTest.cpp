@@ -15,14 +15,7 @@ class ActuationTester {
 public:
 
 	void run() {
-
-		int key;
-
 		drobot::DRobotAdvancedActuation* actuation = new drobot::DRobotAdvancedActuation();
-
-		int count = 0;
-
-		std::vector<double> motors;
 
 		actuation->addServoMotor("Left eye pan", 0, 0, 100, 80, 120);
 		actuation->addServoMotor("Right eye pan", 0, 1, 100, 80, 120);

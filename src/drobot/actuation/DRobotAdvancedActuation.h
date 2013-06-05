@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-using std::vector;
-
 #include "DRobotAbstractActuation.h"
 #include "DRobotAdvancedServoMotor.h"
 #include "phidget21.h"

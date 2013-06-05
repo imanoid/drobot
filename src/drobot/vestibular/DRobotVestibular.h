@@ -4,8 +4,6 @@
 #include <vector>
 #include "phidget21.h"
 
-using std::vector;
-
 namespace drobot {
 class DRobotVestibular {
 public:
@@ -18,22 +16,22 @@ public:
 	int getAccelerationAxisCount();
 	int getGyroAxisCount();
 	int getCompassAxisCount();
-	vector<double> getAcceleration();
-	vector<double> getAccelerationMax();
-	vector<double> getAccelerationMin();
-	vector<double> getAngularRate();
-	vector<double> getAngularRateMax();
-	vector<double> getAngularRateMin();
-	vector<double> getMagneticField();
-	vector<double> getMagneticFieldMax();
-	vector<double> getMagneticFieldMin();
+	std::vector<double> getAcceleration();
+	std::vector<double> getAccelerationMax();
+	std::vector<double> getAccelerationMin();
+	std::vector<double> getAngularRate();
+	std::vector<double> getAngularRateMax();
+	std::vector<double> getAngularRateMin();
+	std::vector<double> getMagneticField();
+	std::vector<double> getMagneticFieldMax();
+	std::vector<double> getMagneticFieldMin();
 	void zeroGyro();
 	int getDataRate();
 	void setDataRate(int milliseconds);
 	int getDataRateMax();
 	int getDataRateMin();
 	void setCompassCorrectionParameters(double magneticField,
-			vector<double> offset, vector<double> gain, vector<double> T);
+			std::vector<double> offset, std::vector<double> gain, std::vector<double> T);
 	void resetCompassCorrectionParameters();
 private:
 	CPhidgetSpatialHandle _phid;

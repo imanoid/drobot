@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-using std::string;
-
 #include "phidget21.h"
 
 namespace drobot {
@@ -23,7 +21,7 @@ public:
 	double getMin();
 	double getMax();
 	void setMinMax(double min, double max);
-	void setName(string name);
+	void setName(std::string name);
 	void setBoard(int board, int index);
 	int getBoard();
 	int getIndex();
@@ -31,7 +29,7 @@ public:
 	virtual void disengage()=0;
 	virtual bool isEngaged()=0;
 protected:
-	string name;
+	std::string name;
 	double min;
 	double max;
 	double iPosition;

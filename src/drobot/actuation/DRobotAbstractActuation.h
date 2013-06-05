@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-using std::vector;
-
 #include "DRobotAbstractServoMotor.h"
 #include "phidget21.h"
 
@@ -20,9 +18,9 @@ public:
 			double min, double max) = 0;
 	void setInitialPositions();
 	int getMotorPosition(int index);
-	vector<double> getMotorPositions();
+	std::vector<double> getMotorPositions();
 	void setMotorPosition(int index, double position);
-	void setMotorPositions(vector<double> mPositions);
+	void setMotorPositions(std::vector<double> mPositions);
 	void setMotorIncrement(int index, double increment);
 	void displayMotorPositions();
 	void engage();
@@ -33,7 +31,7 @@ public:
 
 protected:
 	virtual int displayProperties() = 0;
-	vector<DRobotAbstractServoMotor*> _motors;
+	std::vector<DRobotAbstractServoMotor*> _motors;
 
 };
 
