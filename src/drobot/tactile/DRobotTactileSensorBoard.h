@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#define MAX_SENSORS 32
+
 namespace drobot {
 class DRobotTactileSensorBoard {
 private:
@@ -12,9 +14,11 @@ private:
 	int _maxSensors;
 	std::string _device;
 public:
-	DRobotTactileSensorBoard(std::string device) : _device(device), _maxSensors(32) {
+	DRobotTactileSensorBoard(std::string device) :
+			_device(device), _maxSensors(MAX_SENSORS) {
 	}
-	DRobotTactileSensorBoard(std::string device, int maxSensors) : _device(device), _maxSensors(maxSensors) {
+	DRobotTactileSensorBoard(std::string device, int maxSensors) :
+			_device(device), _maxSensors(maxSensors) {
 	}
 	int getSensorActivation(int index);
 	void enable();

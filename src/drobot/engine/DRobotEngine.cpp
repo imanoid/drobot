@@ -39,7 +39,7 @@ void DRobotEngine::step(int time) {
 	 * 2. do learning algorithm
 	 * 3. fill "outputs" map
 	 */
-	std::map<std::string, double> outputs; //perceptron outputs go here
+	std::map<std::string, double> outputs; //<-- perceptron outputs go here
 
 	for (std::vector<DRobotOutputDevice>::iterator iDRobotOutputDevice =
 			_outputDevices.begin(); iDRobotOutputDevice != _outputDevices.end();
