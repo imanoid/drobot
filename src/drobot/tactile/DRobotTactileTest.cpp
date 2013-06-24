@@ -7,11 +7,20 @@
 #include <algorithm>
 #include "DRobotTactileSensorBoard.h"
 #include "../actuation/DRobotAdvancedActuation.h"
+#include "../utils/DRobotTimePlotter/DRobotTimePlotter.h"
 #include <stdio.h>
+#include <boost/lexical_cast.hpp>
 
 class TactileTester {
+private:
+	drobot::DRobotTimePlotter* _plotter;
 public:
 	TactileTester() {
+		std::vector < std::string > labels;
+		labels.push_back("sensor0");
+		_plotter = new drobot::DRobotTimePlotter("test", 20, 20, 500, 300,
+				labels);
+		_plotter->show();
 	}
 
 	void run() {
@@ -32,12 +41,13 @@ public:
 
 		int tick = 0;
 		while (tick < 100) {
+			double* readings = new double[sensorBoard->getMaxSensors()];
 			for (int index = 0; index < sensorBoard->getMaxSensors(); index++) {
 				char val[3];
 				sprintf(val, "%3d;", sensorBoard->getSensorActivation(index));
-				std::cout << val;
+				readings[index] = boost::lexical_cast<float>(val);
 			}
-			std::cout << std::endl;
+			_plotter->update(tick, readings);
 			usleep(50000);
 			++tick;
 		}

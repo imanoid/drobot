@@ -49,18 +49,6 @@ public:
 
 			_plotter->update(count, values);
 
-			std::cout << "Angular rate: ";
-			for (std::vector<double>::iterator iAng = ang.begin(); iAng != ang.end(); iAng++) {
-				std::cout << *iAng << " ";
-			}
-			std::cout << std::endl;
-
-			std::cout << "Acceleration: ";
-			for (std::vector<double>::iterator iAcc = acc.begin(); iAcc != acc.end(); iAcc++) {
-				std::cout << *iAcc << " ";
-			}
-			std::cout << std::endl;
-
 			usleep(500000);
 			count++;
 		}
