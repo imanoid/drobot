@@ -51,13 +51,13 @@ public:
 
 			plotter->update(count, y);
 
-			display->imshow("OLE", vision->frameLPCartesian);
+			display->imshow(vision->frameLPCartesian);
 			std::cerr << " Number of Cortical cells: "
 					<< vision->frameLPCortical.cols << std::endl;
 			std::cerr << " Number of Cortical cells: "
 					<< vision->frameLPCortical.rows << std::endl;
 
-			display2->imshow("OLE", vision->tdFrameLPCartesian);
+			display2->imshow(vision->tdFrameLPCartesian);
 
 			//						display->imshow("OLE",vision->frameLPCartesian);
 			//display->imshow("OLE",vision->tdFrameLPCartesian);

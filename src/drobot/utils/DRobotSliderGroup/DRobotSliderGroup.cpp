@@ -24,7 +24,6 @@ namespace drobot
 
 DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string> labels, double init, double min, double max) : QWidget()
 {
-
 	this->title = title;
 	this->setWindowTitle(title.c_str());
 
@@ -39,15 +38,13 @@ DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string>
 	}
 
 	createButtonPanel(layout);
-
-
 }
 
 
 DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string> labels, std::vector<double> init, std::vector<double> min, std::vector<double> max) : QWidget()
 {
-
 	this->title = title;
+	this->setWindowTitle(title.c_str());
 
 	QFormLayout* layout = new QFormLayout();
 	this->setLayout(layout);
@@ -60,7 +57,6 @@ DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string>
 	}
 
 	createButtonPanel(layout);
-
 }
 
 

@@ -19,7 +19,6 @@ DRobotVision::DRobotVision() {
 
 	std::cerr << "Capturing from constructor" << std::endl;
 	usleep(200000);
-
 }
 
 DRobotVision::~DRobotVision() {
@@ -33,6 +32,8 @@ cv::Mat DRobotVision::getFrame() {
 }
 
 void DRobotVision::applyTransforms() {
+	ppFrameLPCartesian = pFrameLPCartesian;
+	ppFrameLPCortical = pFrameLPCortical;
 	pFrameLPCartesian = frameLPCartesian;
 	pFrameLPCortical = frameLPCortical;
 
@@ -47,18 +48,28 @@ void DRobotVision::applyTransforms() {
 			cv::Size(FRAME_WIDTH * 2, FRAME_HEIGHT * 2));
 
 	if (pFrameLPCartesian.size().width != 0) {
-		absdiff(pFrameLPCortical, frameLPCortical, tdFrameLPCortical);
-		absdiff(pFrameLPCartesian, frameLPCartesian, tdFrameLPCartesian);
+		absdiff(frameLPCortical, pFrameLPCortical, tdFrameLPCortical);
+		absdiff(frameLPCartesian, pFrameLPCartesian, tdFrameLPCartesian);
+
+		if (ppFrameLPCartesian.size().width != 0) {
+			// 2nd order temporal difference: td2 = f(x) - 2*f(x-1) + f(x-2)
+			td2FrameLPCortical = frameLPCortical - pFrameLPCortical;
+			td2FrameLPCortical += ppFrameLPCortical;
+			absdiff(td2FrameLPCortical, pFrameLPCortical, td2FrameLPCortical);
+
+			td2FrameLPCartesian = frameLPCartesian - pFrameLPCartesian;
+			td2FrameLPCartesian += ppFrameLPCartesian;
+			absdiff(td2FrameLPCartesian, pFrameLPCartesian, td2FrameLPCartesian);
+		}
 	}
 }
 
-double DRobotVision::getTDPixelActivity() {
-	if (tdFrameLPCartesian.size().width == 0)
+double DRobotVision::getTDPixelActivity(cv::Mat tdFrame) {
+	if (tdFrame.size().width == 0)
 		return 0;
 
-	unsigned char*pixels = (unsigned char*) tdFrameLPCortical.data;
-
-	int size = tdFrameLPCortical.cols * tdFrameLPCortical.rows;
+	unsigned char *pixels = (unsigned char *) tdFrame.data;
+	int size = tdFrame.cols * tdFrame.rows;
 
 	double activity = 0;
 
@@ -66,7 +77,14 @@ double DRobotVision::getTDPixelActivity() {
 		activity += (int) pixels[i];
 
 	return activity;
+}
 
+double DRobotVision::getTDPixelActivity() {
+	return getTDPixelActivity(tdFrameLPCortical);
+}
+
+double DRobotVision::getTD2PixelActivity() {
+	return getTDPixelActivity(td2FrameLPCortical);
 }
 
 }

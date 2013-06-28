@@ -18,6 +18,9 @@ DRobotTimePlotter::DRobotTimePlotter(std::string title, int x0, int y0, int widt
 	for(int i=0; i<labels.size(); i++)
 	{
 		QwtPlotCurve *curve = new QwtPlotCurve(labels[i].c_str());
+		QPen pen(QColor(240, 0, 0, 127));
+		pen.setWidth(1);
+		curve->setPen(pen);
 		curves.push_back(curve);
 
 		QVector<double> vector;
@@ -26,15 +29,12 @@ DRobotTimePlotter::DRobotTimePlotter(std::string title, int x0, int y0, int widt
 
 	 QObject::connect(this, SIGNAL(dataUpdated()),
 	                      this, SLOT(replot()));
-
-
 }
 
 DRobotTimePlotter::~DRobotTimePlotter()
 {
 
 }
-
 
 void
 DRobotTimePlotter::update(double time, double* values)
@@ -45,7 +45,6 @@ DRobotTimePlotter::update(double time, double* values)
 		y[i].push_back(values[i]);
 
 	emit dataUpdated();
-
 }
 
 void
@@ -58,22 +57,17 @@ DRobotTimePlotter::replot()
 	plotter->replot();
 }
 
-
-
 void
 DRobotTimePlotter::show()
 {
-
 	plotter = new QwtPlot(QwtText(title.c_str()));
 	plotter->setMinimumSize(width, height);
 	plotter->setGeometry(20, 20, width, height);
 	plotter->setAutoReplot(false);
+	plotter->setWindowTitle(title.c_str());
 	attachPlotter();
 	plotter->show();
-
-
 }
-
 
 void
 DRobotTimePlotter::attachPlotter()
@@ -82,8 +76,5 @@ DRobotTimePlotter::attachPlotter()
 		curves[i]->attach(plotter);
 
 }
-
-
-
 
 }

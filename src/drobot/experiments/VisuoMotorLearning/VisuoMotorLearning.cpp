@@ -26,11 +26,13 @@ public:
 		init();
 	}
 
-
 	void run()
 	{
 		actuation->setInitialPositions();
 
+		vision->getFrame();
+		vision->applyTransforms();
+		usleep(10000);
 		vision->getFrame();
 		vision->applyTransforms();
 		usleep(10000);
@@ -52,11 +54,8 @@ public:
 
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
 
-		//actuation->setMotorPosition(0, 160);
 		double t = 0;
-		double y[1];
-
-		cv::Mat imgThresholded;
+		double y[2];
 
 		cv::Mat hsv;
 
@@ -66,12 +65,12 @@ public:
 		int cStep = 5; 				// current timestep
 		int mStep = 0;				// movement step
 		double cAct = 0; 			// current activity;
+		double cAct2nd = 0; 			// current activity; 2nd derivative
 		double pAct = 0; 			// previous activity;
  		double dAct = 0; 			// activity derivative
 		double dActAcc = 0; 		// activity derivativce accumulator
 		double reward;
 		bool manualControl = true;
-
 
 		std::cerr << "OLE " << std::endl;
 
@@ -82,8 +81,8 @@ public:
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
 
-
 			cAct = vision->getTDPixelActivity(); // / (double) nInputs / 255.0;
+			cAct2nd = vision->getTD2PixelActivity(); // / (double) nInputs / 255.0;
 			dAct = cAct - pAct;
 			pAct = cAct;
 			dActAcc += dAct;
@@ -111,7 +110,6 @@ public:
 				mStep = cStep;
 			}
 
-
 //			if (cStep - mStep == LEARNING_STEPS_INTERVAL)
 //			{
 //				reward = REWARD_FACTOR * dActAcc;
@@ -120,12 +118,14 @@ public:
 //			}
 
 			y[0] = cAct;
+			y[1] = cAct2nd;
 			plotter->update(cStep, y);
 
-			display->imshow("Thresholded ", vision->tdFrameLPCartesian);
+			display_color->imshow(vision->frameResized);
+			display_thresh->imshow(vision->tdFrameLPCartesian);
+			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
 
-
-			if(manualControl)
+			if (manualControl)
 			{
 				std::cerr << " manual control is set to ON" << std::endl;
 				for(int i=0; i<servoLabels.size(); i++)
@@ -133,7 +133,6 @@ public:
 					double position = servoSliders->getValue(i);
 					actuation->setMotorPosition(i, position);
 					std::cerr << " manual control (" << i << "): " << position << std::endl;
-
 				}
 			}
 //			actuation->displayMotorPositions();
@@ -142,9 +141,7 @@ public:
 
 			cStep++;
 		}
-
 	}
-
 
 	void init()
 	{
@@ -158,30 +155,33 @@ public:
 			actuation->addServoMotor(servoLabels[i],0,i,servoInits[i], servoMins[i], servoMaxs[i]);
 		}
 
-
-		std::vector<std::string> labels;
-		labels.push_back("Photoreceptor Activation");
-
 		servoSliders = new drobot::DRobotSliderGroup("Servos", servoLabels, servoInits, servoMins, servoMaxs);
 		servoSliders->show();
 
-		plotter = new drobot::DRobotTimePlotter("test", 20, 20, 500, 300, labels);
+		std::vector<std::string> labels;
+		labels.push_back("Photoreceptor Activation");
+		labels.push_back("Photoreceptor Activation, 2nd derivative");
+		plotter = new drobot::DRobotTimePlotter("Plots", 20, 20, 500, 300, labels);
 		plotter->show();
 
-		display = new drobot::DRobotImageDisplay();
-		display->show();
+		display_thresh = new drobot::DRobotImageDisplay();
+		display_thresh->setWindowTitle("Threshold");
+		display_thresh->show();
+
+		display_thresh_2nd = new drobot::DRobotImageDisplay();
+		display_thresh_2nd->setWindowTitle("2nd Order Derivative");
+		display_thresh_2nd->show();
+
+		display_color = new drobot::DRobotImageDisplay();
+		display_color->setWindowTitle("Original Color Image");
+		display_color->show();
 
 		std::vector<std::string> expLabels;
 		expLabels.push_back("Manual control");
 
 		expSliders = new drobot::DRobotSliderGroup("Experiment control", expLabels, 1, 0, 1);
 		expSliders->show();
-//		display2 = new drobot::DRobotImageDisplay();
-//		display2->show();
-
-
 	}
-
 
 	void initServoMotors()
 	{
@@ -189,8 +189,8 @@ public:
 		servoLabels.push_back("Left eye tilt");
 		servoLabels.push_back("Ball motion");
 
-		servoInits.push_back(165);
-		servoInits.push_back(104);
+		servoInits.push_back(100);
+		servoInits.push_back(98);
 		servoInits.push_back(90);
 
 		servoMins.push_back(80);
@@ -200,17 +200,14 @@ public:
 		servoMaxs.push_back(180);
 		servoMaxs.push_back(120);
 		servoMaxs.push_back(170);
-
 	}
 
-	void
-	convertPixelsToDoubleArray(unsigned char* in, double* out, int size)
+	void convertPixelsToDoubleArray(unsigned char* in, double* out, int size)
 	{
 		for (int i=0;i<size; i++)
 			out[i] = ((int) in[i]) / 255.0;
 
 	}
-
 
 /*
 	void
@@ -277,8 +274,9 @@ public:
 	drobot::DRobotVision* vision;
 	drobot::DRobotActuation* actuation;
 	drobot::DRobotTimePlotter* plotter;
-	drobot::DRobotImageDisplay* display;
-	drobot::DRobotImageDisplay* display2;
+	drobot::DRobotImageDisplay* display_thresh;
+	drobot::DRobotImageDisplay* display_thresh_2nd;
+	drobot::DRobotImageDisplay* display_color;
 	drobot::DRobotSliderGroup* colorBounds;
 	drobot::DRobotSliderGroup* servoSliders;
 	drobot::DRobotSliderGroup* expSliders;
@@ -289,18 +287,12 @@ public:
 	std::vector<double> servoInits;
 };
 
-
-
 int main(int argc, char *argv[])
 {
-
 	QApplication application(argc, argv);
 
 	VisuoMotorLearning* a = new VisuoMotorLearning();
 	boost::thread* t = new boost::thread( boost::bind(&VisuoMotorLearning::run, a) );
 
 	return application.exec();
-
 }
-
-
