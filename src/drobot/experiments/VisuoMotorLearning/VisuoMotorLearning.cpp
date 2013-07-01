@@ -161,7 +161,10 @@ public:
 		std::vector<std::string> labels;
 		labels.push_back("Photoreceptor Activation");
 		labels.push_back("Photoreceptor Activation, 2nd derivative");
-		plotter = new drobot::DRobotTimePlotter("Plots", 20, 20, 500, 300, labels);
+		std::vector<QColor> colors;
+		colors.push_back(QColor(240, 0, 10, 127));
+		colors.push_back(QColor(10, 0, 240, 127));
+		plotter = new drobot::DRobotTimePlotter("Plots", 20, 20, 500, 300, labels, colors);
 		plotter->show();
 
 		display_thresh = new drobot::DRobotImageDisplay();
