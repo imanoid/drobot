@@ -127,7 +127,6 @@ DRobotSliderGroup::save()
 	xmlWriter.writeEndDocument();
 
 	file.close();
-
 }
 
 void
@@ -143,9 +142,42 @@ DRobotSliderGroup::load()
 		return;
 	}
 
+	QFile file(filepath);
+	file.open(QIODevice::ReadOnly | QIODevice::Text);
 
+	QXmlStreamReader xmlReader(&file);
 
+	int i = 0;
+	while (!xmlReader.atEnd() && !xmlReader.hasError()) {
+		QXmlStreamReader::TokenType token = xmlReader.readNext();
 
+		if (token == QXmlStreamReader::StartDocument)
+			continue;
+
+		if (token == QXmlStreamReader::StartElement) {
+			if (xmlReader.name() == "Sliders")
+				continue;
+			if (xmlReader.name() == "Slider") {
+				while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement &&
+						xmlReader.name() == "Slider")) {
+					if (token == QXmlStreamReader::StartElement) {
+						if (xmlReader.name() == "value") {
+							xmlReader.readNext();
+							double value = xmlReader.text().toString().toDouble();
+							std::cerr << i << " = " << value << std::endl;
+							sliders[i]->setValue(value);
+							xmlReader.readNext();
+						}
+					}
+					xmlReader.readNext();
+				}
+
+				i++;
+			}
+		}
+	}
+
+	file.close();
 }
 
 void
