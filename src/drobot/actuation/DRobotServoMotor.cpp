@@ -9,6 +9,10 @@ DRobotServoMotor::DRobotServoMotor(CPhidgetServoHandle servo) {
 }
 
 void DRobotServoMotor::setMotorPosition(double position) {
+	if (position < this->min)
+		position = this->min;
+	else if (position > this->max)
+		position = this->max;
 	CPhidgetServo_setPosition(servo, this->getIndex(), position);
 }
 
