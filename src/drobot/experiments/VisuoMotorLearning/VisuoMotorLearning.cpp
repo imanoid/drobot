@@ -35,8 +35,10 @@ public:
 		usleep(10000);
 		processVision();
 
-		int nRows = vision->tdFrameLPCortical.rows;
-		int nCols = vision->tdFrameLPCortical.cols;
+//		int nRows = vision->tdFrameLPCortical.rows;
+//		int nCols = vision->tdFrameLPCortical.cols;
+		int nRows = vision->frameSegmented.rows;
+		int nCols = vision->frameSegmented.cols;
 
 		nInputs = nRows * nCols;
 		nOutputs = 10;
@@ -59,6 +61,22 @@ public:
 	void processVision()
 	{
 		vision->getFrame();
+
+		double minH = colorBounds->getValue(0);
+		double minS = colorBounds->getValue(1);
+		double minV = colorBounds->getValue(2);
+		double maxH = colorBounds->getValue(3);
+		double maxS = colorBounds->getValue(4);
+		double maxV = colorBounds->getValue(5);
+
+		// H is allowed to wrap around -> min > max
+		minS = std::min(minS, maxS);
+		minV = std::min(minV, maxV);
+
+		cv::Scalar minThresh(minH, minS, minV);
+		cv::Scalar maxThresh(maxH, maxS, maxV);
+		vision->applySegmentation(minThresh, maxThresh);
+
 		vision->applyTransforms();
 	}
 
@@ -68,19 +86,27 @@ public:
 		double y[2];
 
 		cv::Mat hsv;
+		cv::Point ball;
+		cv::Point center(drobot::DRobotVision::FRAME_WIDTH / 2,
+				 drobot::DRobotVision::FRAME_HEIGHT / 2);
 
 		double REWARD_FACTOR = 1;
 		double LEARNING_RATE = 0.01;
+		const double MAX_DIST_X = drobot::DRobotVision::FRAME_WIDTH / 2;
+		const double MAX_DIST_2D = sqrt(pow(drobot::DRobotVision::FRAME_WIDTH / 2, 2)
+						+ pow(drobot::DRobotVision::FRAME_HEIGHT / 2, 2));
+		const double MAX_DIST = MAX_DIST_X;
 		int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
-		int cStep = 5; 				// current timestep
+		int cStep = 0; 				// current timestep
 		int mStep = 0;				// movement step
 		double cAct = 0; 			// current activity;
 		double cAct2nd = 0; 			// current activity; 2nd derivative
 		double pAct = 0; 			// previous activity;
  		double dAct = 0; 			// activity derivative
 		double dActAcc = 0; 		// activity derivativce accumulator
-		double reward;
 		bool manualControl = true;
+
+		double dist = MAX_DIST, pdist = MAX_DIST;
 
 		setup();
 
@@ -98,9 +124,8 @@ public:
 
 			if(cStep % 30 == 0)
 			{
-				std::cerr << "OLE 1" << std::endl;
-
-				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
+//				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
+				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
 
 				outputs = xPerceptron->calculateOutput(inputs);
 				double xIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(outputs, nOutputs, -20, 20);
@@ -119,12 +144,21 @@ public:
 				mStep = cStep;
 			}
 
-//			if (cStep - mStep == LEARNING_STEPS_INTERVAL)
-//			{
-//				reward = REWARD_FACTOR * dActAcc;
-//				xPerceptron->updateWeights(reward, LEARNING_RATE);
+			/* Learn */
+			if (cStep - mStep == LEARNING_STEPS_INTERVAL) {
+				ball = vision->getLastBallCenter();
+				pdist = dist;
+				dist = cv::norm(center - ball);
+
+				y[0] = dist;
+				dist_plotter->update(cStep, y);
+
+//				double reward = REWARD_FACTOR * dActAcc;
+				double reward = (pdist - dist) > 0.0 ? 1.0 : 0.0;
+
+				xPerceptron->updateWeights(reward, LEARNING_RATE);
 //				yPerceptron->updateWeights(reward, LEARNING_RATE);
-//			}
+			}
 
 			y[0] = cAct;
 			y[1] = cAct2nd;
@@ -132,7 +166,9 @@ public:
 
 			display_color->imshow(vision->frameResized);
 			display_thresh->imshow(vision->tdFrameLPCartesian);
-			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
+//			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
+			display_filter->imshow(vision->frameFiltered);
+			display_seg->imshow(vision->frameSegmented);
 
 			if (manualControl)
 			{
@@ -176,23 +212,42 @@ public:
 		plotter = new drobot::DRobotTimePlotter("Plots", 20, 20, 500, 300, labels, colors);
 		plotter->show();
 
+		labels.clear();
+		labels.push_back("Distance ball-center");
+		colors.clear();
+		colors.push_back(QColor(0, 240, 10, 127));
+		dist_plotter = new drobot::DRobotTimePlotter("Distance", 20, 20, 500, 300, labels, colors);
+		dist_plotter->show();
+
 		display_thresh = new drobot::DRobotImageDisplay();
 		display_thresh->setWindowTitle("Threshold");
 		display_thresh->show();
 
+		/*
 		display_thresh_2nd = new drobot::DRobotImageDisplay();
 		display_thresh_2nd->setWindowTitle("2nd Order Derivative");
 		display_thresh_2nd->show();
+		*/
 
 		display_color = new drobot::DRobotImageDisplay();
 		display_color->setWindowTitle("Original Color Image");
 		display_color->show();
+
+		display_filter = new drobot::DRobotImageDisplay();
+		display_filter->setWindowTitle("Filtered Image");
+		display_filter->show();
+
+		display_seg = new drobot::DRobotImageDisplay();
+		display_seg->setWindowTitle("Segmented Image");
+		display_seg->show();
 
 		std::vector<std::string> expLabels;
 		expLabels.push_back("Manual control");
 
 		expSliders = new drobot::DRobotSliderGroup("Experiment control", expLabels, 1, 0, 1);
 		expSliders->show();
+
+		initColorSliders();
 	}
 
 	void initServoMotors()
@@ -221,9 +276,7 @@ public:
 
 	}
 
-/*
-	void
-	initColorSliders()
+	void initColorSliders()
 	{
 		std::vector<std::string> colorLabels;
 		colorLabels.push_back("H min:");
@@ -234,29 +287,32 @@ public:
 		colorLabels.push_back("V max:");
 
 		std::vector<double> colorInits;
-		colorInits.push_back(87);
-		colorInits.push_back(95);
-		colorInits.push_back(113);
-		colorInits.push_back(140);
-		colorInits.push_back(179);
-		colorInits.push_back(125);
-
+		colorInits.push_back(160.0);
+		colorInits.push_back(74.0);
+		colorInits.push_back(214.5);
+		colorInits.push_back(180.0);
+		colorInits.push_back(84.0);
+		colorInits.push_back(224.5);
 
 		std::vector<double> colorMins;
 		std::vector<double> colorMaxs;
 
-		for(int i=0;i<colorLabels.size(); i++)
-		{
-			colorMins.push_back(0);
-			colorMaxs.push_back(255);
+		for (int i = 0; i < colorLabels.size(); i++) {
+			if (i == 0 || i == 3) {
+				// H is in range 0-180
+				colorMins.push_back(0);
+				colorMaxs.push_back(180);
+			} else {
+				colorMins.push_back(0);
+				colorMaxs.push_back(255);
+			}
 		}
 
 		colorBounds = new drobot::DRobotSliderGroup("Color Bounds", colorLabels, colorInits, colorMins, colorMaxs);
 		colorBounds->show();
-
-		std::cerr << " PASSED COLOR SLIDERS" << std::endl;
 	}
 
+/*
 	double
 	countActivePixels(cv::Mat image, int x0, int y0, int x1, int y1)
 	{
@@ -282,16 +338,18 @@ public:
 */
 
 public:
-
-	drobot::DRobotVision* vision;
-	drobot::DRobotActuation* actuation;
-	drobot::DRobotTimePlotter* plotter;
-	drobot::DRobotImageDisplay* display_thresh;
-	drobot::DRobotImageDisplay* display_thresh_2nd;
-	drobot::DRobotImageDisplay* display_color;
-	drobot::DRobotSliderGroup* colorBounds;
-	drobot::DRobotSliderGroup* servoSliders;
-	drobot::DRobotSliderGroup* expSliders;
+	drobot::DRobotVision *vision;
+	drobot::DRobotActuation *actuation;
+	drobot::DRobotTimePlotter *plotter;
+	drobot::DRobotTimePlotter *dist_plotter;
+	drobot::DRobotImageDisplay *display_thresh;
+	drobot::DRobotImageDisplay *display_thresh_2nd;
+	drobot::DRobotImageDisplay *display_color;
+	drobot::DRobotImageDisplay *display_filter;
+	drobot::DRobotImageDisplay *display_seg;
+	drobot::DRobotSliderGroup *colorBounds;
+	drobot::DRobotSliderGroup *servoSliders;
+	drobot::DRobotSliderGroup *expSliders;
 
 	std::vector<std::string> servoLabels;
 	std::vector<double> servoMins;
