@@ -6,22 +6,14 @@
 namespace drobot
 {
 
-DRobotDC1394Device::DRobotDC1394Device( ) : DRobotCapture()
+DRobotDC1394Device::DRobotDC1394Device() : DRobotCapture()
 {
+	init(CV_CAP_FIREWIRE, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FPS); 
+}
 
-	capture = cvCaptureFromCAM(CV_CAP_FIREWARE);
-
-	cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, 320);	//opencv doesnt like 640x480
-	cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, 240);	//as most webcams use YUYV/YUY2 codecs.
-	cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, 30 );			//Playstation Eye Only: Max FPS goes to 120!!!
-
-	if(!capture){
-		std::cerr << "[DRobotVision] Error: camera not found." << std::endl;
-		return;
-	}else{
-		std::cerr << "[DRobotVision] Camera found." << std::endl;
-	}
-
+DRobotDC1394Device::DRobotDC1394Device(int idx, int fps) : DRobotCapture()
+{
+	init(idx, DEFAULT_WIDTH, DEFAULT_HEIGHT, fps > 0 ? fps : DEFAULT_FPS);
 }
 
 DRobotDC1394Device::~DRobotDC1394Device()
@@ -29,17 +21,25 @@ DRobotDC1394Device::~DRobotDC1394Device()
 
 }
 
-//void
-//DRobotDC1394Device::start()
-//{
-//}
-
-
-
-void
-DRobotDC1394Device::init()
+void DRobotDC1394Device::init()
 {
+	init(CV_CAP_FIREWIRE, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FPS);
+}
 
+void DRobotDC1394Device::init(int idx, int width, int height, int fps)
+{
+	_capture = cvCaptureFromCAM(idx);
+
+	if (!_capture) {
+		std::cerr << "[DRobotVision] Error: camera not found." << std::endl;
+		return;
+	} else {
+		std::cerr << "[DRobotVision] Camera found." << std::endl;
+	}
+
+	cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, width);		//opencv doesnt like 640x480
+	cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, height);	//as most webcams use YUYV/YUY2 codecs.
+	cvSetCaptureProperty(_capture, CV_CAP_PROP_FPS, fps);		//Playstation Eye Only: Max FPS goes to 120!!!
 }
 
 void
@@ -48,10 +48,9 @@ DRobotDC1394Device::execute()
 
 //	IplImage* capimg;
 
-	while(1)
-	{
+	while(1) {
 
-		IplImage* capimg = cvQueryFrame(capture);
+		IplImage* capimg = cvQueryFrame(_capture);
 
 		// TODO: this has to be threaded and include a mutex
 		captureMutex.lock();

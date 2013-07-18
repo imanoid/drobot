@@ -9,47 +9,33 @@
 namespace drobot
 {
 
-  class DRobotDC1394Device : public DRobotCapture
-  {
+class DRobotDC1394Device : public DRobotCapture
+{
 
-  public:
+public:
+	static const int DEFAULT_WIDTH = 320;
+	static const int DEFAULT_HEIGHT = 240;
+	static const int DEFAULT_FPS = 30;
 
-	DRobotDC1394Device( );
+	DRobotDC1394Device();
+	DRobotDC1394Device(int idx, int fps);
 
-    virtual ~DRobotDC1394Device();
+	virtual ~DRobotDC1394Device();
 
- //   void
- //  start();
+	void init();
 
- //   void
- //   stop();
+	void execute();
 
+	void terminate();
 
-    void
-    init();
+	virtual std::string getInfo();
 
-    void
-    execute();
+private:
+	void init(int idx, int width, int height, int fps);
 
-    void
-    terminate();
-
-
-    virtual std::string
-    getInfo();
-
-//	cv::Mat
-//	getFrame();
-
-
-  private:
-
-    boost::mutex captureMutex;
-
-	CvCapture* capture;
+	boost::mutex captureMutex;
+	CvCapture *_capture;
   };
-
-
 
 }
 
