@@ -125,6 +125,8 @@ public:
 		bool manualControl = true;
 
 		double dist = MAX_DIST, pdist = MAX_DIST;
+		double maxOutX = 0.0, absMaxOutY = 0.0;
+		int iMaxOutX = -1, iMaxOutY = -1;
 
 		setup();
 
@@ -139,18 +141,31 @@ public:
 			pAct = cAct;
 			dActAcc += dAct;
 
+			/* Calculate outputs */
 			if (cStep % UPDATE_STEPS_INTERVAL == 0) {
 //				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
 				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
 
 				xOutputs = xPerceptron->calculateOutput(inputs);
+				yOutputs = yPerceptron->calculateOutput(inputs);
+
 				outXLogger->log(cStep, xOutputs, nOutputs);
 //				outYLogger->log(cStep, yOutputs, nOutputs);
 				weightXLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
 //				weightYLogger->log(cStep, yPerceptron->getWeights(), nInputs * nOutputs);
 
-				yOutputs = yPerceptron->calculateOutput(inputs);
-				outYLogger->log(cStep, yOutputs, nOutputs);
+				std::cerr << "[" << cStep << "] x out:";
+				maxOutX = 0.0;
+				iMaxOutX = -1;
+				for (int i = 0; i < nOutputs; i++) {
+					if (xOutputs[i] > maxOutX) {
+						maxOutX = xOutputs[i];
+						iMaxOutX = i;
+					}
+					std::cerr << " " << xOutputs[i];
+				}
+				std::cerr << std::endl;
+				std::cerr << "[" << cStep << "] max x out: " << maxOutX << " (" << iMaxOutX << ")" << std::endl;
 
 				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
 				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, -20, 20);
