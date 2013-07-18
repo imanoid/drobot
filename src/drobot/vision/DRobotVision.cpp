@@ -65,7 +65,7 @@ void DRobotVision::applySegmentation(cv::Scalar minThresh, cv::Scalar maxThresh)
 
 	std::vector<cv::Vec3f> circles;
 	HoughCircles(frameFiltered, circles, CV_HOUGH_GRADIENT, 2,
-		     frameFiltered.rows / 4, 200, 20, 3, 12);
+		     frameFiltered.rows / 4, 200, 20, 11, 18);
 
 	// just take the first one
 	if (circles.size() > 0) {
