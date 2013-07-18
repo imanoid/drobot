@@ -120,7 +120,8 @@ public:
 		double cAct2nd = 0; 			// current activity; 2nd derivative
 		double pAct = 0; 			// previous activity;
  		double dAct = 0; 			// activity derivative
-		double dActAcc = 0; 		// activity derivativce accumulator
+		double dActAcc = 0;			// activity derivative accumulator
+		double dx, dy;
 		bool manualControl = true;
 
 		double dist = MAX_DIST, pdist = MAX_DIST;
@@ -144,22 +145,23 @@ public:
 
 				xOutputs = xPerceptron->calculateOutput(inputs);
 				outXLogger->log(cStep, xOutputs, nOutputs);
-				double xIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
 //				outYLogger->log(cStep, yOutputs, nOutputs);
 				weightXLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
 //				weightYLogger->log(cStep, yPerceptron->getWeights(), nInputs * nOutputs);
 
 				yOutputs = yPerceptron->calculateOutput(inputs);
 				outYLogger->log(cStep, yOutputs, nOutputs);
-				double yIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, -20, 20);
 
-				std::cerr << "Calculated increment (" << cStep << "): " << xIncrement << ", " << yIncrement << std::endl;
+				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
+				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, -20, 20);
 
-				if(!manualControl)
-				{
-					actuation->setMotorIncrement(0, xIncrement);
-					actuation->setMotorIncrement(1, yIncrement);
+				std::cerr << "[" << cStep << "] Calculated increment: " << dx << ", " << dy << std::endl;
+
+				if (!manualControl) {
+					actuation->setMotorIncrement(0, dx);
+//					actuation->setMotorIncrement(1, dy);
 				}
+
 				dActAcc = 0;
 				mStep = cStep;
 			}
