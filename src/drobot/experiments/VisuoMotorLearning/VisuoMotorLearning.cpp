@@ -329,15 +329,15 @@ public:
 		servoLabels.push_back("Ball motion");
 
 		servoInits.push_back(82);
-		servoInits.push_back(98);
+		servoInits.push_back(101);
 		servoInits.push_back(90);
 
 		servoMins.push_back(72);
-		servoMins.push_back(80);
+		servoMins.push_back(84);
 		servoMins.push_back(40);
 
 		servoMaxs.push_back(115);
-		servoMaxs.push_back(120);
+		servoMaxs.push_back(114);
 		servoMaxs.push_back(170);
 	}
 
