@@ -61,13 +61,29 @@ std::map<std::string, double> DRobotPerceptron::mappedOutput(std::map<std::strin
 	}
 
 	double* arrayOutput = this->calculateOutput(arrayInput);
-
 }
 
-double*
-DRobotPerceptron::calculateOutput(double* input) {
+Eigen::VectorXd DRobotPerceptron::sigmoid(Eigen::VectorXd h, double beta)
+{
+	for (int i = 0; i < nOutputs; i++) {
+		h(i) = 1.0 / (1.0 + exp(-2 * beta * h(i)));;
+	}
+
+	return h;
+}
+
+double *DRobotPerceptron::calculateOutput(double* input)
+{
 	inputs = Eigen::Map < Eigen::VectorXd > (input, nInputs);
 	outputs = weights * inputs;
+
+	return outputs.data();
+}
+
+double *DRobotPerceptron::calculateOutputSigmoid(double *input, double beta)
+{
+	calculateOutput(input);
+	outputs = sigmoid(outputs, beta);
 
 	return outputs.data();
 }

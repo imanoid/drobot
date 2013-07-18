@@ -27,17 +27,15 @@ public:
 	std::map<std::string, double>
 	mappedOutput(std::map<std::string, double> input);
 
-	double*
-	calculateOutput(double* input);
 
-	void
-	initWeights(double** matrix);
+	double *calculateOutput(double *input);
+	double *calculateOutputSigmoid(double *input, double beta = 0.3);
 
-	void
-	initWeights(double min, double max);
 
-	double**
-	getWeights();
+	void initWeights(double** matrix);
+	void initWeights(double min, double max);
+
+	double* getWeights();
 
 	void printWeights();
 	void printWeightStats();
@@ -53,6 +51,8 @@ private:
 
 	std::vector<std::string> inputNodes;
 	std::vector<std::string> outputNodes;
+
+	Eigen::VectorXd sigmoid(Eigen::VectorXd h, double beta);
 };
 
 }
