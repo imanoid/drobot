@@ -24,34 +24,46 @@ public:
 		init();
 	}
 
-	void run()
+	void setup()
 	{
 		actuation->setInitialPositions();
 
-		vision->getFrame();
-		vision->applyTransforms();
+		/* Make sure we have both differentials (1st and 2nd) */
+		processVision();
 		usleep(10000);
-		vision->getFrame();
-		vision->applyTransforms();
+		processVision();
 		usleep(10000);
-		vision->getFrame();
-		vision->applyTransforms();
+		processVision();
 
 		int nRows = vision->tdFrameLPCortical.rows;
 		int nCols = vision->tdFrameLPCortical.cols;
-		int nInputs = nRows * nCols;
-		int nOutputs = 10;
-		double* inputs = new double[nInputs];
-		double* outputs = new double[nOutputs];
 
-		drobot::DRobotPerceptron* xPerceptron = new drobot::DRobotPerceptron(drobot::DRobotPerceptron::LEARN_OJA, nInputs, nOutputs);
+		nInputs = nRows * nCols;
+		nOutputs = 10;
+		inputs = new double[nInputs];
+		outputs = new double[nOutputs];
+
+		xPerceptron = new drobot::DRobotPerceptron(
+				drobot::DRobotPerceptron::LEARN_OJA,
+				nInputs, nOutputs);
 		xPerceptron->initWeights(-0.005, 0.005);
 
-		drobot::DRobotPerceptron* yPerceptron = new drobot::DRobotPerceptron(drobot::DRobotPerceptron::LEARN_OJA, nInputs, nOutputs);
+		yPerceptron = new drobot::DRobotPerceptron(
+				drobot::DRobotPerceptron::LEARN_OJA,
+				nInputs, nOutputs);
 		yPerceptron->initWeights(-0.005, 0.005);
 
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
+	}
 
+	void processVision()
+	{
+		vision->getFrame();
+		vision->applyTransforms();
+	}
+
+	void run()
+	{
 		double t = 0;
 		double y[2];
 
@@ -70,12 +82,11 @@ public:
 		double reward;
 		bool manualControl = true;
 
-		std::cerr << "OLE " << std::endl;
+		setup();
 
 		while(1)
 		{
-			vision->getFrame();
-			vision->applyTransforms();
+			processVision();
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
 
@@ -286,6 +297,12 @@ public:
 	std::vector<double> servoMins;
 	std::vector<double> servoMaxs;
 	std::vector<double> servoInits;
+
+private:
+	int nInputs, nOutputs;
+	double *inputs, *outputs;
+
+	drobot::DRobotPerceptron *xPerceptron, *yPerceptron;
 };
 
 int main(int argc, char *argv[])
