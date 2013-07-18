@@ -6,9 +6,6 @@
 #include <vector>
 #include <map>
 
-//#include <boost/numeric/ublas/vector.hpp>
-//#include <boost/numeric/ublas/matrix.hpp>
-
 #include <eigen3/Eigen/Core>
 
 namespace drobot {
@@ -42,8 +39,8 @@ public:
 	double**
 	getWeights();
 
-	void
-	printWeights();
+	void printWeights();
+	void printWeightStats();
 
 private:
 
@@ -59,6 +56,5 @@ private:
 };
 
 }
-
 
 #endif

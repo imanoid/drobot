@@ -107,9 +107,33 @@ void DRobotPerceptron::printWeights() {
 			std::cout << ", " << weights(i, j);
 		}
 		std::cout << std::endl;
+	}
+}
 
+void DRobotPerceptron::printWeightStats()
+{
+	double min = std::numeric_limits<double>::max();
+	double max = std::numeric_limits<double>::min();
+	double sum = 0.0, sum_sq = 0.0;
+	double avg = 0.0;
+	double median = 0.0;
+
+	for (int i = 0; i < nOutputs; i++) {
+		for (int j = 0; j < nInputs; j++) {
+			double w = weights(i, j);
+			if (w < min)
+				min = w;
+			if (w > max)
+				max = w;
+			sum += w;
+			sum_sq += w * w;
+		}
 	}
 
+	avg = sum / (nOutputs * nInputs);
+
+	std::cout << "weight stats: min " << min << ", max " << max << ", avg " << avg
+		<< ", sum(w_i) " << sum << ", sum(w_i^2) " << sum_sq << std::endl;
 }
 
 }
