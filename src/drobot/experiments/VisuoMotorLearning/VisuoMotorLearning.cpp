@@ -44,10 +44,10 @@ public:
 		double* inputs = new double[nInputs];
 		double* outputs = new double[nOutputs];
 
-		drobot::DRobotPerceptron* xPerceptron = new drobot::DRobotPerceptron(nInputs, nOutputs);
+		drobot::DRobotPerceptron* xPerceptron = new drobot::DRobotPerceptron(drobot::DRobotPerceptron::LEARN_OJA, nInputs, nOutputs);
 		xPerceptron->initWeights(-0.005, 0.005);
 
-		drobot::DRobotPerceptron* yPerceptron = new drobot::DRobotPerceptron(nInputs, nOutputs);
+		drobot::DRobotPerceptron* yPerceptron = new drobot::DRobotPerceptron(drobot::DRobotPerceptron::LEARN_OJA, nInputs, nOutputs);
 		yPerceptron->initWeights(-0.005, 0.005);
 
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
