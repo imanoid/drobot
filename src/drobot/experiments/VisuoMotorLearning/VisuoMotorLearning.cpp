@@ -191,14 +191,10 @@ public:
 			display_filter->imshow(vision->frameFiltered);
 			display_seg->imshow(vision->frameSegmented);
 
-			if (manualControl)
-			{
-				std::cerr << " manual control is set to ON" << std::endl;
-				for(int i=0; i<servoLabels.size(); i++)
-				{
+			if (manualControl) {
+				for (int i = 0; i < servoLabels.size(); i++) {
 					double position = servoSliders->getValue(i);
 					actuation->setMotorPosition(i, position);
-					std::cerr << " manual control (" << i << "): " << position << std::endl;
 				}
 			}
 //			actuation->displayMotorPositions();
@@ -215,8 +211,7 @@ public:
 		vision = new drobot::DRobotVision();
 		actuation = new drobot::DRobotActuation();
 
-		for(int i=0; i<servoLabels.size(); i++)
-		{
+		for (int i = 0; i < servoLabels.size(); i++) {
 			actuation->addServoMotor(servoLabels[i],0,i,servoInits[i], servoMins[i], servoMaxs[i]);
 		}
 
@@ -229,7 +224,7 @@ public:
 		std::vector<QColor> colors;
 		colors.push_back(QColor(240, 0, 10, 127));
 		colors.push_back(QColor(10, 0, 240, 127));
-		plotter = new drobot::DRobotTimePlotter("Plots", 20, 20, 500, 300, labels, colors);
+		plotter = new drobot::DRobotTimePlotter("Activity", 20, 20, 500, 300, labels, colors);
 		plotter->show();
 
 		labels.clear();
@@ -331,31 +326,6 @@ public:
 		colorBounds = new drobot::DRobotSliderGroup("Color Bounds", colorLabels, colorInits, colorMins, colorMaxs);
 		colorBounds->show();
 	}
-
-/*
-	double
-	countActivePixels(cv::Mat image, int x0, int y0, int x1, int y1)
-	{
-
-		unsigned char*pixels = (unsigned char*) image.data;
-
-		double activity = 0;
-		int index;
-		for(int i=y0; i<y1; i++)
-		{
-			index = i * image.cols + x0;
-
-			for(int j=x0; j<x1; j++)
-			{
-				activity += (int) pixels[index];
-				index++;
-			}
-		}
-
-		activity /= (double) (x1-x0) * (y1-y0);
-		return activity;
-	}
-*/
 
 public:
 	drobot::DRobotVision *vision;
