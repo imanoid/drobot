@@ -69,7 +69,8 @@ public:
 		ddistLogger = new drobot::DRobotDataLogger("diff_distance");
 		outXLogger = new drobot::DRobotDataLogger("out_x");
 		outYLogger = new drobot::DRobotDataLogger("out_y");
-		weightLogger = new drobot::DRobotDataLogger("weights");
+		weightXLogger = new drobot::DRobotDataLogger("weights_x");
+		weightYLogger = new drobot::DRobotDataLogger("weights_y");
 	}
 
 	void processVision()
@@ -144,6 +145,9 @@ public:
 				xOutputs = xPerceptron->calculateOutput(inputs);
 				outXLogger->log(cStep, xOutputs, nOutputs);
 				double xIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
+//				outYLogger->log(cStep, yOutputs, nOutputs);
+				weightXLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
+//				weightYLogger->log(cStep, yPerceptron->getWeights(), nInputs * nOutputs);
 
 				yOutputs = yPerceptron->calculateOutput(inputs);
 				outYLogger->log(cStep, yOutputs, nOutputs);
@@ -353,7 +357,7 @@ private:
 	drobot::DRobotPerceptron *xPerceptron, *yPerceptron;
 	drobot::DRobotDataLogger *outXLogger, *outYLogger;
 	drobot::DRobotDataLogger *distLogger, *ddistLogger;
-	drobot::DRobotDataLogger *weightLogger;
+	drobot::DRobotDataLogger *weightXLogger, *weightYLogger;
 };
 
 int main(int argc, char *argv[])
