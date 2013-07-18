@@ -6,6 +6,8 @@
 #include "DRobotActuation.h"
 #include "DRobotVision.h"
 
+#include "DRobotDataLogger/DRobotDataLogger.h"
+
 #include "DRobotSliderGroup/DRobotSliderGroup.h"
 #include "DRobotTimePlotter/DRobotTimePlotter.h"
 #include "DRobotImageDisplay/DRobotImageDisplay.h"
@@ -43,7 +45,8 @@ public:
 		nInputs = nRows * nCols;
 		nOutputs = 10;
 		inputs = new double[nInputs];
-		outputs = new double[nOutputs];
+		xOutputs = new double[nOutputs];
+		yOutputs = new double[nOutputs];
 
 		xPerceptron = new drobot::DRobotPerceptron(
 				drobot::DRobotPerceptron::LEARN_OJA,
@@ -56,6 +59,11 @@ public:
 		yPerceptron->initWeights(-0.005, 0.005);
 
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
+
+		distLogger = new drobot::DRobotDataLogger("distance");
+		ddistLogger = new drobot::DRobotDataLogger("diff_distance");
+		outXLogger = new drobot::DRobotDataLogger("diff_distance");
+		weightLogger = new drobot::DRobotDataLogger("weights");
 	}
 
 	void processVision()
@@ -127,11 +135,13 @@ public:
 //				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
 				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
 
-				outputs = xPerceptron->calculateOutput(inputs);
-				double xIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(outputs, nOutputs, -20, 20);
+				xOutputs = xPerceptron->calculateOutput(inputs);
+				outXLogger->log(cStep, xOutputs, nOutputs);
+				double xIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
 
-				outputs = yPerceptron->calculateOutput(inputs);
-				double yIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(outputs, nOutputs, -20, 20);
+				yOutputs = yPerceptron->calculateOutput(inputs);
+				outYLogger->log(cStep, yOutputs, nOutputs);
+				double yIncrement = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, -20, 20);
 
 				std::cerr << "Calculated increment (" << cStep << "): " << xIncrement << ", " << yIncrement << std::endl;
 
@@ -149,6 +159,8 @@ public:
 				ball = vision->getLastBallCenter();
 				pdist = dist;
 				dist = cv::norm(center - ball);
+				distLogger->log(cStep, dist);
+				ddistLogger->log(cStep, pdist - dist);
 
 				y[0] = dist;
 				dist_plotter->update(cStep, y);
@@ -157,6 +169,9 @@ public:
 				double reward = (pdist - dist) > 0.0 ? 1.0 : 0.0;
 
 				xPerceptron->updateWeights(reward, LEARNING_RATE);
+
+				weightLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
+
 //				yPerceptron->updateWeights(reward, LEARNING_RATE);
 			}
 
@@ -358,9 +373,12 @@ public:
 
 private:
 	int nInputs, nOutputs;
-	double *inputs, *outputs;
+	double *inputs, *xOutputs, *yOutputs;
 
 	drobot::DRobotPerceptron *xPerceptron, *yPerceptron;
+	drobot::DRobotDataLogger *outXLogger, *outYLogger;
+	drobot::DRobotDataLogger *distLogger, *ddistLogger;
+	drobot::DRobotDataLogger *weightLogger;
 };
 
 int main(int argc, char *argv[])
