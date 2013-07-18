@@ -114,6 +114,7 @@ public:
 		const double MAX_DIST = MAX_DIST_X;
 		const int UPDATE_STEPS_INTERVAL = 20;
 		const int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
+		const int LEARNING_NEIGH = 1; 		// number of neighbouring neurons (on each side) to consider for learning
 		int cStep = 0; 				// current timestep
 		int mStep = 0;				// movement step
 		double cAct = 0; 			// current activity;
@@ -193,11 +194,22 @@ public:
 				dist_plotter->update(cStep, y);
 
 //				double reward = REWARD_FACTOR * dActAcc;
-				double reward = (pdist - dist) > 0.0 ? 1.0 : 0.0;
+//				double reward = REWARD_FACTOR * (1 - (2 * dist / MAX_DIST));
+				double reward = (std::abs(dx) > 0.0 && (pdist - dist) > 0.0) ? 1.0 : 0.0;
 
-				xPerceptron->updateWeights(reward, LEARNING_RATE);
+				std::cerr << "[" << cStep << "] learning: "
+						<< "dist=" << dist
+						<< ", pdist=" << pdist
+						<< ", ddist=" << pdist - dist
+						<< ", reward=" << reward
+						<< ", dActAcc=" << dActAcc
+						<< std::endl;
 
-				weightLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
+				std::cout << "[" << cStep << "] x weights before: ";
+				xPerceptron->printWeightStats();
+				xPerceptron->updateWeightsWTA(reward, LEARNING_RATE, LEARNING_NEIGH);
+				std::cout << "[" << cStep << "] x weights after: ";
+				xPerceptron->printWeightStats();
 
 //				yPerceptron->updateWeights(reward, LEARNING_RATE);
 			}
@@ -218,7 +230,6 @@ public:
 					actuation->setMotorPosition(i, position);
 				}
 			}
-//			actuation->displayMotorPositions();
 
 			usleep(T);
 			cStep++;
