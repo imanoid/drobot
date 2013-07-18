@@ -62,7 +62,8 @@ public:
 
 		distLogger = new drobot::DRobotDataLogger("distance");
 		ddistLogger = new drobot::DRobotDataLogger("diff_distance");
-		outXLogger = new drobot::DRobotDataLogger("diff_distance");
+		outXLogger = new drobot::DRobotDataLogger("out_x");
+		outYLogger = new drobot::DRobotDataLogger("out_y");
 		weightLogger = new drobot::DRobotDataLogger("weights");
 	}
 
