@@ -261,6 +261,8 @@ public:
 
 	void init()
 	{
+		srand((unsigned int) time(0));
+
 		initServoMotors();
 
 		vision = new drobot::DRobotVision();

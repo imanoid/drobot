@@ -172,8 +172,6 @@ void DRobotPerceptron::initWeights(double** weights) {
 
 void DRobotPerceptron::initWeights(double min, double max)
 {
-	srand((unsigned) time(0));
-
 	for (int i = 0; i < nOutputs; i++) {
 		for (int j = 0; j < nInputs; j++) {
 			weights(i, j) = min + ((double) rand() / RAND_MAX) * (max - min);
