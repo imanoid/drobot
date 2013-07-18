@@ -117,8 +117,8 @@ DRobotSliderGroup::save()
 		xmlWriter.writeStartElement("Slider");
 		xmlWriter.writeTextElement("value", QString::number(sliders[i]->getValue()));
 		xmlWriter.writeTextElement("init", QString::number(sliders[i]->getInitValue()));
-		xmlWriter.writeTextElement("min", QString::number(sliders[i]->getMinimumValue()));
-		xmlWriter.writeTextElement("max", QString::number(sliders[i]->getMaximumValue()));
+		xmlWriter.writeTextElement("min", QString::number(sliders[i]->getMinimum()));
+		xmlWriter.writeTextElement("max", QString::number(sliders[i]->getMaximum()));
 		xmlWriter.writeEndElement();
 
 	}
