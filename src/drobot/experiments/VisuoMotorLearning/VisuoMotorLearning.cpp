@@ -123,11 +123,12 @@ public:
  		double dAct = 0; 			// activity derivative
 		double dActAcc = 0;			// activity derivative accumulator
 		double dx, dy;
+		int x_before, y_before, x_after, y_after;
 		bool manualControl = true;
 
 		double dist = MAX_DIST, pdist = MAX_DIST;
-		double maxOutX = 0.0, absMaxOutY = 0.0;
-		int iMaxOutX = -1, iMaxOutY = -1;
+		double maxOut = 0.0, absMaxOutY = 0.0;
+		int iMaxOut = -1, iMaxOutY = -1;
 
 		setup();
 
@@ -151,22 +152,35 @@ public:
 				yOutputs = yPerceptron->calculateOutput(inputs);
 
 				outXLogger->log(cStep, xOutputs, nOutputs);
-//				outYLogger->log(cStep, yOutputs, nOutputs);
+				outYLogger->log(cStep, yOutputs, nOutputs);
 				weightXLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
-//				weightYLogger->log(cStep, yPerceptron->getWeights(), nInputs * nOutputs);
+				weightYLogger->log(cStep, yPerceptron->getWeights(), nInputs * nOutputs);
 
 				std::cerr << "[" << cStep << "] x out:";
-				maxOutX = 0.0;
-				iMaxOutX = -1;
+				maxOut = 0.0;
+				iMaxOut = -1;
 				for (int i = 0; i < nOutputs; i++) {
-					if (xOutputs[i] > maxOutX) {
-						maxOutX = xOutputs[i];
-						iMaxOutX = i;
+					if (xOutputs[i] > maxOut) {
+						maxOut = xOutputs[i];
+						iMaxOut = i;
 					}
 					std::cerr << " " << xOutputs[i];
 				}
 				std::cerr << std::endl;
-				std::cerr << "[" << cStep << "] max x out: " << maxOutX << " (" << iMaxOutX << ")" << std::endl;
+				std::cerr << "[" << cStep << "] max x out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
+
+				std::cerr << "[" << cStep << "] y out:";
+				maxOut = 0.0;
+				iMaxOut = -1;
+				for (int i = 0; i < nOutputs; i++) {
+					if (yOutputs[i] > maxOut) {
+						maxOut = yOutputs[i];
+						iMaxOut = i;
+					}
+					std::cerr << " " << yOutputs[i];
+				}
+				std::cerr << std::endl;
+				std::cerr << "[" << cStep << "] max y out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
 
 				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
 				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, -20, 20);
@@ -174,8 +188,10 @@ public:
 				std::cerr << "[" << cStep << "] Calculated increment: " << dx << ", " << dy << std::endl;
 
 				if (!manualControl) {
+					x_before = actuation->getMotorPosition(0);
 					actuation->setMotorIncrement(0, dx);
-//					actuation->setMotorIncrement(1, dy);
+					y_before = actuation->getMotorPosition(1);
+					actuation->setMotorIncrement(1, dy);
 				}
 
 				dActAcc = 0;
@@ -193,10 +209,12 @@ public:
 				y[0] = dist;
 				dist_plotter->update(cStep, y);
 
+				x_after = actuation->getMotorPosition(0);
+				y_after = actuation->getMotorPosition(1);
+
 //				double reward = REWARD_FACTOR * dActAcc;
 //				double reward = REWARD_FACTOR * (1 - (2 * dist / MAX_DIST));
-				double reward = (std::abs(dx) > 0.0 && (pdist - dist) > 0.0) ? 1.0 : 0.0;
-
+				double reward = (std::abs(x_after - x_before) > 0.0 && (pdist - dist) > 0.0) ? 1.0 : 0.0;
 				std::cerr << "[" << cStep << "] learning: "
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
@@ -211,7 +229,12 @@ public:
 				std::cout << "[" << cStep << "] x weights after: ";
 				xPerceptron->printWeightStats();
 
-//				yPerceptron->updateWeights(reward, LEARNING_RATE);
+				reward = (std::abs(y_after - y_before) > 0.0 && (pdist - dist) > 0.0) ? 1.0 : 0.0;
+				std::cout << "[" << cStep << "] y weights before: ";
+				yPerceptron->printWeightStats();
+				yPerceptron->updateWeightsWTA(reward, LEARNING_RATE, LEARNING_NEIGH);
+				std::cout << "[" << cStep << "] y weights after: ";
+				yPerceptron->printWeightStats();
 			}
 
 			y[0] = cAct;
