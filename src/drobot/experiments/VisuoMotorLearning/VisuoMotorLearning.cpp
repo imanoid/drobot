@@ -51,7 +51,12 @@ public:
 		xPerceptron = new drobot::DRobotPerceptron(
 				drobot::DRobotPerceptron::LEARN_OJA,
 				nInputs, nOutputs);
+		// Original
 		xPerceptron->initWeights(-0.005, 0.005);
+		// for McMillen
+//		xPerceptron->initWeights(0.0, 1.0);
+		// for Oja and Hebbian Cov
+//		xPerceptron->initWeights(0.0, 0.00002);
 
 		yPerceptron = new drobot::DRobotPerceptron(
 				drobot::DRobotPerceptron::LEARN_OJA,
@@ -99,13 +104,15 @@ public:
 		cv::Point center(drobot::DRobotVision::FRAME_WIDTH / 2,
 				 drobot::DRobotVision::FRAME_HEIGHT / 2);
 
-		double REWARD_FACTOR = 1;
-		double LEARNING_RATE = 0.01;
+		const unsigned int T = 50000;
+		const double REWARD_FACTOR = 1;
+		const double LEARNING_RATE = 0.01;
 		const double MAX_DIST_X = drobot::DRobotVision::FRAME_WIDTH / 2;
 		const double MAX_DIST_2D = sqrt(pow(drobot::DRobotVision::FRAME_WIDTH / 2, 2)
 						+ pow(drobot::DRobotVision::FRAME_HEIGHT / 2, 2));
 		const double MAX_DIST = MAX_DIST_X;
-		int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
+		const int UPDATE_STEPS_INTERVAL = 20;
+		const int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
 		int cStep = 0; 				// current timestep
 		int mStep = 0;				// movement step
 		double cAct = 0; 			// current activity;
@@ -119,8 +126,7 @@ public:
 
 		setup();
 
-		while(1)
-		{
+		while(1) {
 			processVision();
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
@@ -131,8 +137,7 @@ public:
 			pAct = cAct;
 			dActAcc += dAct;
 
-			if(cStep % 30 == 0)
-			{
+			if (cStep % UPDATE_STEPS_INTERVAL == 0) {
 //				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
 				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
 
@@ -198,8 +203,7 @@ public:
 			}
 //			actuation->displayMotorPositions();
 
-			usleep(50000);
-
+			usleep(T);
 			cStep++;
 		}
 	}
