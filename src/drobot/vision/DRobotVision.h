@@ -56,6 +56,7 @@ public:
 	cv::Mat frameHsv;		// current frame in HSV color space
 	cv::Mat frameFiltered;		// current frame filtered
 	cv::Mat frameSegmented;		// current frame segmented
+	cv::Mat frameSegmented5x5;	// current frame segmented 5x5 pixels
 
 	cv::Mat frameLPCortical;	// current log-polar frame in cortical coordinates
 	cv::Mat pFrameLPCortical;	// previous log-polar frame
