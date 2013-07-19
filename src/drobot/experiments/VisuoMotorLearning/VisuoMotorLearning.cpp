@@ -136,6 +136,9 @@ public:
 
 		setup();
 
+		time_t start, end;
+		time(&start);
+
 		while(1) {
 			processVision();
 
@@ -157,9 +160,8 @@ public:
 
 				outXLogger->log(cStep, nOutputs, xOutputs);
 				outYLogger->log(cStep, nOutputs, yOutputs);
-				weightXLogger->log(cStep, nInputs * nOutputs, xPerceptron->getWeights());
-				weightYLogger->log(cStep, nInputs * nOutputs, yPerceptron->getWeights());
-
+//				weightXLogger->log(cStep, nInputs * nOutputs, xPerceptron->getWeights());
+//				weightYLogger->log(cStep, nInputs * nOutputs, yPerceptron->getWeights());
 
 				std::cerr << "[" << cStep << "] x out:";
 				maxOut = 0.0;
@@ -250,6 +252,18 @@ public:
 			y[1] = cAct2nd;
 			plotter->update(cStep, y);
 
+			// calculate FPS
+			time(&end);
+			cStep++;
+
+			double fps = cStep / ((double) difftime(end, start));
+			char buf[32];
+			snprintf(buf, sizeof(buf), "FPS: %.2lf", fps);
+
+			putText(vision->frameResized, buf, cvPoint(20, 20),
+					cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8,
+					cvScalar(0, 0, 0), 1, CV_AA);
+
 			display_color->imshow(vision->frameResized);
 			display_thresh->imshow(vision->tdFrameLPCartesian);
 //			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
@@ -264,7 +278,6 @@ public:
 			}
 
 			usleep(T);
-			cStep++;
 		}
 	}
 
