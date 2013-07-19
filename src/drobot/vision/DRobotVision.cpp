@@ -34,7 +34,8 @@ void DRobotVision::init()
 	usleep(200000);
 }
 
-cv::Mat DRobotVision::getFrame() {
+cv::Mat DRobotVision::getFrame()
+{
 	frame = capture->getFrame();
 
 	// provide resized and grayscale version of image for further processing
@@ -61,7 +62,7 @@ void DRobotVision::applySegmentation(cv::Scalar minThresh, cv::Scalar maxThresh)
 		inRange(frameHsv, minThresh, maxThresh, frameFiltered);
 	}
 
-	GaussianBlur(frameFiltered, frameFiltered, cv::Size(9, 9), 0.0);
+	GaussianBlur(frameFiltered, frameFiltered, cv::Size(5, 5), 0.0);
 
 	std::vector<cv::Vec3f> circles;
 	HoughCircles(frameFiltered, circles, CV_HOUGH_GRADIENT, 2,
