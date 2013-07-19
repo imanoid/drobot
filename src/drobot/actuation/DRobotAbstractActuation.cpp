@@ -19,7 +19,8 @@ void DRobotAbstractActuation::setInitialPositions() {
 
 }
 
-int DRobotAbstractActuation::getMotorPosition(int index) {
+double DRobotAbstractActuation::getMotorPosition(int index)
+{
 	return _motors[index]->getMotorPosition();
 }
 
