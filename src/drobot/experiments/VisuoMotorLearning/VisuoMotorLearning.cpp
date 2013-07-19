@@ -104,13 +104,14 @@ public:
 		cv::Point ball;
 		cv::Point center(drobot::DRobotVision::FRAME_WIDTH / 2,
 				 drobot::DRobotVision::FRAME_HEIGHT / 2);
+		const double MAX_DIST_X = drobot::DRobotVision::FRAME_WIDTH / 2;
+		const double MAX_DIST_Y = drobot::DRobotVision::FRAME_HEIGHT / 2;
+		const double MAX_DIST_2D = sqrt(pow(drobot::DRobotVision::FRAME_WIDTH / 2, 2)
+						+ pow(drobot::DRobotVision::FRAME_HEIGHT / 2, 2));
 
 		const unsigned int T = 50000;
 		const double REWARD_FACTOR = 1;
 		const double LEARNING_RATE = 0.01;
-		const double MAX_DIST_X = drobot::DRobotVision::FRAME_WIDTH / 2;
-		const double MAX_DIST_2D = sqrt(pow(drobot::DRobotVision::FRAME_WIDTH / 2, 2)
-						+ pow(drobot::DRobotVision::FRAME_HEIGHT / 2, 2));
 		const double MAX_DIST = MAX_DIST_X;
 		const int UPDATE_STEPS_INTERVAL = 20;
 		const int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
@@ -123,10 +124,13 @@ public:
  		double dAct = 0; 			// activity derivative
 		double dActAcc = 0;			// activity derivative accumulator
 		double dx, dy;
-		int x_before, y_before, x_after, y_after;
+		double x_before, y_before, x_after, y_after;
 		bool manualControl = true;
 
-		double dist = MAX_DIST, pdist = MAX_DIST;
+//		double dist = MAX_DIST, pdist = MAX_DIST;
+		cv::Point dist, pdist;
+		dist.x = pdist.x = MAX_DIST_X;
+		dist.y = pdist.y = MAX_DIST_Y;
 		double maxOut = 0.0, absMaxOutY = 0.0;
 		int iMaxOut = -1, iMaxOutY = -1;
 
@@ -203,11 +207,13 @@ public:
 			if (cStep - mStep == LEARNING_STEPS_INTERVAL) {
 				ball = vision->getLastBallCenter();
 				pdist = dist;
-				dist = cv::norm(center - ball);
-				distLogger->log(cStep, dist);
-				ddistLogger->log(cStep, pdist - dist);
+//				dist = cv::norm(center - ball);
+				dist = center - ball;
+				distLogger->log(cStep, 2, dist.x, dist.y);
+				ddistLogger->log(cStep, 2, pdist.x - dist.x, pdist.y - pdist.y);
 
-				y[0] = dist;
+				y[0] = dist.x;
+				y[1] = dist.y;
 				dist_plotter->update(cStep, y);
 
 				x_after = actuation->getMotorPosition(0);
@@ -215,25 +221,27 @@ public:
 
 //				double reward = REWARD_FACTOR * dActAcc;
 //				double reward = REWARD_FACTOR * (1 - (2 * dist / MAX_DIST));
-				double reward = (std::abs(x_after - x_before) > 0.0 && (pdist - dist) > 0.0) ? 1.0 : 0.0;
+				double reward_x = (std::abs(x_after - x_before) > 0.0 && (pdist.x - dist.x) > 0.0) ? 1.0 : -1.0;
+				double reward_y = (std::abs(y_after - y_before) > 0.0 && (pdist.y - dist.y) > 0.0) ? 1.0 : -1.0;
 				std::cerr << "[" << cStep << "] learning: "
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
 						<< ", ddist=" << pdist - dist
-						<< ", reward=" << reward
+						<< ", reward=" << reward_x << "/" << reward_y
 						<< ", dActAcc=" << dActAcc
 						<< std::endl;
 
 				std::cout << "[" << cStep << "] x weights before: ";
 				xPerceptron->printWeightStats();
-				xPerceptron->updateWeightsWTA(reward, LEARNING_RATE, LEARNING_NEIGH);
+//				xPerceptron->updateWeights(reward_x, LEARNING_RATE);
+				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, LEARNING_NEIGH);
 				std::cout << "[" << cStep << "] x weights after: ";
 				xPerceptron->printWeightStats();
 
-				reward = (std::abs(y_after - y_before) > 0.0 && (pdist - dist) > 0.0) ? 1.0 : 0.0;
 				std::cout << "[" << cStep << "] y weights before: ";
 				yPerceptron->printWeightStats();
-				yPerceptron->updateWeightsWTA(reward, LEARNING_RATE, LEARNING_NEIGH);
+//				yPerceptron->updateWeights(reward_y, LEARNING_RATE);
+				yPerceptron->updateWeightsWTA(reward_y, LEARNING_RATE, LEARNING_NEIGH);
 				std::cout << "[" << cStep << "] y weights after: ";
 				yPerceptron->printWeightStats();
 			}
@@ -286,9 +294,11 @@ public:
 		plotter->show();
 
 		labels.clear();
-		labels.push_back("Distance ball-center");
+		labels.push_back("x ball-center");
+		labels.push_back("y ball-center");
 		colors.clear();
-		colors.push_back(QColor(0, 240, 10, 127));
+		colors.push_back(QColor(0, 240, 50, 127));
+		colors.push_back(QColor(180, 200, 25, 127));
 		dist_plotter = new drobot::DRobotTimePlotter("Distance", 20, 20, 500, 300, labels, colors);
 		dist_plotter->show();
 
