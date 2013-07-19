@@ -16,10 +16,12 @@ public:
 
 	~DRobotDataLogger() { _file.close(); }
 
-	void log(const int step, const double *values, const size_t size);
+	void log(const int step, const size_t size, const double *values);
+	void log(const int step, const size_t size, const double value, ...);
 	void log(const int step, const double value);
 
-	void log(const int step, const int *values, const size_t size);
+	void log(const int step, const size_t size, const int *values);
+	void log(const int step, const size_t size, const int value, ...);
 	void log(const int step, const int value);
 
 private:

@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <stdarg.h>
 
 #include "DRobotDataLogger.h"
 
@@ -22,7 +23,7 @@ DRobotDataLogger::DRobotDataLogger(const char *prefix)
 	_file.precision(10);
 }
 
-void DRobotDataLogger::log(const int step, const double *values, const size_t size)
+void DRobotDataLogger::log(const int step, const size_t size, const double *values)
 {
 	_file << step << ",";
 	for (size_t i = 0; i < size; i++) {
@@ -34,12 +35,28 @@ void DRobotDataLogger::log(const int step, const double *values, const size_t si
 	_file << std::endl;
 }
 
+void DRobotDataLogger::log(const int step, const size_t size, const double value, ...)
+{
+	va_list ap;
+
+	_file << step << "," << value;
+
+	va_start(ap, value);
+	for (size_t i = 1; i < size; i++) {
+		double val = va_arg(ap, double);
+		_file << "," << val;
+	}
+	va_end(ap);
+
+	_file << std::endl;
+}
+
 void DRobotDataLogger::log(const int step, const double value)
 {
 	_file << step << "," << value << std::endl;
 }
 
-void DRobotDataLogger::log(const int step, const int *values, const size_t size)
+void DRobotDataLogger::log(const int step, const size_t size, const int *values)
 {
 	_file << step << ",";
 	for (size_t i = 0; i < size; i++) {
@@ -47,6 +64,22 @@ void DRobotDataLogger::log(const int step, const int *values, const size_t size)
 		if (i != size - 1)
 			_file << ",";
 	}
+
+	_file << std::endl;
+}
+
+void DRobotDataLogger::log(const int step, const size_t size, const int value, ...)
+{
+	va_list ap;
+
+	_file << step << "," << value;
+
+	va_start(ap, value);
+	for (size_t i = 1; i < size; i++) {
+		int val = va_arg(ap, int);
+		_file << "," << val;
+	}
+	va_end(ap);
 
 	_file << std::endl;
 }

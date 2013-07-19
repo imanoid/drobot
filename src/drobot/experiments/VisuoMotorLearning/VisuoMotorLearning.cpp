@@ -151,10 +151,11 @@ public:
 				xOutputs = xPerceptron->calculateOutput(inputs);
 				yOutputs = yPerceptron->calculateOutput(inputs);
 
-				outXLogger->log(cStep, xOutputs, nOutputs);
-				outYLogger->log(cStep, yOutputs, nOutputs);
-				weightXLogger->log(cStep, xPerceptron->getWeights(), nInputs * nOutputs);
-				weightYLogger->log(cStep, yPerceptron->getWeights(), nInputs * nOutputs);
+				outXLogger->log(cStep, nOutputs, xOutputs);
+				outYLogger->log(cStep, nOutputs, yOutputs);
+				weightXLogger->log(cStep, nInputs * nOutputs, xPerceptron->getWeights());
+				weightYLogger->log(cStep, nInputs * nOutputs, yPerceptron->getWeights());
+
 
 				std::cerr << "[" << cStep << "] x out:";
 				maxOut = 0.0;
