@@ -15,23 +15,26 @@ class ActuationTester {
 public:
 
 	void run() {
-		drobot::DRobotAdvancedActuation* actuation = new drobot::DRobotAdvancedActuation();
+		drobot::DRobotAdvancedActuation* actuation1 = new drobot::DRobotAdvancedActuation();
+		drobot::DRobotAdvancedActuation* actuation2 = new drobot::DRobotAdvancedActuation();
+		drobot::DRobotAdvancedActuation* actuation3 = new drobot::DRobotAdvancedActuation();
 
-		actuation->addServoMotor("Left eye pan", 0, 0, 100, 80, 120);
-		actuation->addServoMotor("Right eye pan", 0, 1, 100, 80, 120);
-		actuation->addServoMotor("Arm rotate", 0, 2, 100, 80, 120);
-		actuation->engage();
-		actuation->setInitialPositions();
+		drobot::DRobotAdvancedActuation* testActuation = actuation3;
 
-		actuation->setMotorPosition(2, 10);
+		testActuation->addServoMotor("1-1", 2, 0, 100, 0, 100);
+		testActuation->addServoMotor("1-2", 2, 1, 100, 0, 100);
+		testActuation->addServoMotor("1-3", 2, 2, 100, 0, 100);
+		testActuation->addServoMotor("1-4", 2, 3, 100, 0, 100);
+		testActuation->addServoMotor("1-5", 2, 4, 100, 0, 100);
+		testActuation->addServoMotor("1-6", 2, 5, 100, 0, 100);
+		testActuation->engage();
 		usleep(1000000);
-		actuation->setMotorPosition(2, 30);
-		usleep(1000000);
-		actuation->setMotorPosition(2, 90);
-		usleep(1000000);
-		actuation->setMotorPosition(2, 150);
-		usleep(1000000);
-		actuation->disengage();
+		testActuation->setMotorPosition(5, 100);
+		usleep(2000000);
+		testActuation->setMotorPosition(5, 120);
+		usleep(2000000);
+		testActuation->disengage();
+		exit(0);
 	}
 };
 
