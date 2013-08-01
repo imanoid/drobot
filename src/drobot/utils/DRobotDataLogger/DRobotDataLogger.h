@@ -16,6 +16,9 @@ public:
 
 	~DRobotDataLogger() { _file.close(); }
 
+	void header(const size_t size, const char *names[]);
+	void header(const size_t size, const char *name, ...);
+
 	void log(const struct timeval *t, const size_t size, const double *values);
 	void log(const struct timeval *t, const size_t size, const double value, ...);
 	void log(const struct timeval *t, const double value);

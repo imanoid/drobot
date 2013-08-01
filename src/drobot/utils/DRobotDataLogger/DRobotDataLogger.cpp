@@ -23,6 +23,33 @@ DRobotDataLogger::DRobotDataLogger(const char *prefix)
 	_file.precision(10);
 }
 
+void DRobotDataLogger::header(const size_t size, const char *names[])
+{
+	_file << "time";
+
+	for (size_t i = 0; i < size; i++) {
+		_file << "," << names[i];
+	}
+
+	_file << std::endl;
+}
+
+void DRobotDataLogger::header(const size_t size, const char *name, ...)
+{
+	va_list ap;
+
+	_file << "time," << name;
+
+	va_start(ap, name);
+	for (size_t i = 1; i < size; i++) {
+		char *val = va_arg(ap, char *);
+		_file << "," << val;
+	}
+	va_end(ap);
+
+	_file << std::endl;
+}
+
 void DRobotDataLogger::log_time(const struct timeval *t)
 {
 	char buf[256];
