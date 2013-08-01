@@ -23,23 +23,33 @@ DRobotDataLogger::DRobotDataLogger(const char *prefix)
 	_file.precision(10);
 }
 
-void DRobotDataLogger::log(const int step, const size_t size, const double *values)
+void DRobotDataLogger::log_time(const struct timeval *t)
 {
-	_file << step << ",";
+	char buf[256];
+
+	snprintf(buf, sizeof(buf), "%ld.%06lu", t->tv_sec, t->tv_usec);
+
+	_file << buf;
+}
+
+void DRobotDataLogger::log(const struct timeval *t, const size_t size, const double *values)
+{
+	log_time(t);
+
 	for (size_t i = 0; i < size; i++) {
-		_file << values[i];
-		if (i != size - 1)
-			_file << ",";
+		_file << "," << values[i];
 	}
 
 	_file << std::endl;
 }
 
-void DRobotDataLogger::log(const int step, const size_t size, const double value, ...)
+void DRobotDataLogger::log(const struct timeval *t, const size_t size, const double value, ...)
 {
 	va_list ap;
 
-	_file << step << "," << value;
+	log_time(t);
+
+	_file << "," << value;
 
 	va_start(ap, value);
 	for (size_t i = 1; i < size; i++) {
@@ -51,28 +61,31 @@ void DRobotDataLogger::log(const int step, const size_t size, const double value
 	_file << std::endl;
 }
 
-void DRobotDataLogger::log(const int step, const double value)
+void DRobotDataLogger::log(const struct timeval *t, const double value)
 {
-	_file << step << "," << value << std::endl;
+	log_time(t);
+
+	_file << "," << value << std::endl;
 }
 
-void DRobotDataLogger::log(const int step, const size_t size, const int *values)
+void DRobotDataLogger::log(const struct timeval *t, const size_t size, const int *values)
 {
-	_file << step << ",";
+	log_time(t);
+
 	for (size_t i = 0; i < size; i++) {
-		_file << values[i];
-		if (i != size - 1)
-			_file << ",";
+		_file << "," << values[i];
 	}
 
 	_file << std::endl;
 }
 
-void DRobotDataLogger::log(const int step, const size_t size, const int value, ...)
+void DRobotDataLogger::log(const struct timeval *t, const size_t size, const int value, ...)
 {
 	va_list ap;
 
-	_file << step << "," << value;
+	log_time(t);
+
+	_file << "," << value;
 
 	va_start(ap, value);
 	for (size_t i = 1; i < size; i++) {
@@ -84,9 +97,10 @@ void DRobotDataLogger::log(const int step, const size_t size, const int value, .
 	_file << std::endl;
 }
 
-void DRobotDataLogger::log(const int step, const int value)
+void DRobotDataLogger::log(const struct timeval *t, const int value)
 {
-	_file << step << "," << value << std::endl;
+	log_time(t);
+	_file << "," << value << std::endl;
 }
 
 }
