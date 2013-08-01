@@ -143,6 +143,8 @@ public:
 		const int UPDATE_STEPS_INTERVAL = 20;
 		const int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
 		const int LEARNING_NEIGH = 1; 		// number of neighbouring neurons (on each side) to consider for learning
+		const int POPULATION_MIN = -20;
+		const int POPULATION_MAX = 20;
 		int cStep = 0; 				// current timestep
 		int mStep = 0;				// movement step
 		double cAct = 0; 			// current activity;
@@ -221,8 +223,8 @@ public:
 				std::cerr << std::endl;
 				std::cerr << "[" << cStep << "] max y out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
 
-				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, -20, 20);
-				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, -20, 20);
+				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, POPULATION_MIN, POPULATION_MAX);
+				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, POPULATION_MIN, POPULATION_MAX);
 
 				std::cerr << "[" << cStep << "] Calculated increment: " << dx << ", " << dy << std::endl;
 
