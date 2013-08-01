@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include <boost/shared_ptr.hpp>
+
 namespace drobot {
 
 class DRobotDataLogger {
@@ -34,6 +36,8 @@ private:
 	void init(const char *prefix, char separator);
 	void log_time(const struct timeval *t);
 };
+
+typedef boost::shared_ptr<DRobotDataLogger> DRobotDataLoggerPtr;
 
 }
 
