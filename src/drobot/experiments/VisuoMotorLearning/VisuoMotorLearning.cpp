@@ -136,8 +136,8 @@ public:
 
 		setup();
 
-		time_t start, end;
-		time(&start);
+		struct timeval t_start, t_end;
+		gettimeofday(&t_start, NULL);
 
 		while(1) {
 			processVision();
@@ -152,14 +152,19 @@ public:
 
 			/* Calculate outputs */
 			if (cStep % UPDATE_STEPS_INTERVAL == 0) {
+				struct timeval t_now;
+
+				gettimeofday(&t_now, NULL);
+				timersub(&t_now, &t_start, &t_now);
+
 //				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
 				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
 
 				xOutputs = xPerceptron->calculateOutput(inputs);
 				yOutputs = yPerceptron->calculateOutput(inputs);
 
-				outXLogger->log(cStep, nOutputs, xOutputs);
-				outYLogger->log(cStep, nOutputs, yOutputs);
+				outXLogger->log(&t_now, nOutputs, xOutputs);
+				outYLogger->log(&t_now, nOutputs, yOutputs);
 //				weightXLogger->log(cStep, nInputs * nOutputs, xPerceptron->getWeights());
 //				weightYLogger->log(cStep, nInputs * nOutputs, yPerceptron->getWeights());
 
@@ -207,12 +212,17 @@ public:
 
 			/* Learn */
 			if (cStep - mStep == LEARNING_STEPS_INTERVAL) {
+				struct timeval t_now;
+
+				gettimeofday(&t_now, NULL);
+				timersub(&t_now, &t_start, &t_now);
+
 				ball = vision->getLastBallCenter();
 				pdist = dist;
 //				dist = cv::norm(center - ball);
 				dist = center - ball;
-				distLogger->log(cStep, 2, dist.x, dist.y);
-				ddistLogger->log(cStep, 2, pdist.x - dist.x, pdist.y - pdist.y);
+				distLogger->log(&t_now, 2, dist.x, dist.y);
+				ddistLogger->log(&t_now, 2, pdist.x - dist.x, pdist.y - dist.y);
 
 				y[0] = dist.x;
 				y[1] = dist.y;
@@ -253,10 +263,12 @@ public:
 			plotter->update(cStep, y);
 
 			// calculate FPS
-			time(&end);
+			gettimeofday(&t_end, NULL);
 			cStep++;
 
-			double fps = cStep / ((double) difftime(end, start));
+			struct timeval t_diff;
+			timersub(&t_end, &t_start, &t_diff);
+			double fps = cStep / ((double) t_diff.tv_sec);
 			char buf[32];
 			snprintf(buf, sizeof(buf), "FPS: %.2lf", fps);
 
