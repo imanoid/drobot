@@ -60,22 +60,14 @@ void DRobotPerceptron::updateWeights(double reward, double lRate, int start, int
 			case LEARN_OJA:
 				dw = lRate * outputs(i)
 						* (inputs(j) * reward - outputs(i) * weights(i, j));
-
-				/*
-				if (std::abs(dw) > 0.00025) {
-					std::cerr << "[" << i << "/" << j << "] Oja - dw: " << dw << " y(i): " << outputs(i)
-						<< " x(j): " << inputs(j) << " w(i, j)^t: " << weights(i, j)
-						<< " w(i, j)^(t+1): " << weights(i, j) + dw  << std::endl;
-				}
-				*/
 				weights(i, j) += dw;
 				break;
 			case LEARN_HEBBIAN_COVARIANCE:
 				avg_in = inputsAvg.col(j).sum() / AVG_HISTORY;
 				avg_out = outputsAvg.col(i).sum() / AVG_HISTORY;
-//				dw = lRate * (outputs(i) - avg_out) * (inputs(i) - avg_in);
+				dw = lRate * reward * (outputs(i) - avg_out) * (inputs(j) - avg_in);
 				// only learn if there is presynaptic activity
-				dw = lRate * (outputs(i) - avg_out) * inputs(i);
+//				dw = lRate * reward * (outputs(i) - avg_out) * inputs(j);
 				weights(i, j) += dw;
 				break;
 			case LEARN_MCMILLEN:
@@ -182,6 +174,16 @@ void DRobotPerceptron::initWeights(double min, double max)
 double* DRobotPerceptron::getWeights()
 {
 	return weights.data();
+}
+
+double* DRobotPerceptron::getWeightsIn(int i)
+{
+	return weights.col(i).data();
+}
+
+double* DRobotPerceptron::getWeightsOut(int i)
+{
+	return weights.row(i).data();
 }
 
 void DRobotPerceptron::printWeights() {

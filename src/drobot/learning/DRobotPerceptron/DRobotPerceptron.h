@@ -44,6 +44,8 @@ public:
 	void initWeights(double min, double max);
 
 	double* getWeights();
+	double* getWeightsIn(int i);
+	double* getWeightsOut(int i);
 
 	void printWeights();
 	void printWeightStats();
