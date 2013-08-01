@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <boost/thread.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include "DRobotActuation.h"
 #include "DRobotVision.h"
@@ -65,12 +66,38 @@ public:
 
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
 
-		distLogger = new drobot::DRobotDataLogger("distance");
-		ddistLogger = new drobot::DRobotDataLogger("diff_distance");
-		outXLogger = new drobot::DRobotDataLogger("out_x");
-		outYLogger = new drobot::DRobotDataLogger("out_y");
-		weightXLogger = new drobot::DRobotDataLogger("weights_x");
-		weightYLogger = new drobot::DRobotDataLogger("weights_y");
+		outXLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("out_x"));
+		outYLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("out_y"));
+		distLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("distance"));
+		distLogger->header(2, "dist_x", "dist_y");
+		ddistLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("diff_distance"));
+		ddistLogger->header(2, "diff_dist_x", "diff_dist_y");
+		rewardLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("reward"));
+		rewardLogger->header(2, "reward_x", "reward_y");
+
+		for (int i = 0; i < nInputs; i++) {
+			char name[32];
+
+			snprintf(name, sizeof(name), "weights_x_in_%d", i);
+			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(name));
+			weightXInLogger.push_back(p);
+
+			snprintf(name, sizeof(name), "weights_y_in_%d", i);
+			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(name));
+			weightYInLogger.push_back(q);
+		}
+
+		for (int i = 0; i < nOutputs; i++) {
+			char name[32];
+
+			snprintf(name, sizeof(name), "weights_x_out_%d", i);
+			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(name));
+			weightXOutLogger.push_back(p);
+
+			snprintf(name, sizeof(name), "weights_y_out_%d", i);
+			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(name));
+			weightYOutLogger.push_back(q);
+		}
 	}
 
 	void processVision()
@@ -444,9 +471,11 @@ private:
 	double *inputs, *xOutputs, *yOutputs;
 
 	drobot::DRobotPerceptron *xPerceptron, *yPerceptron;
-	drobot::DRobotDataLogger *outXLogger, *outYLogger;
-	drobot::DRobotDataLogger *distLogger, *ddistLogger;
-	drobot::DRobotDataLogger *weightXLogger, *weightYLogger;
+	drobot::DRobotDataLoggerPtr outXLogger, outYLogger;
+	drobot::DRobotDataLoggerPtr distLogger, ddistLogger;
+	drobot::DRobotDataLoggerPtr rewardLogger;
+	std::vector<boost::shared_ptr<drobot::DRobotDataLogger> > weightXInLogger, weightYInLogger;
+	std::vector<boost::shared_ptr<drobot::DRobotDataLogger> > weightXOutLogger, weightYOutLogger;
 };
 
 int main(int argc, char *argv[])
