@@ -395,11 +395,11 @@ public:
 		servoInits.push_back(101);
 		servoInits.push_back(90);
 
-		servoMins.push_back(72);
-		servoMins.push_back(84);
+		servoMins.push_back(74);
+		servoMins.push_back(87);
 		servoMins.push_back(40);
 
-		servoMaxs.push_back(115);
+		servoMaxs.push_back(112);
 		servoMaxs.push_back(114);
 		servoMaxs.push_back(170);
 	}
