@@ -1,0 +1,23 @@
+#ifndef _DROBOT_PROGRAM_DEVICETESTPROGRAM_H_
+#define _DROBOT_PROGRAM_DEVICETESTPROGRAM_H_
+
+#include "../../../program/program.h"
+#include "../device/devicemanager.h"
+
+namespace drobot {
+namespace program {
+
+class Program : public drobot::program::Program
+{
+private:
+    drobot::device::DeviceManager* _deviceManager;
+public:
+    Program(std::string name, drobot::device::DeviceManager* deviceManager);
+    virtual void loop();
+    virtual QWidget* getWidget();
+};
+
+} // namespace program
+} // namespace drobot
+
+#endif // DROBOT_PROGRAM_DEVICETESTPROGRAM_H

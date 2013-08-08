@@ -24,39 +24,30 @@ public:
 	}
 
 	void run() {
-		drobot::DRobotAdvancedActuation* actuation =
-				new drobot::DRobotAdvancedActuation();
-
-		actuation->addServoMotor("Left eye pan", 0, 0, 100, 80, 120);
-		actuation->engage();
-		actuation->setMotorPosition(0, 0);
-
-		usleep(1000000);
-		actuation->setMotorPosition(0, 90);
-		usleep(500000);
-
 		drobot::DRobotTactileSensorBoard* sensorBoard =
 				new drobot::DRobotTactileSensorBoard("/dev/ttyUSB0");
 		sensorBoard->enable();
-
 		int tick = 0;
-		while (tick < 100) {
+		while (true) {
 			double* readings = new double[sensorBoard->getMaxSensors()];
 			for (int index = 0; index < sensorBoard->getMaxSensors(); index++) {
-				char val[3];
-				sprintf(val, "%3d;", sensorBoard->getSensorActivation(index));
-				readings[index] = boost::lexical_cast<float>(val);
+				char val[4];
+				sprintf(val, "%03d", sensorBoard->getSensorActivation(index));
+				if (index == 15)
+					readings[0] = boost::lexical_cast<int>(val);
 			}
 			_plotter->update(tick, readings);
 			usleep(50000);
 			++tick;
 		}
-		actuation->disengage();
 	}
 };
 
 int main(int argc, char *argv[]) {
+	QApplication application(argc, argv);
 	TactileTester* a = new TactileTester();
-	a->run();
+	boost::thread* t = new boost::thread(boost::bind(&TactileTester::run, a));
+
+	return application.exec();
 }
 

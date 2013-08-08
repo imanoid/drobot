@@ -21,7 +21,6 @@ public:
     virtual bool isEngaged();
 
 private:
-	// Servo handle
 	CPhidgetAdvancedServoHandle servo;
 };
 

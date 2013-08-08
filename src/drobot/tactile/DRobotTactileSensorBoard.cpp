@@ -16,6 +16,7 @@ void DRobotTactileSensorBoard::enable() {
 		_enabled = true;
 		boost::thread* t = new boost::thread(
 				boost::bind(&DRobotTactileSensorBoard::updateLoop, this));
+		usleep(1000);
 	}
 }
 
@@ -34,6 +35,8 @@ void DRobotTactileSensorBoard::updateLoop() {
 				<< std::endl;
 		return;
 	}
+
+	int tick = 0;
 
 	while (_enabled) {
 		_activations = new unsigned char[_maxSensors + 2];
@@ -65,19 +68,23 @@ void DRobotTactileSensorBoard::updateLoop() {
 							_maxSensors + 2 - read), 0); //usleep(100);
 		}
 
-		/*
+
 		for (int signal = 0; signal < _maxSensors; signal++) {
 			std::cout << (int) _activations[signal] << "; ";
 		}
 		std::cout << std::endl << std::endl;
-		*/
 
+
+		/*
 		if (_activations[_maxSensors] != 255 || _activations[_maxSensors + 1] != 255) {
 			aligned = false;
-			//std::cout << "not aligned" << std::endl;
+			std::cout << "not aligned" << std::endl;
 			continue;
 		}
-
+		*/
+		++ tick;
+		if (tick % 100 == 0)
+			std::cout << "ticks: " << tick << std::endl;
 		usleep(1000);
 	}
 
