@@ -4,6 +4,8 @@
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include "opencv2/opencv.hpp"
+
 #include "DRobotActuation.h"
 #include "DRobotVision.h"
 
@@ -40,8 +42,10 @@ public:
 
 //		int nRows = vision->tdFrameLPCortical.rows;
 //		int nCols = vision->tdFrameLPCortical.cols;
-		int nRows = vision->frameSegmented.rows;
-		int nCols = vision->frameSegmented.cols;
+//		int nRows = vision->frameSegmented.rows;
+//		int nCols = vision->frameSegmented.cols;
+		int nRows = vision->frameSegmented5x5.rows;
+		int nCols = vision->frameSegmented5x5.cols;
 
 		nInputs = nRows * nCols;
 		nOutputs = 10;
@@ -194,15 +198,46 @@ public:
 				timersub(&t_now, &t_start, &t_now);
 
 //				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
-				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
+//				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
+				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
 
+				std::cerr << "[" << cStep << "] in:";
+				for (int i = 0; i < nInputs; i++) {
+					std::cerr << " " << inputs[i];
+				}
+				std::cerr << std::endl;
+
+//				xOutputs = xPerceptron->calculateOutputSigmoid(inputs, 0.3);
+//				yOutputs = yPerceptron->calculateOutputSigmoid(inputs, 0.3);
 				xOutputs = xPerceptron->calculateOutput(inputs);
 				yOutputs = yPerceptron->calculateOutput(inputs);
 
+				inLogger->log(&t_now, nInputs, inputs);
 				outXLogger->log(&t_now, nOutputs, xOutputs);
 				outYLogger->log(&t_now, nOutputs, yOutputs);
-//				weightXLogger->log(cStep, nInputs * nOutputs, xPerceptron->getWeights());
-//				weightYLogger->log(cStep, nInputs * nOutputs, yPerceptron->getWeights());
+
+				for (int i = 0; i < nInputs; i++) {
+					weightXInLogger[i]->log(&t_now, nOutputs, xPerceptron->getWeightsIn(i));
+					weightYInLogger[i]->log(&t_now, nOutputs, yPerceptron->getWeightsIn(i));
+				}
+
+				for (int i = 0; i < nOutputs; i++) {
+					weightXOutLogger[i]->log(&t_now, nInputs, xPerceptron->getWeightsOut(i));
+					weightYOutLogger[i]->log(&t_now, nInputs, yPerceptron->getWeightsOut(i));
+				}
+
+				/*
+				std::cerr << "-------" << std::endl;
+				unsigned char *pixels = (unsigned char *) vision->frameSegmented5x5.data;
+				for (int i = 0; i < 5; i++) {
+					std::cerr << "|";
+					for (int j = 0; j < 5; j++) {
+						std::cerr << (((int)pixels[i*5+j]) > 0 ? "1" : "0");
+					}
+					std::cerr << "|" << std::endl;
+				}
+				std::cerr << "-------" << std::endl;
+				*/
 
 				std::cerr << "[" << cStep << "] x out:";
 				maxOut = 0.0;
@@ -316,7 +351,9 @@ public:
 			display_thresh->imshow(vision->tdFrameLPCartesian);
 //			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
 			display_filter->imshow(vision->frameFiltered);
-			display_seg->imshow(vision->frameSegmented);
+			cv::Mat scaled;
+			cv::resize(vision->frameSegmented5x5, scaled, cv::Size(100, 100), 0, 0, cv::INTER_NEAREST);
+			display_seg->imshow(scaled);
 
 			if (manualControl) {
 				for (int i = 0; i < servoLabels.size(); i++) {
@@ -480,6 +517,7 @@ private:
 	double *inputs, *xOutputs, *yOutputs;
 
 	drobot::DRobotPerceptron *xPerceptron, *yPerceptron;
+	drobot::DRobotDataLoggerPtr inLogger;
 	drobot::DRobotDataLoggerPtr outXLogger, outYLogger;
 	drobot::DRobotDataLoggerPtr distLogger, ddistLogger;
 	drobot::DRobotDataLoggerPtr rewardLogger;
