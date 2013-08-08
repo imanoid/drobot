@@ -1,0 +1,20 @@
+#include "programfactory.h"
+#include "program.h"
+
+namespace drobot {
+namespace experiment {
+namespace tactileTest {
+namespace program {
+
+ProgramFactory::ProgramFactory() : drobot::program::ProgramFactory::ProgramFactory("TactileTest")
+{
+}
+
+Program* ProgramFactory::createInstance() {
+    return new Program(nextProgramName());
+}
+
+} // namespace program
+} // namespace tactileTest
+} // namespace experiment
+} // namespace drobot
