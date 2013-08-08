@@ -1,24 +1,36 @@
 #include <sys/time.h>
 #include <stdarg.h>
 
+#include <boost/filesystem.hpp>
+
 #include "DRobotDataLogger.h"
 
 namespace drobot {
 
-DRobotDataLogger::DRobotDataLogger(const char *prefix)
+DRobotDataLogger::DRobotDataLogger(const char *dir, const char *file)
 {
-	char filename[FILENAME_MAX];
-	struct timeval ts;
-	char tbuf[128];
+	boost::filesystem::path p(dir);
 
-	gettimeofday(&ts, NULL);
-	strftime(tbuf, sizeof(tbuf), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
+	if (!boost::filesystem::exists(p)) {
+		if (!boost::filesystem::create_directory(p)) {
+			std::cerr << "Error: couldn't create log file directory" << std::endl;
+			throw "";
+		}
+	}
 
-	snprintf(filename, sizeof(filename), "%s_%s.log", prefix, tbuf);
-	_file.open(filename);
+	if (!boost::filesystem::is_directory(p)) {
+		std::cerr << "Error: log file directory is not a file" << std::endl;
+		throw "";
+	}
 
-	if (!_file.is_open())
-		throw "Error: Failed to open file";
+	p /= file;
+
+	_file.open(p.c_str());
+
+	if (!_file.is_open()) {
+		std::cerr << "Error: failed to open file" << std::endl;
+		throw "";
+	}
 
 	_file.precision(10);
 }

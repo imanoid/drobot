@@ -14,7 +14,7 @@ namespace drobot {
 class DRobotDataLogger {
 public:
 	/* to log to stdout/stderr */
-	DRobotDataLogger(const char *filename);
+	DRobotDataLogger(const char *dir, const char *file);
 
 	~DRobotDataLogger() { _file.close(); }
 

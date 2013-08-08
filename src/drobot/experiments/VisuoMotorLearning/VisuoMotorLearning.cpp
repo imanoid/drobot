@@ -66,24 +66,31 @@ public:
 
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
 
-		outXLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("out_x"));
-		outYLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("out_y"));
-		distLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("distance"));
-		distLogger->header(2, "dist_x", "dist_y");
-		ddistLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("diff_distance"));
-		ddistLogger->header(2, "diff_dist_x", "diff_dist_y");
-		rewardLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger("reward"));
-		rewardLogger->header(2, "reward_x", "reward_y");
+		struct timeval ts;
+		char tbuf[128];
+
+		gettimeofday(&ts, NULL);
+		strftime(tbuf, sizeof(tbuf), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
+
+		inLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "in"));
+		outXLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "out_x"));
+		outYLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "out_y"));
+		distLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "distance"));
+//		distLogger->header(2, "dist_x", "dist_y");
+		ddistLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "diff_distance"));
+//		ddistLogger->header(2, "diff_dist_x", "diff_dist_y");
+		rewardLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "reward"));
+//		rewardLogger->header(2, "reward_x", "reward_y");
 
 		for (int i = 0; i < nInputs; i++) {
 			char name[32];
 
 			snprintf(name, sizeof(name), "weights_x_in_%d", i);
-			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(name));
+			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(tbuf, name));
 			weightXInLogger.push_back(p);
 
 			snprintf(name, sizeof(name), "weights_y_in_%d", i);
-			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(name));
+			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(tbuf, name));
 			weightYInLogger.push_back(q);
 		}
 
@@ -91,11 +98,11 @@ public:
 			char name[32];
 
 			snprintf(name, sizeof(name), "weights_x_out_%d", i);
-			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(name));
+			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(tbuf, name));
 			weightXOutLogger.push_back(p);
 
 			snprintf(name, sizeof(name), "weights_y_out_%d", i);
-			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(name));
+			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(tbuf, name));
 			weightYOutLogger.push_back(q);
 		}
 	}
