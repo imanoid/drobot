@@ -36,8 +36,7 @@ public:
 				str = "/home/hgmarques/Pictures/Roboy/angela2.JPG";
 
 			cv::Mat img = cv::imread(str.c_str());
-
-			display->imshow("Test", img);
+			display->imshow(img);
 
 			usleep(10000);
 		}

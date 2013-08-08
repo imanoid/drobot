@@ -25,7 +25,7 @@ public:
     ~DRobotImageDisplay();
 
     void
-    imshow(std::string title, cv::Mat img);
+    imshow(cv::Mat img);
 
     void
     paintEvent(QPaintEvent* e);

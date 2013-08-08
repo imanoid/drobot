@@ -23,6 +23,7 @@ Q_OBJECT
 
 public:
 
+	DRobotTimePlotter(std::string title, int x0, int y0, int width, int height, std::vector<std::string> labels, std::vector<QColor> colors);
 	DRobotTimePlotter(std::string title, int x0, int y0, int width, int height, std::vector<std::string> labels);
 
 	virtual ~DRobotTimePlotter();
@@ -45,6 +46,7 @@ signals:
 
 private:
 
+	void init(std::string title, int x0, int y0, int width, int height, std::vector<std::string> labels, std::vector<QColor> colors);
 	void
 	attachPlotter();
 

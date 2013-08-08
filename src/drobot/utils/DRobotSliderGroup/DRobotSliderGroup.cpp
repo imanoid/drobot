@@ -24,7 +24,6 @@ namespace drobot
 
 DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string> labels, double init, double min, double max) : QWidget()
 {
-
 	this->title = title;
 	this->setWindowTitle(title.c_str());
 
@@ -39,15 +38,13 @@ DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string>
 	}
 
 	createButtonPanel(layout);
-
-
 }
 
 
 DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string> labels, std::vector<double> init, std::vector<double> min, std::vector<double> max) : QWidget()
 {
-
 	this->title = title;
+	this->setWindowTitle(title.c_str());
 
 	QFormLayout* layout = new QFormLayout();
 	this->setLayout(layout);
@@ -60,7 +57,6 @@ DRobotSliderGroup::DRobotSliderGroup(std::string title, std::vector<std::string>
 	}
 
 	createButtonPanel(layout);
-
 }
 
 
@@ -121,8 +117,8 @@ DRobotSliderGroup::save()
 		xmlWriter.writeStartElement("Slider");
 		xmlWriter.writeTextElement("value", QString::number(sliders[i]->getValue()));
 		xmlWriter.writeTextElement("init", QString::number(sliders[i]->getInitValue()));
-		xmlWriter.writeTextElement("min", QString::number(sliders[i]->getMinimumValue()));
-		xmlWriter.writeTextElement("max", QString::number(sliders[i]->getMaximumValue()));
+		xmlWriter.writeTextElement("min", QString::number(sliders[i]->getMinimum()));
+		xmlWriter.writeTextElement("max", QString::number(sliders[i]->getMaximum()));
 		xmlWriter.writeEndElement();
 
 	}
@@ -131,7 +127,6 @@ DRobotSliderGroup::save()
 	xmlWriter.writeEndDocument();
 
 	file.close();
-
 }
 
 void
@@ -147,9 +142,42 @@ DRobotSliderGroup::load()
 		return;
 	}
 
+	QFile file(filepath);
+	file.open(QIODevice::ReadOnly | QIODevice::Text);
 
+	QXmlStreamReader xmlReader(&file);
 
+	int i = 0;
+	while (!xmlReader.atEnd() && !xmlReader.hasError()) {
+		QXmlStreamReader::TokenType token = xmlReader.readNext();
 
+		if (token == QXmlStreamReader::StartDocument)
+			continue;
+
+		if (token == QXmlStreamReader::StartElement) {
+			if (xmlReader.name() == "Sliders")
+				continue;
+			if (xmlReader.name() == "Slider") {
+				while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement &&
+						xmlReader.name() == "Slider")) {
+					if (token == QXmlStreamReader::StartElement) {
+						if (xmlReader.name() == "value") {
+							xmlReader.readNext();
+							double value = xmlReader.text().toString().toDouble();
+							std::cerr << i << " = " << value << std::endl;
+							sliders[i]->setValue(value);
+							xmlReader.readNext();
+						}
+					}
+					xmlReader.readNext();
+				}
+
+				i++;
+			}
+		}
+	}
+
+	file.close();
 }
 
 void

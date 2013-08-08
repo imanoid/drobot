@@ -8,17 +8,15 @@ INCLUDE_DIRECTORIES(
 
 #ADD_DEFINITIONS(-DQT_PLUGIN)
 #ADD_DEFINITIONS(-DQT_NO_DEBUG)
-ADD_DEFINITIONS(-DQT_SHARED) 
+ADD_DEFINITIONS(-DQT_SHARED)
 
 QT4_WRAP_CPP(
-    MOC_SRCS 
-    DRobotTimePlotter/DRobotTimePlotter.h
-    DRobotImageDisplay/DRobotImageDisplay.h
-    DRobotColorRangeSelector/DRobotColorRangeSelector.h
-    DRobotSliderGroup/DRobotSlider.h
-    DRobotSliderGroup/DRobotSliderGroup.h
-    rs232/rs232.h
-
+	MOC_SRCS
+	DRobotColorRangeSelector/DRobotColorRangeSelector.h
+	DRobotImageDisplay/DRobotImageDisplay.h
+	DRobotSliderGroup/DRobotSlider.h
+	DRobotSliderGroup/DRobotSliderGroup.h
+	DRobotTimePlotter/DRobotTimePlotter.h
 )
 
 QT4_WRAP_UI(
@@ -35,13 +33,14 @@ QT4_ADD_RESOURCES(
 SET(
 	SRCS
 	DRobotFileSystem/DRobotFileSystem.cpp
+	DRobotDataLogger/DRobotDataLogger.cpp
 	DRobotTimePlotter/DRobotTimePlotter.cpp
 	DRobotImageDisplay/DRobotImageDisplay.cpp
-	 DRobotColorRangeSelector/DRobotColorRangeSelector.cpp
-	 DRobotSliderGroup/DRobotSlider.cpp
-	 DRobotSliderGroup/DRobotSliderGroup.cpp
-	 rs232/rs232.cpp
+	DRobotColorRangeSelector/DRobotColorRangeSelector.cpp
+	DRobotSliderGroup/DRobotSlider.cpp
+	DRobotSliderGroup/DRobotSliderGroup.cpp
 
+	rs232/rs232.cpp
 )
 
 #ADD_LIBRARY( 
@@ -67,6 +66,7 @@ TARGET_LINK_LIBRARIES(
 )
 
 ADD_SUBDIRECTORY( DRobotFileSystem )
+ADD_SUBDIRECTORY( DRobotDataLogger )
 ADD_SUBDIRECTORY( DRobotTimePlotter )
 ADD_SUBDIRECTORY( DRobotImageDisplay )
 ADD_SUBDIRECTORY( DRobotColorRangeSelector )

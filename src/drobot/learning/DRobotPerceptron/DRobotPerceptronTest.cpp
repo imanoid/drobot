@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 	in[0] = 1;
 	in[1] = 2;
 
-	drobot::DRobotPerceptron* perceptron = new drobot::DRobotPerceptron(nInputs, nOutputs);
+	drobot::DRobotPerceptron* perceptron = new drobot::DRobotPerceptron(drobot::DRobotPerceptron::LEARN_OJA, nInputs, nOutputs);
 	perceptron->initWeights(w);
 	double* out = perceptron->calculateOutput(in);
 

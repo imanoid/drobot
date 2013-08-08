@@ -33,10 +33,10 @@ DRobotImageDisplay::~DRobotImageDisplay()
 }
 
 
-void DRobotImageDisplay::imshow(std::string title, cv::Mat img)
+void DRobotImageDisplay::imshow(cv::Mat img)
 {
-	    // Since OpenCV uses BGR order, we need to convert it to RGB
-		int format;
+	// Since OpenCV uses BGR order, we need to convert it to RGB
+	QImage::Format format;
 
 
 		if (img.type() == CV_8UC3)

@@ -17,7 +17,7 @@ public:
 	virtual void addServoMotor(std::string name, int board, int index, double iPosition,
 			double min, double max) = 0;
 	void setInitialPositions();
-	int getMotorPosition(int index);
+	double getMotorPosition(int index);
 	std::vector<double> getMotorPositions();
 	void setMotorPosition(int index, double position);
 	void setMotorPositions(std::vector<double> mPositions);

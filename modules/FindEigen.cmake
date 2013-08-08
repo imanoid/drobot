@@ -1,6 +1,8 @@
 FILE(
 	GLOB
 	EIGEN_INCLUDE_PATHS
+	/opt/local/include/eigen*
+	/opt/local/include
 	/usr/local/include/eigen*
 	/usr/local/include
 	/usr/include/eigen*
