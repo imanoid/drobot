@@ -299,7 +299,7 @@ public:
 			if (learning && cStep - mStep == LEARNING_STEPS_INTERVAL) {
 				struct timeval t_now;
 
-				gettimeofday(&t_now, NULL);
+				bug_on(gettimeofday(&t_now, NULL));
 				timersub(&t_now, &t_start, &t_now);
 
 				ball = vision->getLastBallCenter();
