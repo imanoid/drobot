@@ -6,6 +6,8 @@
 
 #include "opencv2/opencv.hpp"
 
+#include "built_in.h"
+
 #include "DRobotActuation.h"
 #include "DRobotVision.h"
 
@@ -74,7 +76,7 @@ public:
 		struct timeval ts;
 		char tbuf[128];
 
-		gettimeofday(&ts, NULL);
+		bug_on(gettimeofday(&ts, NULL));
 		strftime(tbuf, sizeof(tbuf), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
 
 		inLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "in.log"));
@@ -179,7 +181,7 @@ public:
 		setup();
 
 		struct timeval t_start, t_end, t_now;
-		gettimeofday(&t_start, NULL);
+		bug_on(gettimeofday(&t_start, NULL));
 		memset(&t_now, 0, sizeof(t_now));
 
 		paramLogger->header(N_PARAMS, "nRowsIn", "inColsIn", "nOutputs", "popMinX", "popMaxX", "popMinY", "popMaxY");
@@ -199,7 +201,7 @@ public:
 
 			/* Calculate outputs */
 			if (cStep % UPDATE_STEPS_INTERVAL == 0) {
-				gettimeofday(&t_now, NULL);
+				bug_on(gettimeofday(&t_now, NULL));
 				timersub(&t_now, &t_start, &t_now);
 
 				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
@@ -313,7 +315,7 @@ public:
 			plotter->update(cStep, y);
 
 			// calculate FPS
-			gettimeofday(&t_end, NULL);
+			bug_on(gettimeofday(&t_end, NULL));
 			cStep++;
 
 			struct timeval t_diff;

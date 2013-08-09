@@ -40,13 +40,13 @@ FIND_PACKAGE( Phidget REQUIRED)
 INCLUDE_DIRECTORIES( 
 	${INCLUDE_DIRECTORIES}
     ${Boost_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/src/drobot/include
     ${CMAKE_SOURCE_DIR}/src/drobot/utils
     ${CMAKE_BINARY_DIR}/src/drobot/utils
     ${CMAKE_SOURCE_DIR}/src/drobot/learning
     ${CMAKE_BINARY_DIR}/src/drobot/learning
     ${CMAKE_SOURCE_DIR}/src/drobot/actuation
     ${CMAKE_SOURCE_DIR}/src/drobot/vision
-
 )
 
 
