@@ -23,6 +23,7 @@ class VisuoMotorLearning
 {
 
 public:
+	static const int N_PARAMS = 7;
 
 	VisuoMotorLearning()
 	{
@@ -44,8 +45,8 @@ public:
 //		int nCols = vision->tdFrameLPCortical.cols;
 //		int nRows = vision->frameSegmented.rows;
 //		int nCols = vision->frameSegmented.cols;
-		int nRows = vision->frameSegmented5x5.rows;
-		int nCols = vision->frameSegmented5x5.cols;
+		nRows = vision->frameSegmented5x5.rows;
+		nCols = vision->frameSegmented5x5.cols;
 
 		nInputs = nRows * nCols;
 		nOutputs = 10;
@@ -109,6 +110,8 @@ public:
 			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(tbuf, name));
 			weightYOutLogger.push_back(q);
 		}
+
+		paramLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "params.log"));
 	}
 
 	void processVision()
@@ -176,8 +179,12 @@ public:
 
 		setup();
 
-		struct timeval t_start, t_end;
+		struct timeval t_start, t_end, t_now;
 		gettimeofday(&t_start, NULL);
+		timersub(&t_now, &t_start, &t_start);
+	
+		paramLogger->header(N_PARAMS, "nRowsIn", "inColsIn", "nOutputs", "popMinX", "popMaxX", "popMinY", "popMaxY");
+		paramLogger->log(&t_start, N_PARAMS, nRows, nCols, nOutputs, POPULATION_MIN, POPULATION_MAX, POPULATION_MIN, POPULATION_MAX);
 
 		while(1) {
 			processVision();
@@ -192,8 +199,6 @@ public:
 
 			/* Calculate outputs */
 			if (cStep % UPDATE_STEPS_INTERVAL == 0) {
-				struct timeval t_now;
-
 				gettimeofday(&t_now, NULL);
 				timersub(&t_now, &t_start, &t_now);
 
@@ -513,10 +518,13 @@ public:
 	std::vector<double> servoInits;
 
 private:
+	int nRows, nCols;
 	int nInputs, nOutputs;
 	double *inputs, *xOutputs, *yOutputs;
 
 	drobot::DRobotPerceptron *xPerceptron, *yPerceptron;
+
+	drobot::DRobotDataLoggerPtr paramLogger;
 	drobot::DRobotDataLoggerPtr inLogger;
 	drobot::DRobotDataLoggerPtr outXLogger, outYLogger;
 	drobot::DRobotDataLoggerPtr distLogger, ddistLogger;
