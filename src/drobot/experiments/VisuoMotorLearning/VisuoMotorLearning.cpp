@@ -101,7 +101,7 @@ public:
 		char str_ts[128];
 
 		bug_on(gettimeofday(&ts, NULL));
-		strftime(str_ts, sizeof(tbuf), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
+		strftime(str_ts, sizeof(str_ts), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
 
 		inLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "in.log"));
 		outXLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "out_x.log"));
@@ -196,6 +196,7 @@ public:
 		cv::Point dist, pdist;
 		dist.x = pdist.x = MAX_DIST_X;
 		dist.y = pdist.y = MAX_DIST_Y;
+		double ndist, pndist;			// euclidean distance
 		double maxOut = 0.0, absMaxOutY = 0.0;
 		int iMaxOut = -1, iMaxOutY = -1;
 
@@ -319,10 +320,9 @@ public:
 
 				ball = vision->getLastBallCenter();
 				pdist = dist;
-//				dist = cv::norm(center - ball);
+				pndist = cv::norm(pdist);
 				dist = center - ball;
-				dist.x = std::abs(dist.x);
-				dist.y = std::abs(dist.y);
+				ndist = cv::norm(dist);
 				distLogger->log(&t_now, 2, dist.x, dist.y);
 				ddistLogger->log(&t_now, 2, pdist.x - dist.x, pdist.y - dist.y);
 
@@ -333,36 +333,27 @@ public:
 				x_after = actuation->getMotorPosition(0);
 				y_after = actuation->getMotorPosition(1);
 
-//				double reward = REWARD_FACTOR * dActAcc;
-//				double reward = REWARD_FACTOR * (1 - (2 * dist / MAX_DIST));
-				double reward_x, reward_y;
+				double reward;
 
-				if (std::abs(dist.x) < 4.0
+				if (ndist < 4.0
 					|| (std::abs(x_after - x_before) > 0.0
-						&& (pdist.x - dist.x) > 0.0))
-					reward_x = 1.0;
+						&& (pndist - ndist) > 0.0))
+					reward = 1.0;
 				else
-					reward_x = -1.0;
+					reward = -1.0;
 
-				if (std::abs(dist.y) < 4.0
-					|| (std::abs(y_after - y_before) > 0.0
-						&& (pdist.y - dist.y) > 0.0))
-					reward_y = 1.0;
-				else
-					reward_y = -1.0;
-
-				rewardLogger->log(&t_now, 2, reward_x, reward_y);
+				rewardLogger->log(&t_now, 2, reward, reward);
 
 				(*tout) << "[" << cStep << "] learning: "
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
 						<< ", ddist=" << pdist - dist
-						<< ", reward=" << reward_x << "/" << reward_y
+						<< ", reward=" << reward
 						<< ", dActAcc=" << dActAcc
 						<< std::endl;
 
-				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, WTA_LEARNING_NEIGH);
-				yPerceptron->updateWeightsWTA(reward_y, LEARNING_RATE, WTA_LEARNING_NEIGH);
+				xPerceptron->updateWeightsWTA(reward, LEARNING_RATE, WTA_LEARNING_NEIGH);
+				yPerceptron->updateWeightsWTA(reward, LEARNING_RATE, WTA_LEARNING_NEIGH);
 			}
 
 			y[0] = cAct;
