@@ -168,7 +168,7 @@ public:
 		double dActAcc = 0;			// activity derivative accumulator
 		double dx, dy;
 		double x_before, y_before, x_after, y_after;
-		bool manualControl = true;
+		bool manualControl = true, learning = false;
 
 //		double dist = MAX_DIST, pdist = MAX_DIST;
 		cv::Point dist, pdist;
@@ -190,6 +190,7 @@ public:
 			processVision();
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
+			learning = expSliders->getValue(1) > 0 ? true : false;
 
 			cAct = vision->getTDPixelActivity(); // / (double) nInputs / 255.0;
 			cAct2nd = vision->getTD2PixelActivity(); // / (double) nInputs / 255.0;
@@ -287,7 +288,7 @@ public:
 			}
 
 			/* Learn */
-			if (cStep - mStep == LEARNING_STEPS_INTERVAL) {
+			if (learning && cStep - mStep == LEARNING_STEPS_INTERVAL) {
 				struct timeval t_now;
 
 				gettimeofday(&t_now, NULL);
@@ -429,8 +430,17 @@ public:
 
 		std::vector<std::string> expLabels;
 		expLabels.push_back("Manual control");
+		expLabels.push_back("Learning");
 
-		expSliders = new drobot::DRobotSliderGroup("Experiment control", expLabels, 1, 0, 1);
+		std::vector<double> inits, mins, maxs;
+		inits.push_back(1);
+		inits.push_back(0);
+		mins.push_back(0);
+		mins.push_back(0);
+		maxs.push_back(1);
+		maxs.push_back(1);
+
+		expSliders = new drobot::DRobotSliderGroup("Experiment control", expLabels, inits, mins, maxs);
 		expSliders->show();
 
 		initColorSliders();
