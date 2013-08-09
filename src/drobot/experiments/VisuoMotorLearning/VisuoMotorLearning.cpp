@@ -36,7 +36,7 @@ public:
 	/*
 	 * Experiment parameters
 	 */
-	static const double LEARNING_RATE = 0.01;	// learning rate
+	static const double LEARNING_RATE = 0.05;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
 	// min/max values for population coding
 	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
@@ -81,21 +81,21 @@ public:
 		yOutputs = new double[nOutputs];
 
 		xPerceptron = new drobot::DRobotPerceptron(
-				drobot::DRobotPerceptron::LEARN_OJA,
+				drobot::DRobotPerceptron::LEARN_MCMILLEN,
 				nInputs, nOutputs);
 		// Original
-		xPerceptron->initWeights(-0.005, 0.005);
+//		xPerceptron->initWeights(-0.005, 0.005);
 		// for McMillen
-//		xPerceptron->initWeights(0.0, 1.0);
-		// for Oja and Hebbian Cov
-//		xPerceptron->initWeights(0.0, 0.00002);
+		xPerceptron->initWeights(0.0, 1.0);
+		// for Oja
+//		xPerceptron->initWeights(-0.25, 0.25);
+		// for Hebbian Cov
+//		xPerceptron->initWeights(0.0, 0.0005);
 
 		yPerceptron = new drobot::DRobotPerceptron(
-				drobot::DRobotPerceptron::LEARN_OJA,
+				drobot::DRobotPerceptron::LEARN_MCMILLEN,
 				nInputs, nOutputs);
-		yPerceptron->initWeights(-0.005, 0.005);
-
-		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
+		yPerceptron->initWeights(0.0, 1.0);
 
 		struct timeval ts;
 		char str_ts[128];
@@ -321,6 +321,8 @@ public:
 				pdist = dist;
 //				dist = cv::norm(center - ball);
 				dist = center - ball;
+				dist.x = std::abs(dist.x);
+				dist.y = std::abs(dist.y);
 				distLogger->log(&t_now, 2, dist.x, dist.y);
 				ddistLogger->log(&t_now, 2, pdist.x - dist.x, pdist.y - dist.y);
 
@@ -333,8 +335,24 @@ public:
 
 //				double reward = REWARD_FACTOR * dActAcc;
 //				double reward = REWARD_FACTOR * (1 - (2 * dist / MAX_DIST));
-				double reward_x = (std::abs(x_after - x_before) > 0.0 && (pdist.x - dist.x) > 0.0) ? 1.0 : -1.0;
-				double reward_y = (std::abs(y_after - y_before) > 0.0 && (pdist.y - dist.y) > 0.0) ? 1.0 : -1.0;
+				double reward_x, reward_y;
+
+				if (std::abs(dist.x) < 4.0
+					|| (std::abs(x_after - x_before) > 0.0
+						&& (pdist.x - dist.x) > 0.0))
+					reward_x = 1.0;
+				else
+					reward_x = -1.0;
+
+				if (std::abs(dist.y) < 4.0
+					|| (std::abs(y_after - y_before) > 0.0
+						&& (pdist.y - dist.y) > 0.0))
+					reward_y = 1.0;
+				else
+					reward_y = -1.0;
+
+				rewardLogger->log(&t_now, 2, reward_x, reward_y);
+
 				(*tout) << "[" << cStep << "] learning: "
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
