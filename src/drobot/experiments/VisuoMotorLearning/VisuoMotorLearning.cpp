@@ -265,12 +265,6 @@ public:
 
 				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
 
-				(*tout) << "[" << cStep << "] in:";
-				for (int i = 0; i < nInputs; i++) {
-					(*tout) << " " << inputs[i];
-				}
-				(*tout) << std::endl;
-
 //				xOutputs = xPerceptron->calculateOutputSigmoid(inputs, 0.3);
 //				yOutputs = yPerceptron->calculateOutputSigmoid(inputs, 0.3);
 				xOutputs = xPerceptron->calculateOutput(inputs);
