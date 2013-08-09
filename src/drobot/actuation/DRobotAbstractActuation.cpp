@@ -11,12 +11,9 @@ DRobotAbstractActuation::~DRobotAbstractActuation() {
 }
 
 void DRobotAbstractActuation::setInitialPositions() {
-	std::cerr << "N MOTORS: " << _motors.size() << std::endl;
-
 	for (int i = 0; i < _motors.size(); i++) {
 		_motors[i]->setInitialPosition();
 	}
-
 }
 
 double DRobotAbstractActuation::getMotorPosition(int index)
@@ -33,6 +30,16 @@ std::vector<double> DRobotAbstractActuation::getMotorPositions() {
 	}
 
 	return mPositions;
+}
+
+double DRobotAbstractActuation::getMotorMin(int index)
+{
+	return _motors[index]->getMin();
+}
+
+double DRobotAbstractActuation::getMotorMax(int index)
+{
+	return _motors[index]->getMax();
 }
 
 void DRobotAbstractActuation::setMotorPosition(int index, double position) {

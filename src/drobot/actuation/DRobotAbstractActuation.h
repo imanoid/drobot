@@ -22,6 +22,8 @@ public:
 	void setMotorPosition(int index, double position);
 	void setMotorPositions(std::vector<double> mPositions);
 	void setMotorIncrement(int index, double increment);
+	double getMotorMin(int index);
+	double getMotorMax(int index);
 	void displayMotorPositions();
 	void engage();
 	void disengage();

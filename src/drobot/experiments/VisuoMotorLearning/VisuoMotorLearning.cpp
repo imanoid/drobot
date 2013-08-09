@@ -50,6 +50,7 @@ public:
 	static const unsigned int T = 50000;		// duration of 1 cycle
 	static const int UPDATE_STEPS_INTERVAL = 20;	// # of cycles after which to update motor positions
 	static const int LEARNING_STEPS_INTERVAL = 5; 	// # of cycles after the movement execution to wait before learning
+	static const int RANDOM_MOVE_INTERVAL = 500;	// # of cycles after which a random move is performed
 
 	VisuoMotorLearning()
 	{
@@ -191,7 +192,7 @@ public:
 		double dActAcc = 0;			// activity derivative accumulator
 		double dx, dy;
 		double x_before, y_before, x_after, y_after;
-		bool manualControl = true, learning = false;
+		bool manualControl = true, learning = false, enableRandom = true;;
 
 		cv::Point dist, pdist;
 		dist.x = pdist.x = MAX_DIST_X;
@@ -211,6 +212,7 @@ public:
 			"popMinY", "popMaxY",
 			"learningRate", "wtaLearnNeigh",
 			"T", "updStepsInterval", "learnStepsInterval",
+			"randMoveInterval",
 		};
 		const int params[] = {
 			nRows, nCols, nOutputs,
@@ -218,6 +220,7 @@ public:
 			POPULATION_MIN_Y, POPULATION_MAX_Y,
 			LEARNING_RATE, WTA_LEARNING_NEIGH,
 			T, UPDATE_STEPS_INTERVAL, LEARNING_STEPS_INTERVAL,
+			RANDOM_MOVE_INTERVAL,
 		};
 
 		paramLogger->header(array_size(params), param_names);
@@ -230,6 +233,7 @@ public:
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
 			learning = expSliders->getValue(1) > 0 ? true : false;
+			enableRandom = expSliders->getValue(2) > 0 ? true : false;
 
 			cAct = vision->getTDPixelActivity(); // / (double) nInputs / 255.0;
 			cAct2nd = vision->getTD2PixelActivity(); // / (double) nInputs / 255.0;
@@ -237,8 +241,25 @@ public:
 			pAct = cAct;
 			dActAcc += dAct;
 
-			/* Calculate outputs */
-			if (cStep % UPDATE_STEPS_INTERVAL == 0) {
+			/* Random movement every RANDOM_MOVE_INTERVAL steps */
+			if (enableRandom && cStep % RANDOM_MOVE_INTERVAL == 0) {
+				double max_x = actuation->getMotorMax(0);
+				double max_y = actuation->getMotorMax(1);
+				double dx = (((double) rand() / RAND_MAX) * max_x) - (max_x / 2.0);
+				double dy = (((double) rand() / RAND_MAX) * max_y) - (max_y / 2.0);
+
+				(*tout) << "[" << cStep << "] performing random movement: "
+					<< dx << "/" << dy << std::endl;
+				x_before = actuation->getMotorPosition(0);
+				actuation->setMotorIncrement(0, dx);
+				y_before = actuation->getMotorPosition(1);
+				actuation->setMotorIncrement(1, dy);
+
+				// make sure we also learn from random movements
+				mStep = cStep;
+			} else if (cStep % UPDATE_STEPS_INTERVAL == 0) {
+				/* Calculate outputs and update motor position */
+
 				bug_on(gettimeofday(&t_now, NULL));
 				timersub(&t_now, &t_start, &t_now);
 
@@ -348,6 +369,9 @@ public:
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
 						<< ", ddist=" << pdist - dist
+						<< ", ndist=" << ndist
+						<< ", pndist=" << pndist
+						<< ", dndist=" << pndist - ndist
 						<< ", reward=" << reward
 						<< ", dActAcc=" << dActAcc
 						<< std::endl;
@@ -453,12 +477,16 @@ public:
 		std::vector<std::string> expLabels;
 		expLabels.push_back("Manual control");
 		expLabels.push_back("Learning");
+		expLabels.push_back("Random movement");
 
 		std::vector<double> inits, mins, maxs;
 		inits.push_back(1);
 		inits.push_back(0);
+		inits.push_back(1);
 		mins.push_back(0);
 		mins.push_back(0);
+		mins.push_back(0);
+		maxs.push_back(1);
 		maxs.push_back(1);
 		maxs.push_back(1);
 
