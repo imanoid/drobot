@@ -25,7 +25,23 @@ class VisuoMotorLearning
 {
 
 public:
-	static const int N_PARAMS = 7;
+	/*
+	 * Experiment parameters
+	 */
+	static const double LEARNING_RATE = 0.01;	// learning rate
+	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
+	// min/max values for population coding
+	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
+	static const int POPULATION_MAX_X = 20;		// motor pos. rightmost
+	static const int POPULATION_MIN_Y = -20;	// motor pos. upmost
+	static const int POPULATION_MAX_Y = 20;		// motor pos. downmost
+
+	/*
+	 * Runtime cycle parameters
+	 */
+	static const unsigned int T = 50000;		// duration of 1 cycle
+	static const int UPDATE_STEPS_INTERVAL = 20;	// # of cycles after which to update motor positions
+	static const int LEARNING_STEPS_INTERVAL = 5; 	// # of cycles after the movement execution to wait before learning
 
 	VisuoMotorLearning()
 	{
@@ -152,15 +168,6 @@ public:
 		const double MAX_DIST_2D = sqrt(pow(drobot::DRobotVision::FRAME_WIDTH / 2, 2)
 						+ pow(drobot::DRobotVision::FRAME_HEIGHT / 2, 2));
 
-		const unsigned int T = 50000;
-		const double REWARD_FACTOR = 1;
-		const double LEARNING_RATE = 0.01;
-		const double MAX_DIST = MAX_DIST_X;
-		const int UPDATE_STEPS_INTERVAL = 20;
-		const int LEARNING_STEPS_INTERVAL = 5; 	// number of time steps after the movement execution that the system uses to learn;
-		const int LEARNING_NEIGH = 1; 		// number of neighbouring neurons (on each side) to consider for learning
-		const int POPULATION_MIN = -20;
-		const int POPULATION_MAX = 20;
 		int cStep = 0; 				// current timestep
 		int mStep = 0;				// movement step
 		double cAct = 0; 			// current activity;
@@ -184,8 +191,23 @@ public:
 		bug_on(gettimeofday(&t_start, NULL));
 		memset(&t_now, 0, sizeof(t_now));
 
-		paramLogger->header(N_PARAMS, "nRowsIn", "inColsIn", "nOutputs", "popMinX", "popMaxX", "popMinY", "popMaxY");
-		paramLogger->log(&t_now, N_PARAMS, nRows, nCols, nOutputs, POPULATION_MIN, POPULATION_MAX, POPULATION_MIN, POPULATION_MAX);
+		const char *param_names[] = {
+			"nRowsIn", "inColsIn", "nOutputs",
+			"popMinX", "popMaxX",
+			"popMinY", "popMaxY",
+			"learningRate", "wtaLearnNeigh",
+			"T", "updStepsInterval", "learnStepsInterval",
+		};
+		const int params[] = {
+			nRows, nCols, nOutputs,
+			POPULATION_MIN_X, POPULATION_MAX_X,
+			POPULATION_MIN_Y, POPULATION_MAX_Y,
+			LEARNING_RATE, WTA_LEARNING_NEIGH,
+			T, UPDATE_STEPS_INTERVAL, LEARNING_STEPS_INTERVAL,
+		};
+
+		paramLogger->header(array_size(params), param_names);
+		paramLogger->log(&t_now, array_size(params), params);
 
 		while(1) {
 			processVision();
@@ -257,8 +279,8 @@ public:
 				std::cerr << std::endl;
 				std::cerr << "[" << cStep << "] max y out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
 
-				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, POPULATION_MIN, POPULATION_MAX);
-				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, POPULATION_MIN, POPULATION_MAX);
+				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, POPULATION_MIN_X, POPULATION_MAX_X);
+				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, POPULATION_MIN_Y, POPULATION_MAX_Y);
 
 				std::cerr << "[" << cStep << "] Calculated increment: " << dx << ", " << dy << std::endl;
 
@@ -306,8 +328,8 @@ public:
 						<< ", dActAcc=" << dActAcc
 						<< std::endl;
 
-				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, LEARNING_NEIGH);
-				yPerceptron->updateWeightsWTA(reward_y, LEARNING_RATE, LEARNING_NEIGH);
+				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, WTA_LEARNING_NEIGH);
+				yPerceptron->updateWeightsWTA(reward_y, LEARNING_RATE, WTA_LEARNING_NEIGH);
 			}
 
 			y[0] = cAct;
