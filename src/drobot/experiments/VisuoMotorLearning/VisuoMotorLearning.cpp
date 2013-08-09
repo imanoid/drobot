@@ -181,10 +181,10 @@ public:
 
 		struct timeval t_start, t_end, t_now;
 		gettimeofday(&t_start, NULL);
-		timersub(&t_now, &t_start, &t_start);
-	
+		memset(&t_now, 0, sizeof(t_now));
+
 		paramLogger->header(N_PARAMS, "nRowsIn", "inColsIn", "nOutputs", "popMinX", "popMaxX", "popMinY", "popMaxY");
-		paramLogger->log(&t_start, N_PARAMS, nRows, nCols, nOutputs, POPULATION_MIN, POPULATION_MAX, POPULATION_MIN, POPULATION_MAX);
+		paramLogger->log(&t_now, N_PARAMS, nRows, nCols, nOutputs, POPULATION_MIN, POPULATION_MAX, POPULATION_MIN, POPULATION_MAX);
 
 		while(1) {
 			processVision();
