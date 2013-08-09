@@ -3,6 +3,9 @@
 #include <QApplication>
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/iostreams/tee.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/filesystem.hpp>
 
 #include "opencv2/opencv.hpp"
 
@@ -20,6 +23,11 @@
 
 #include "DRobotPerceptron/DRobotPerceptron.h"
 #include "DRobotPopulationCoding/DRobotPopulationCoding.h"
+
+using boost::shared_ptr;
+
+typedef boost::iostreams::tee_device<std::ostream, std::ofstream> boost_tee_device_t;
+typedef boost::iostreams::stream<boost_tee_device_t> boost_tee_stream_t;
 
 class VisuoMotorLearning
 {
@@ -90,30 +98,27 @@ public:
 		std::cerr << "Neural perceptron created - #inputs: " << nInputs << "   #outputs: " << nOutputs << std::endl;
 
 		struct timeval ts;
-		char tbuf[128];
+		char str_ts[128];
 
 		bug_on(gettimeofday(&ts, NULL));
-		strftime(tbuf, sizeof(tbuf), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
+		strftime(str_ts, sizeof(tbuf), "%Y-%m-%d-%H-%M-%S", localtime(&ts.tv_sec));
 
-		inLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "in.log"));
-		outXLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "out_x.log"));
-		outYLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "out_y.log"));
-		distLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "distance.log"));
-//		distLogger->header(2, "dist_x", "dist_y");
-		ddistLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "diff_distance.log"));
-//		ddistLogger->header(2, "diff_dist_x", "diff_dist_y");
-		rewardLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "reward.log"));
-//		rewardLogger->header(2, "reward_x", "reward_y");
+		inLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "in.log"));
+		outXLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "out_x.log"));
+		outYLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "out_y.log"));
+		distLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "distance.log"));
+		ddistLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "diff_distance.log"));
+		rewardLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "reward.log"));
 
 		for (int i = 0; i < nInputs; i++) {
 			char name[32];
 
 			snprintf(name, sizeof(name), "weights_x_in_%d.log", i);
-			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(tbuf, name));
+			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(str_ts, name));
 			weightXInLogger.push_back(p);
 
 			snprintf(name, sizeof(name), "weights_y_in_%d.log", i);
-			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(tbuf, name));
+			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(str_ts, name));
 			weightYInLogger.push_back(q);
 		}
 
@@ -121,15 +126,24 @@ public:
 			char name[32];
 
 			snprintf(name, sizeof(name), "weights_x_out_%d.log", i);
-			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(tbuf, name));
+			drobot::DRobotDataLoggerPtr p(new drobot::DRobotDataLogger(str_ts, name));
 			weightXOutLogger.push_back(p);
 
 			snprintf(name, sizeof(name), "weights_y_out_%d.log", i);
-			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(tbuf, name));
+			drobot::DRobotDataLoggerPtr q(new drobot::DRobotDataLogger(str_ts, name));
 			weightYOutLogger.push_back(q);
 		}
 
-		paramLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(tbuf, "params.log"));
+		paramLogger = drobot::DRobotDataLoggerPtr(new drobot::DRobotDataLogger(str_ts, "params.log"));
+
+		// write all output to the log file as well as to cout
+		boost::filesystem::path p(str_ts);
+		p /= "drobot.log";
+		ofs = shared_ptr<std::ofstream>(new std::ofstream(p.c_str()));
+		tee = shared_ptr<boost_tee_device_t>(new boost_tee_device_t(std::cout, *ofs));
+		tout = shared_ptr<boost_tee_stream_t>(new boost_tee_stream_t(*tee));
+
+		(*tout) << "VisuoMotorLearning experiment started at " << str_ts << std::endl;
 	}
 
 	void processVision()
@@ -188,7 +202,6 @@ public:
 		setup();
 
 		struct timeval t_start, t_end, t_now;
-		bug_on(gettimeofday(&t_start, NULL));
 		memset(&t_now, 0, sizeof(t_now));
 
 		const char *param_names[] = {
@@ -209,6 +222,8 @@ public:
 		paramLogger->header(array_size(params), param_names);
 		paramLogger->log(&t_now, array_size(params), params);
 
+		bug_on(gettimeofday(&t_start, NULL));
+
 		while(1) {
 			processVision();
 
@@ -228,11 +243,11 @@ public:
 
 				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
 
-				std::cerr << "[" << cStep << "] in:";
+				(*tout) << "[" << cStep << "] in:";
 				for (int i = 0; i < nInputs; i++) {
-					std::cerr << " " << inputs[i];
+					(*tout) << " " << inputs[i];
 				}
-				std::cerr << std::endl;
+				(*tout) << std::endl;
 
 //				xOutputs = xPerceptron->calculateOutputSigmoid(inputs, 0.3);
 //				yOutputs = yPerceptron->calculateOutputSigmoid(inputs, 0.3);
@@ -253,7 +268,7 @@ public:
 					weightYOutLogger[i]->log(&t_now, nInputs, yPerceptron->getWeightsOut(i));
 				}
 
-				std::cerr << "[" << cStep << "] x out:";
+				(*tout) << "[" << cStep << "] x out:";
 				maxOut = 0.0;
 				iMaxOut = -1;
 				for (int i = 0; i < nOutputs; i++) {
@@ -261,12 +276,12 @@ public:
 						maxOut = xOutputs[i];
 						iMaxOut = i;
 					}
-					std::cerr << " " << xOutputs[i];
+					(*tout) << " " << xOutputs[i];
 				}
-				std::cerr << std::endl;
-				std::cerr << "[" << cStep << "] max x out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
+				(*tout) << std::endl;
+				(*tout) << "[" << cStep << "] max x out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
 
-				std::cerr << "[" << cStep << "] y out:";
+				(*tout) << "[" << cStep << "] y out:";
 				maxOut = 0.0;
 				iMaxOut = -1;
 				for (int i = 0; i < nOutputs; i++) {
@@ -274,15 +289,15 @@ public:
 						maxOut = yOutputs[i];
 						iMaxOut = i;
 					}
-					std::cerr << " " << yOutputs[i];
+					(*tout) << " " << yOutputs[i];
 				}
-				std::cerr << std::endl;
-				std::cerr << "[" << cStep << "] max y out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
+				(*tout) << std::endl;
+				(*tout) << "[" << cStep << "] max y out: " << maxOut << " (" << iMaxOut << ")" << std::endl;
 
 				dx = drobot::DRobotPopulationCoding::decodePopulationActivity1D(xOutputs, nOutputs, POPULATION_MIN_X, POPULATION_MAX_X);
 				dy = drobot::DRobotPopulationCoding::decodePopulationActivity1D(yOutputs, nOutputs, POPULATION_MIN_Y, POPULATION_MAX_Y);
 
-				std::cerr << "[" << cStep << "] Calculated increment: " << dx << ", " << dy << std::endl;
+				(*tout) << "[" << cStep << "] Calculated increment: " << dx << ", " << dy << std::endl;
 
 				if (!manualControl) {
 					x_before = actuation->getMotorPosition(0);
@@ -320,7 +335,7 @@ public:
 //				double reward = REWARD_FACTOR * (1 - (2 * dist / MAX_DIST));
 				double reward_x = (std::abs(x_after - x_before) > 0.0 && (pdist.x - dist.x) > 0.0) ? 1.0 : -1.0;
 				double reward_y = (std::abs(y_after - y_before) > 0.0 && (pdist.y - dist.y) > 0.0) ? 1.0 : -1.0;
-				std::cerr << "[" << cStep << "] learning: "
+				(*tout) << "[" << cStep << "] learning: "
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
 						<< ", ddist=" << pdist - dist
@@ -365,6 +380,7 @@ public:
 				}
 			}
 
+			tout->flush();
 			usleep(T);
 		}
 	}
@@ -536,8 +552,12 @@ private:
 	drobot::DRobotDataLoggerPtr outXLogger, outYLogger;
 	drobot::DRobotDataLoggerPtr distLogger, ddistLogger;
 	drobot::DRobotDataLoggerPtr rewardLogger;
-	std::vector<boost::shared_ptr<drobot::DRobotDataLogger> > weightXInLogger, weightYInLogger;
-	std::vector<boost::shared_ptr<drobot::DRobotDataLogger> > weightXOutLogger, weightYOutLogger;
+	std::vector<shared_ptr<drobot::DRobotDataLogger> > weightXInLogger, weightYInLogger;
+	std::vector<shared_ptr<drobot::DRobotDataLogger> > weightXOutLogger, weightYOutLogger;
+
+	shared_ptr<std::ofstream> ofs;
+	shared_ptr<boost_tee_device_t> tee;
+	shared_ptr<boost_tee_stream_t> tout;
 };
 
 int main(int argc, char *argv[])
