@@ -170,7 +170,6 @@ public:
 		double x_before, y_before, x_after, y_after;
 		bool manualControl = true, learning = false;
 
-//		double dist = MAX_DIST, pdist = MAX_DIST;
 		cv::Point dist, pdist;
 		dist.x = pdist.x = MAX_DIST_X;
 		dist.y = pdist.y = MAX_DIST_Y;
@@ -203,8 +202,6 @@ public:
 				gettimeofday(&t_now, NULL);
 				timersub(&t_now, &t_start, &t_now);
 
-//				convertPixelsToDoubleArray(vision->tdFrameLPCortical.data, inputs, nInputs);
-//				convertPixelsToDoubleArray(vision->frameSegmented.data, inputs, nInputs);
 				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
 
 				std::cerr << "[" << cStep << "] in:";
@@ -231,19 +228,6 @@ public:
 					weightXOutLogger[i]->log(&t_now, nInputs, xPerceptron->getWeightsOut(i));
 					weightYOutLogger[i]->log(&t_now, nInputs, yPerceptron->getWeightsOut(i));
 				}
-
-				/*
-				std::cerr << "-------" << std::endl;
-				unsigned char *pixels = (unsigned char *) vision->frameSegmented5x5.data;
-				for (int i = 0; i < 5; i++) {
-					std::cerr << "|";
-					for (int j = 0; j < 5; j++) {
-						std::cerr << (((int)pixels[i*5+j]) > 0 ? "1" : "0");
-					}
-					std::cerr << "|" << std::endl;
-				}
-				std::cerr << "-------" << std::endl;
-				*/
 
 				std::cerr << "[" << cStep << "] x out:";
 				maxOut = 0.0;
@@ -320,19 +304,8 @@ public:
 						<< ", dActAcc=" << dActAcc
 						<< std::endl;
 
-				std::cout << "[" << cStep << "] x weights before: ";
-				xPerceptron->printWeightStats();
-//				xPerceptron->updateWeights(reward_x, LEARNING_RATE);
 				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, LEARNING_NEIGH);
-				std::cout << "[" << cStep << "] x weights after: ";
-				xPerceptron->printWeightStats();
-
-				std::cout << "[" << cStep << "] y weights before: ";
-				yPerceptron->printWeightStats();
-//				yPerceptron->updateWeights(reward_y, LEARNING_RATE);
 				yPerceptron->updateWeightsWTA(reward_y, LEARNING_RATE, LEARNING_NEIGH);
-				std::cout << "[" << cStep << "] y weights after: ";
-				yPerceptron->printWeightStats();
 			}
 
 			y[0] = cAct;
