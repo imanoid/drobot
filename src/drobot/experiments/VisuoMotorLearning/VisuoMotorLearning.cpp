@@ -49,18 +49,18 @@ public:
 	// Oja: -0.25, 0.25
 	static const double WEIGHT_MIN = 0.0;		// minimum weight for initialization
 	static const double WEIGHT_MAX = 1.0;		// maximum weight for initialization
-	static const int OUTPUT_FN = OUTPUT_LINEAR;	// sigmoid or linear output
+	static const int OUTPUT_FN = OUTPUT_SIGMOID;	// sigmoid or linear output
 	static const double SIGMOID_BETA = 0.3;		// beta value for sigmoid function
-	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
+	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_OJA;
 	static const double LEARNING_RATE = 0.1;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
-	static const double REWARD_MIN = -1.0;		// negative reward
+	static const double REWARD_MIN = 0.0;		// negative reward
 	static const double REWARD_MAX = 1.0;		// positive reward
 	// min/max values for population coding
-	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
-	static const int POPULATION_MAX_X = 20;		// motor pos. rightmost
-	static const int POPULATION_MIN_Y = -20;	// motor pos. upmost
-	static const int POPULATION_MAX_Y = 20;		// motor pos. downmost
+	static const int POPULATION_MIN_X = -80;	// motor pos. leftmost
+	static const int POPULATION_MAX_X = 80;		// motor pos. rightmost
+	static const int POPULATION_MIN_Y = -80;	// motor pos. upmost
+	static const int POPULATION_MAX_Y = 80;		// motor pos. downmost
 
 	/*
 	 * Runtime cycle parameters
@@ -370,16 +370,27 @@ public:
 				x_after = actuation->getMotorPosition(0);
 				y_after = actuation->getMotorPosition(1);
 
-				double reward;
+				double reward_x, reward_y;
+				double dx = std::abs(dist.x);
+				double dy = std::abs(dist.y);
+				double pdx = std::abs(pdist.x);
+				double pdy = std::abs(pdist.y);
 
 				if (ndist < 4.0
-					|| (std::abs(x_after - x_before) > 0.0
-						&& (pndist - ndist) > 0.0))
-					reward = REWARD_MAX;
+					|| ((x_after - x_before > 0.0)
+						&& (dx < pdx)))
+					reward_x = REWARD_MAX;
 				else
-					reward = REWARD_MIN;
+					reward_x = REWARD_MIN;
 
-				rewardLogger->log(&t_now, 2, reward, reward);
+				if (ndist < 4.0
+					|| ((y_after - y_before > 0.0)
+						&& (dy < pdy)))
+					reward_y = REWARD_MAX;
+				else
+					reward_y = REWARD_MIN;
+
+				rewardLogger->log(&t_now, 2, reward_x, reward_y);
 
 				(*tout) << "[" << cStep << "] learning: "
 						<< "dist=" << dist
@@ -388,12 +399,12 @@ public:
 						<< ", ndist=" << ndist
 						<< ", pndist=" << pndist
 						<< ", dndist=" << pndist - ndist
-						<< ", reward=" << reward
+						<< ", reward=" << reward_x << "/" << reward_y
 						<< ", dActAcc=" << dActAcc
 						<< std::endl;
 
-				xPerceptron->updateWeightsWTA(reward, LEARNING_RATE, WTA_LEARNING_NEIGH);
-				yPerceptron->updateWeightsWTA(reward, LEARNING_RATE, WTA_LEARNING_NEIGH);
+				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, WTA_LEARNING_NEIGH);
+				yPerceptron->updateWeightsWTA(reward_y, LEARNING_RATE, WTA_LEARNING_NEIGH);
 			}
 
 			y[0] = cAct;
