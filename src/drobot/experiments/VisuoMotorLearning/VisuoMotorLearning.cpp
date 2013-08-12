@@ -419,7 +419,7 @@ public:
 //			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
 			display_filter->imshow(vision->frameFiltered);
 			cv::Mat scaled;
-			cv::resize(vision->frameSegmented5x5, scaled, cv::Size(100, 100), 0, 0, cv::INTER_NEAREST);
+			cv::resize(vision->frameSegmented5x5, scaled, cv::Size(200, 200), 0, 0, cv::INTER_NEAREST);
 			display_seg->imshow(scaled);
 
 			if (manualControl) {
