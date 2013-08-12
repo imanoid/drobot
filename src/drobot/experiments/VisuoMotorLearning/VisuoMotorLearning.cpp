@@ -29,6 +29,13 @@ using boost::shared_ptr;
 typedef boost::iostreams::tee_device<std::ostream, std::ofstream> boost_tee_device_t;
 typedef boost::iostreams::stream<boost_tee_device_t> boost_tee_stream_t;
 
+using drobot::DRobotPerceptron;
+
+enum {
+	OUTPUT_LINEAR = 0,
+	OUTPUT_SIGMOID = 1,
+};
+
 class VisuoMotorLearning
 {
 
@@ -36,7 +43,16 @@ public:
 	/*
 	 * Experiment parameters
 	 */
-	static const double LEARNING_RATE = 0.05;	// learning rate
+	static const int N_OUTPUTS = 10;		// number of output neurons per perceptron
+	// Original: -0.005, 0.005
+	// McMillen: 0.0, 1.0
+	// Oja: -0.25, 0.25
+	static const double WEIGHT_MIN = 0.0;		// minimum weight for initialization
+	static const double WEIGHT_MAX = 1.0;		// maximum weight for initialization
+	static const int OUTPUT_FN = OUTPUT_LINEAR;	// sigmoid or linear output
+	static const double SIGMOID_BETA = 0.3;		// beta value for sigmoid function
+	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
+	static const double LEARNING_RATE = 0.1;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
 	// min/max values for population coding
 	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
@@ -49,7 +65,7 @@ public:
 	 */
 	static const unsigned int T = 50000;		// duration of 1 cycle
 	static const int UPDATE_STEPS_INTERVAL = 20;	// # of cycles after which to update motor positions
-	static const int LEARNING_STEPS_INTERVAL = 5; 	// # of cycles after the movement execution to wait before learning
+	static const int LEARNING_STEPS_INTERVAL = 10; 	// # of cycles after the movement execution to wait before learning
 	static const int RANDOM_MOVE_INTERVAL = 500;	// # of cycles after which a random move is performed
 
 	VisuoMotorLearning()
@@ -76,27 +92,20 @@ public:
 		nCols = vision->frameSegmented5x5.cols;
 
 		nInputs = nRows * nCols;
-		nOutputs = 10;
+		nOutputs = N_OUTPUTS;
 		inputs = new double[nInputs];
 		xOutputs = new double[nOutputs];
 		yOutputs = new double[nOutputs];
 
 		xPerceptron = new drobot::DRobotPerceptron(
-				drobot::DRobotPerceptron::LEARN_MCMILLEN,
+				LEARNING_RULE,
 				nInputs, nOutputs);
-		// Original
-//		xPerceptron->initWeights(-0.005, 0.005);
-		// for McMillen
-		xPerceptron->initWeights(0.0, 1.0);
-		// for Oja
-//		xPerceptron->initWeights(-0.25, 0.25);
-		// for Hebbian Cov
-//		xPerceptron->initWeights(0.0, 0.0005);
+		xPerceptron->initWeights(WEIGHT_MIN, WEIGHT_MAX);
 
 		yPerceptron = new drobot::DRobotPerceptron(
-				drobot::DRobotPerceptron::LEARN_MCMILLEN,
+				LEARNING_RULE,
 				nInputs, nOutputs);
-		yPerceptron->initWeights(0.0, 1.0);
+		yPerceptron->initWeights(WEIGHT_MIN, WEIGHT_MAX);
 
 		struct timeval ts;
 		char str_ts[128];
@@ -210,18 +219,22 @@ public:
 			"nRowsIn", "inColsIn", "nOutputs",
 			"popMinX", "popMaxX",
 			"popMinY", "popMaxY",
-			"learningRate", "wtaLearnNeigh",
+			"weightMin", "weightMax", "outputFn", "sigmoidBeta",
+			"learningRule", "learningRate", "wtaLearningNeigh",
 			"T", "updStepsInterval", "learnStepsInterval",
 			"randMoveInterval",
 		};
-		const int params[] = {
-			nRows, nCols, nOutputs,
+		const double params[] = {
+			nRows, nCols, N_OUTPUTS,
 			POPULATION_MIN_X, POPULATION_MAX_X,
 			POPULATION_MIN_Y, POPULATION_MAX_Y,
-			LEARNING_RATE, WTA_LEARNING_NEIGH,
+			WEIGHT_MIN, WEIGHT_MAX, OUTPUT_FN, SIGMOID_BETA,
+			LEARNING_RULE, LEARNING_RATE, WTA_LEARNING_NEIGH,
 			T, UPDATE_STEPS_INTERVAL, LEARNING_STEPS_INTERVAL,
 			RANDOM_MOVE_INTERVAL,
 		};
+
+		build_bug_on(array_size(param_names) != array_size(params));
 
 		paramLogger->header(array_size(params), param_names);
 		paramLogger->log(&t_now, array_size(params), params);
@@ -265,10 +278,15 @@ public:
 
 				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
 
-//				xOutputs = xPerceptron->calculateOutputSigmoid(inputs, 0.3);
-//				yOutputs = yPerceptron->calculateOutputSigmoid(inputs, 0.3);
-				xOutputs = xPerceptron->calculateOutput(inputs);
-				yOutputs = yPerceptron->calculateOutput(inputs);
+				if (OUTPUT_FN == OUTPUT_SIGMOID && SIGMOID_BETA > 0.0) {
+					/* sigmoid output */
+					xOutputs = xPerceptron->calculateOutputSigmoid(inputs, SIGMOID_BETA);
+					yOutputs = yPerceptron->calculateOutputSigmoid(inputs, SIGMOID_BETA);
+				} else {
+					/* linear output */
+					xOutputs = xPerceptron->calculateOutput(inputs);
+					yOutputs = yPerceptron->calculateOutput(inputs);
+				}
 
 				inLogger->log(&t_now, nInputs, inputs);
 				outXLogger->log(&t_now, nOutputs, xOutputs);
