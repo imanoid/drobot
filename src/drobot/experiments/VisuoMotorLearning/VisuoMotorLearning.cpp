@@ -54,6 +54,8 @@ public:
 	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
 	static const double LEARNING_RATE = 0.1;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
+	static const double REWARD_MIN = -1.0;		// negative reward
+	static const double REWARD_MAX = 1.0;		// positive reward
 	// min/max values for population coding
 	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
 	static const int POPULATION_MAX_X = 20;		// motor pos. rightmost
@@ -221,8 +223,9 @@ public:
 			"popMinY", "popMaxY",
 			"weightMin", "weightMax", "outputFn", "sigmoidBeta",
 			"learningRule", "learningRate", "wtaLearningNeigh",
-			"T", "updStepsInterval", "learnStepsInterval",
-			"randMoveInterval",
+			"rewardMin", "rewardMax",
+			"T", "updateStepsInterval", "learningStepsInterval",
+			"randomMoveInterval",
 		};
 		const double params[] = {
 			nRows, nCols, N_OUTPUTS,
@@ -230,6 +233,7 @@ public:
 			POPULATION_MIN_Y, POPULATION_MAX_Y,
 			WEIGHT_MIN, WEIGHT_MAX, OUTPUT_FN, SIGMOID_BETA,
 			LEARNING_RULE, LEARNING_RATE, WTA_LEARNING_NEIGH,
+			REWARD_MIN, REWARD_MAX,
 			T, UPDATE_STEPS_INTERVAL, LEARNING_STEPS_INTERVAL,
 			RANDOM_MOVE_INTERVAL,
 		};
@@ -371,9 +375,9 @@ public:
 				if (ndist < 4.0
 					|| (std::abs(x_after - x_before) > 0.0
 						&& (pndist - ndist) > 0.0))
-					reward = 1.0;
+					reward = REWARD_MAX;
 				else
-					reward = -1.0;
+					reward = REWARD_MIN;
 
 				rewardLogger->log(&t_now, 2, reward, reward);
 
