@@ -159,6 +159,10 @@ void DRobotPerceptron::initWeights(double** weights) {
 		for (int j = 0; j < nInputs; j++) {
 			this->weights(i, j) = weights[i][j];
 		}
+		if (_lrule == LEARN_MCMILLEN) {
+			// normalize weights
+			this->weights.row(i) = this->weights.row(i) / this->weights.row(i).norm();
+		}
 	}
 }
 
@@ -166,7 +170,11 @@ void DRobotPerceptron::initWeights(double min, double max)
 {
 	for (int i = 0; i < nOutputs; i++) {
 		for (int j = 0; j < nInputs; j++) {
-			weights(i, j) = min + ((double) rand() / RAND_MAX) * (max - min);
+			this->weights(i, j) = min + ((double) rand() / RAND_MAX) * (max - min);
+		}
+		if (_lrule == LEARN_MCMILLEN) {
+			// normalize weights
+			this->weights.row(i) = this->weights.row(i) / this->weights.row(i).norm();
 		}
 	}
 }
