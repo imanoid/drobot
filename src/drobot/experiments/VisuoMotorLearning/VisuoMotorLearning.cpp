@@ -255,7 +255,7 @@ public:
 			dActAcc += dAct;
 
 			/* Random movement every RANDOM_MOVE_INTERVAL steps */
-			if (enableRandom && cStep % RANDOM_MOVE_INTERVAL == 0) {
+			if (!manualControl && enableRandom && cStep % RANDOM_MOVE_INTERVAL == 0) {
 				double max_x = actuation->getMotorMax(0);
 				double max_y = actuation->getMotorMax(1);
 				double dx = (((double) rand() / RAND_MAX) * max_x) - (max_x / 2.0);
