@@ -377,14 +377,14 @@ public:
 				double pdy = std::abs(pdist.y);
 
 				if (ndist < 4.0
-					|| ((x_after - x_before > 0.0)
+					|| ((std::abs(x_after - x_before) > 0.0)
 						&& (dx < pdx)))
 					reward_x = REWARD_MAX;
 				else
 					reward_x = REWARD_MIN;
 
 				if (ndist < 4.0
-					|| ((y_after - y_before > 0.0)
+					|| ((std::abs(y_after - y_before) > 0.0)
 						&& (dy < pdy)))
 					reward_y = REWARD_MAX;
 				else
@@ -400,7 +400,6 @@ public:
 						<< ", pndist=" << pndist
 						<< ", dndist=" << pndist - ndist
 						<< ", reward=" << reward_x << "/" << reward_y
-						<< ", dActAcc=" << dActAcc
 						<< std::endl;
 
 				xPerceptron->updateWeightsWTA(reward_x, LEARNING_RATE, WTA_LEARNING_NEIGH);
