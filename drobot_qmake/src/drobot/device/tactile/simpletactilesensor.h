@@ -16,6 +16,7 @@ private:
 public:
     SimpleTactileSensor(std::string name, int index);
     SimpleTactileSensor(std::string name, int index, double value);
+    int getIndex();
     virtual void initChannels();
     virtual double getValue();
     void setValue(double value);

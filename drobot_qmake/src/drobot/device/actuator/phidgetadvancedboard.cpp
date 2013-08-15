@@ -36,7 +36,7 @@ PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name, CPhidgetAdvancedSer
     _phidgetHandle = phidgetHandle;
 }
 
-const int PhidgetAdvancedBoard::getMaxActuators() const {
+int PhidgetAdvancedBoard::getMaxActuators() {
     int* count;
     CPhidgetAdvancedServo_getMotorCount(_phidgetHandle, count);
     return *count;

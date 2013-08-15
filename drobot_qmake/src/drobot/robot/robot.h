@@ -3,12 +3,13 @@
 
 #include "../event/eventmanager.h"
 #include "../device/devicemanager.h"
+#include "../program/runnable.h"
 #include "controller.h"
 
 namespace drobot {
 namespace robot {
 
-class Robot
+class Robot : public program::Runnable
 {
 private:
     device::DeviceManager* _deviceManager;
@@ -16,15 +17,14 @@ private:
     event::EventManager* _eventManager;
 public:
     Robot();
-    void start();
-    void start_thread();
-    void stop();
+    Robot(device::DeviceManager* deviceManager, Controller* controller, event::EventManager* eventManager);
+    virtual void run();
     void setDeviceManager(device::DeviceManager* deviceManager);
     device::DeviceManager* getDeviceManager();
     void setController(Controller* controller);
     Controller* getController();
-    void setEventManager(event::EventManager* eventManager);
-    event::EventManager* getEventManager();
+    void setEventManager(drobot::event::EventManager* eventManager);
+    drobot::event::EventManager* getEventManager();
 };
 
 } // namespace robot

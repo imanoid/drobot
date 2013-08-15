@@ -6,35 +6,12 @@
 namespace drobot {
 namespace device {
 
-std::vector<Device*> DeviceManager::getDevices() {
-    std::vector<Device*> devices;
-
-    for (std::map<std::string, Device*>::iterator iDevice = _devices.begin(); iDevice != _devices.end(); iDevice++) {
-        devices.push_back(iDevice->second);
+//protected
+void DeviceManager::parseElement(QDomElement element) {
+    QString name = element.tagName();
+    if (name.compare("deviceGroup") == 0) {
+        parseDeviceGroup(element);
     }
-
-    return devices;
-}
-
-Device* DeviceManager::getDevice(std::string name) {
-    return _devices[name];
-}
-
-void DeviceManager::addDevice(Device* device) {
-    _devices[device->getName()] = device;
-}
-
-void DeviceManager::addDevices(std::vector<Device *> devices) {
-    for (int iDevice = 0; iDevice < devices.size(); iDevice++) {
-        addDevice(devices[iDevice]);
-    }
-}
-
-void DeviceManager::loadFromFile(std::string path) {
-    QFile* file = new QFile(QString::fromStdString(path));
-    QDomDocument doc("mydocument");
-    doc.setContent(file);
-    parseElement(doc.documentElement());
 }
 
 void DeviceManager::parseDeviceGroup(QDomElement element) {
@@ -58,12 +35,85 @@ void DeviceManager::parseDevice(QDomElement element) {
     }
 }
 
-void DeviceManager::parseElement(QDomElement element) {
-    QString name = element.tagName();
-    if (name.compare("deviceGroup") == 0) {
-        parseDeviceGroup(element);
+//public
+std::vector<Device*> DeviceManager::getDevices() {
+    std::vector<Device*> devices;
+
+    for (std::map<std::string, Device*>::iterator iDevice = _devices.begin(); iDevice != _devices.end(); iDevice++) {
+        devices.push_back(iDevice->second);
+    }
+
+    return devices;
+}
+
+Device* DeviceManager::getDevice(std::string name) {
+    std::map<std::string, Device*>::iterator dev = _devices.find(name);
+    if (dev == _devices.end())
+        return 0;
+    else
+        return dev->second;
+}
+
+bool DeviceManager::addDevice(Device* device) {
+    if (!hasDevice(device->getName())) {
+        _devices[device->getName()] = device;
+        addInputChannels(device->getInputChannels());
+        addOutputChannels(device->getOutputChannels());
+        return true;
+    } else {
+        return false;
     }
 }
+
+void DeviceManager::addDevices(std::vector<Device *> devices) {
+    for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
+        addDevice(*iDevice);
+    }
+}
+
+bool DeviceManager::removeDevice(std::string name) {
+    if (hasDevice(name)) {
+        Device* dev = _devices[name];
+        _devices.erase(name);
+        removeInputChannels(dev->getInputChannels());
+        removeOutputChannels(dev->getOutputChannels());
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool DeviceManager::removeDevice(Device* device) {
+    removeDevice(device->getName());
+}
+
+void DeviceManager::removeDevices(std::vector<Device*> devices) {
+    for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
+        removeDevice((*iDevice)->getName());
+    }
+}
+
+bool DeviceManager::hasDevice(std::string name) {
+    return _devices.find(name) != _devices.end();
+}
+
+bool DeviceManager::hasDevice(Device* device) {
+    return hasDevice(device->getName());
+}
+
+void DeviceManager::clearDevices() {
+    _devices.clear();
+    clearInputChannels();
+    clearOutputChannels();
+}
+
+void DeviceManager::loadFromFile(std::string path) {
+    QFile* file = new QFile(QString::fromStdString(path));
+    QDomDocument doc("mydocument");
+    doc.setContent(file);
+    parseElement(doc.documentElement());
+}
+
 void DeviceManager::registerDeviceFactory(DeviceFactory* deviceFactory) {
     _deviceFactories[deviceFactory->getName()] = deviceFactory;
 }

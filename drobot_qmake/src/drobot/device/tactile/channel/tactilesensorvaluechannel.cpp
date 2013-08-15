@@ -14,7 +14,6 @@ TactileSensorValueChannel::TactileSensorValueChannel(std::string name, device::c
     Channel(name, normalizer, device) {}
 
 void TactileSensorValueChannel::setValue(double value) {
-    _device->toTactileSensor()->setValue(value);
 }
 
 double TactileSensorValueChannel::getValue() {

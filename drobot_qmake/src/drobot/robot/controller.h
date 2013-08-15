@@ -16,7 +16,7 @@ private:
 public:
     virtual void step(long tick, std::vector<device::channel::Channel*> inputChannels, std::vector<device::channel::Channel*> outputChannel) = 0;
     void setRobot(Robot* robot);
-    Robot* getRobot() const;
+    Robot* getRobot();
 };
 
 } // namespace robot

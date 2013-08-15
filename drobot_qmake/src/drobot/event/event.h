@@ -13,6 +13,7 @@ private:
 public:
     Event(std::string type);
     std::string getType();
+    virtual std::string toString() = 0;
 };
 
 } // namespace event

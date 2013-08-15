@@ -9,33 +9,49 @@ namespace drobot {
 namespace device {
 namespace tactile {
 
-SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string path) {
+SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string path) :
+    TactileSensorBoard(name) {
     _path = path;
     _maxSensors = 32;
 }
 
-SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string path,
-        int maxSensors) {
+SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string path, int maxSensors) :
+    TactileSensorBoard(name) {
     _path = path;
     _maxSensors = maxSensors;
 }
 
 std::vector<TactileSensor*> SimpleTactileSensorBoard::initAllSensors() {
     clearDevices();
+    std::vector<TactileSensor*> result;
     for (int iSensor = 0; iSensor < _maxSensors; iSensor++) {
-        addDevice(new SimpleTactileSensor(iSensor));
+        result.push_back(initSensor(iSensor));
     }
-    return drobot::util::castVector<Device*, TactileSensor*>(getDevices());
+    return result;
+}
+
+TactileSensor* SimpleTactileSensorBoard::initSensor(int index, std::string name) {
+    SimpleTactileSensor* sensor = new SimpleTactileSensor(name, index);
+    if (hasDevice(sensor))
+        removeDevice(sensor);
+    addDevice(sensor);
+    return sensor;
+
 }
 
 TactileSensor* SimpleTactileSensorBoard::initSensor(int index) {
-    SimpleTactileSensor* sensor = new SimpleTactileSensor(index);
-    addDevice(sensor);
-    return sensor;
+    std::stringstream name;
+    name << getName() << "." << index;
+    return initSensor(index, name.str());
 }
 
 SimpleTactileSensor* SimpleTactileSensorBoard::getTactileSensor(int index) {
-
+    std::vector<SimpleTactileSensor*> sensors = util::castVector<TactileSensor*, SimpleTactileSensor*>(getTactileSensors());
+    for (std::vector<SimpleTactileSensor*>::iterator iSensor = sensors.begin(); iSensor != sensors.end(); iSensor++) {
+        if ((*iSensor)->getIndex() == index)
+            return *iSensor;
+    }
+    return 0;
 }
 
 void SimpleTactileSensorBoard::enable() {

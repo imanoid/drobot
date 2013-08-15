@@ -17,8 +17,9 @@ public:
     PhidgetSimpleBoard(std::string name);
     PhidgetSimpleBoard(std::string name, int serial);
     PhidgetSimpleBoard(std::string name, CPhidgetServoHandle phidgetHandle);
-    const int getMaxActuators() const;
+    int getMaxActuators();
     std::vector<Actuator*> initAllActuators();
+    Actuator* initActuator(int index, std::string name);
     Actuator* initActuator(int index);
 };
 

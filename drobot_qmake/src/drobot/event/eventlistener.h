@@ -14,7 +14,7 @@ private:
 public:
     EventListener(std::string type);
     std::string getType();
-    void onEvent(Event* event);
+    virtual void onEvent(Event* event) = 0;
 };
 
 } // namespace event

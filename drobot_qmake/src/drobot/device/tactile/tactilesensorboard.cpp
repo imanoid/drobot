@@ -5,11 +5,14 @@ namespace drobot {
 namespace device {
 namespace tactile {
 
-const std::vector<TactileSensor*> TactileSensorBoard::getTactileSensors() const {
+TactileSensorBoard::TactileSensorBoard(std::string name) : DeviceBoard(name) {
+}
+
+std::vector<TactileSensor*> TactileSensorBoard::getTactileSensors() {
     return util::castVector<Device*, TactileSensor*>(getDevices());
 }
 
-TactileSensor* TactileSensorBoard::getTactileSensor(std::string name) const {
+TactileSensor* TactileSensorBoard::getTactileSensor(std::string name) {
     return dynamic_cast<TactileSensor*>(getDevice(name));
 }
 

@@ -16,7 +16,7 @@ private:
     int _index;
 
 public:
-    PhidgetSimpleServo(CPhidgetServoHandle phidgetHandle, int index);
+    PhidgetSimpleServo(std::string name, CPhidgetServoHandle phidgetHandle, int index);
 
     virtual void initChannels();
 

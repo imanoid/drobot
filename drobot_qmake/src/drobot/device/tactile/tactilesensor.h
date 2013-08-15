@@ -10,6 +10,7 @@ namespace tactile {
 class TactileSensor : public Device
 {
 public:
+    TactileSensor(std::string name);
     virtual double getValue() = 0;
 };
 

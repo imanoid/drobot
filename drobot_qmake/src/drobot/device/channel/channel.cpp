@@ -1,4 +1,6 @@
 #include "channel.h"
+#include "../device.h"
+#include <sstream>
 
 namespace drobot {
 namespace device {
@@ -44,6 +46,12 @@ void Channel::setName(std::string name) {
 
 std::string Channel::getName() {
     return _name;
+}
+
+std::string Channel::getFullName() {
+    std::stringstream name;
+    name << getDevice()->getName() << "." << _name;
+    return name.str();
 }
 
 } // namespace channel

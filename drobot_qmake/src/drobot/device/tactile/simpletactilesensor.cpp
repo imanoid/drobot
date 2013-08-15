@@ -19,6 +19,10 @@ SimpleTactileSensor::SimpleTactileSensor(std::string name, int index, double val
     _enabled = false;
 }
 
+int SimpleTactileSensor::getIndex() {
+    return _index;
+}
+
 void SimpleTactileSensor::initChannels() {
     channel::TactileSensorValueChannel* value = new channel::TactileSensorValueChannel("value", new device::channel::LinearNormalizer(0, 255), this);
     addInputChannel(value);

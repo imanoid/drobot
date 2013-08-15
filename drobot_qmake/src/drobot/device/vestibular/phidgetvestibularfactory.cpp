@@ -11,9 +11,10 @@ std::vector<Device*> PhidgetVestibularFactory::createFromDomElement(QDomElement 
     std::vector<Device*> devices;
 
     int serial = element.attribute("serial").toInt();
+    std::string name = element.attribute("name").toStdString();
     bool enabled = element.attribute("enabled").compare("true") == 0;
 
-    PhidgetVestibular* device = new PhidgetVestibular(serial);
+    PhidgetVestibular* device = new PhidgetVestibular(name, serial);
     if (enabled)
         device->enable();
     devices.push_back(device);

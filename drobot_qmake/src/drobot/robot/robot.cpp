@@ -1,4 +1,5 @@
 #include "robot.h"
+#include "event/stepevent.h"
 
 namespace drobot {
 namespace robot {
@@ -7,22 +8,26 @@ Robot::Robot()
 {
 }
 
-Robot::Robot(device::DeviceManager* deviceManager, Controller* controller, event::EventManager* eventManager) {
+Robot::Robot(device::DeviceManager* deviceManager, Controller* controller, drobot::event::EventManager* eventManager) {
     setDeviceManager(deviceManager);
     setController(controller);
     setEventManager(eventManager);
 }
 
-void Robot::start() {
+void Robot::run() {
+    if (_running)
+        return;
+    _running = true;
 
-}
+    std::vector<device::channel::Channel*> inputChannels;
+    std::vector<device::channel::Channel*> outputChannels;
 
-void Robot::start_thread() {
-
-}
-
-void Robot::stop() {
-    _running = false;
+    long tick = 0;
+    while (_running) {
+        _controller->step(tick, inputChannels, outputChannels);
+        _eventManager->fireEvent(new event::StepEvent(tick, _deviceManager->getInputChannels(), _deviceManager->getOutputChannels()));
+        tick++;
+    }
 }
 
 void Robot::setDeviceManager(device::DeviceManager* deviceManager) {
@@ -41,11 +46,11 @@ Controller* Robot::getController() {
     return _controller;
 }
 
-void Robot::setEventManager(event::EventManager* eventManager) {
+void Robot::setEventManager(drobot::event::EventManager* eventManager) {
     _eventManager = eventManager;
 }
 
-event::EventManager* Robot::getEventManager() {
+drobot::event::EventManager* Robot::getEventManager() {
     return _eventManager;
 }
 

@@ -35,8 +35,7 @@ public:
     void setDataRate(int milliseconds);
     int getDataRateMax();
     int getDataRateMin();
-    void setCompassCorrectionParameters(double magneticField,
-            std::vector<double> offset, std::vector<double> gain, std::vector<double> T);
+    void setCompassCorrectionParameters(double magneticField, std::vector<double> offset, std::vector<double> gain, std::vector<double> T);
     void resetCompassCorrectionParameters();
     virtual void enable();
     virtual void disable();

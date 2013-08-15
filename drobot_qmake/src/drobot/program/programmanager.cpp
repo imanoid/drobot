@@ -29,7 +29,7 @@ std::vector<std::string> ProgramManager::listProgramFactories() {
 Program* ProgramManager::launchProgram(std::string programName) {
     Program* task = _programFactories[programName]->createInstance();
     _programs[task->getName()] = task;
-    task->start();
+    task->run_thread();
     return task;
 }
 

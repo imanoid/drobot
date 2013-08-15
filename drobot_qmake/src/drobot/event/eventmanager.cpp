@@ -1,4 +1,5 @@
 #include "eventmanager.h"
+#include <iostream>
 
 namespace drobot {
 namespace event {
@@ -28,7 +29,10 @@ void EventManager::unregisterEventListener(EventListener* eventListener) {
 }
 
 void EventManager::fireEvent(Event* event) {
-    std::string type = eventListener->getType();
+    std::string type = event->getType();
+
+    std::cout << "=====fireEvent(" << type << ")=====" << std::endl << event->toString() << std::endl;
+
     if (_eventListeners.find(type) == _eventListeners.end())
         return;
     std::vector<EventListener*> eventListeners = _eventListeners[type];

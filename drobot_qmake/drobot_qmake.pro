@@ -50,7 +50,11 @@ HEADERS += \
     src/drobot/device/vestibular/channel/vestibularaccelerationchannel.h \
     src/drobot/device/vestibular/channel/vestibularangularratechannel.h \
     src/drobot/robot/robot.h \
-    src/drobot/robot/controller.h
+    src/drobot/robot/controller.h \
+    src/drobot/program/runnable.h \
+    src/drobot/device/channel/channelmanager.h \
+    src/drobot/experiment/tactileTest/robot/stupidcontroller.h \
+    src/drobot/robot/event/stepevent.h
 
 SOURCES += \
     src/drobot/device/actuator/actuatorboard.cpp \
@@ -94,7 +98,13 @@ SOURCES += \
     src/drobot/device/vestibular/channel/vestibularangularratechannel.cpp \
     src/drobot/device/actuator/actuator.cpp \
     src/drobot/robot/robot.cpp \
-    src/drobot/robot/controller.cpp
+    src/drobot/robot/controller.cpp \
+    src/drobot/program/runnable.cpp \
+    src/drobot/device/channel/channelmanager.cpp \
+    src/drobot/device/tactile/tactilesensor.cpp \
+    src/drobot/device/vestibular/vestibular.cpp \
+    src/drobot/experiment/tactileTest/robot/stupidcontroller.cpp \
+    src/drobot/robot/event/stepevent.cpp
 
 OTHER_FILES +=
 

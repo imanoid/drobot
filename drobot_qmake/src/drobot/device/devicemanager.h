@@ -7,11 +7,12 @@
 #include "device.h"
 #include "devicefactory.h"
 #include <QtXml/QDomElement>
+#include "channel/channelmanager.h"
 
 namespace drobot {
 namespace device {
 
-class DeviceManager
+class DeviceManager : public channel::ChannelManager
 {
 private:
     std::map<std::string, Device*> _devices;
@@ -23,8 +24,14 @@ private:
 public:
     std::vector<Device*> getDevices();
     Device* getDevice(std::string name);
-    void addDevice(Device* device);
+    bool addDevice(Device* device);
     void addDevices(std::vector<Device*> devices);
+    bool removeDevice(std::string name);
+    bool removeDevice(Device* device);
+    void removeDevices(std::vector<Device*> devices);
+    bool hasDevice(std::string name);
+    bool hasDevice(Device* device);
+    void clearDevices();
     void loadFromFile(std::string path);
     void registerDeviceFactory(DeviceFactory* deviceFactory);
     void unregisterDeviceFactory(DeviceFactory* deviceFactory);

@@ -14,13 +14,14 @@ private:
     std::string _path;
     int _maxSensors;
 public:
-    SimpleTactileSensorBoard(std::string path);
-    SimpleTactileSensorBoard(std::string path, int maxSensors);
+    SimpleTactileSensorBoard(std::string name, std::string path);
+    SimpleTactileSensorBoard(std::string name, std::string path, int maxSensors);
     virtual void enable();
     void updateLoop();
     std::vector<TactileSensor*> initAllSensors();
-    SimpleTactileSensor* getTactileSensor(int index);
+    TactileSensor* initSensor(int index, std::string name);
     TactileSensor* initSensor(int index);
+    SimpleTactileSensor* getTactileSensor(int index);
 };
 
 }

@@ -14,10 +14,11 @@ namespace program {
 Program::Program(std::string name) : drobot::program::Program::Program(name) {
 }
 
-void Program::loop() {
-    drobot::device::tactile::SimpleTactileSensorBoard* board = new drobot::device::tactile::SimpleTactileSensorBoard("/dev/ttyUSB0");
+void Program::run() {
+    drobot::device::tactile::SimpleTactileSensorBoard* board = new drobot::device::tactile::SimpleTactileSensorBoard("board0", "/dev/ttyUSB0");
+    board->initAllSensors();
     board->enable();
-    std::vector<drobot::device::tactile::TactileSensor*> sensors = board->getTactileSensors();
+    const std::vector<drobot::device::tactile::TactileSensor*> sensors = board->getTactileSensors();
     while(_running) {
         for (int i = 0; i < sensors.size(); i++) {
             drobot::device::tactile::TactileSensor* sensor = sensors[i];

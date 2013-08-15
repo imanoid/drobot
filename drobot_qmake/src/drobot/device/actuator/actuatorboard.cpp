@@ -8,11 +8,11 @@ namespace actuator {
 ActuatorBoard::ActuatorBoard(std::string name) : DeviceBoard(name) {
 }
 
-const std::vector<Actuator*> ActuatorBoard::getActuators() const {
+std::vector<Actuator*> ActuatorBoard::getActuators() {
     return drobot::util::castVector<Device*, Actuator*>(getDevices());
 }
 
-Actuator* ActuatorBoard::getActuator(std::string name) const {
+Actuator* ActuatorBoard::getActuator(std::string name) {
     return dynamic_cast<Actuator*>(getDevice(name));
 }
 

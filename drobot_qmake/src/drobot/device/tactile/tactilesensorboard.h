@@ -13,8 +13,9 @@ namespace tactile {
 class TactileSensorBoard : public DeviceBoard
 {
 public:
-    const std::vector<TactileSensor*> getTactileSensors() const;
-    TactileSensor* getTactileSensor(std::string name) const;
+    TactileSensorBoard(std::string name);
+    std::vector<TactileSensor*> getTactileSensors();
+    TactileSensor* getTactileSensor(std::string name);
 };
 
 }

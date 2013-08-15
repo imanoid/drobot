@@ -28,6 +28,7 @@ public:
     double getNormalizedValue();
     void setName(std::string name);
     std::string getName();
+    std::string getFullName();
     virtual double getValue() = 0;
     virtual void setValue(double value) = 0;
 };

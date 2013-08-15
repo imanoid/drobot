@@ -12,7 +12,7 @@ class Program : public drobot::program::Program
 {
 public:
     Program(std::string name);
-    virtual void loop();
+    virtual void run();
     virtual QWidget* getWidget();
 };
 

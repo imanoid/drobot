@@ -2,6 +2,7 @@
 #include "phidgetsimpleservo.h"
 #include <phidget21.h>
 #include "../../util/util.h"
+#include <sstream>
 
 namespace drobot {
 namespace device {
@@ -36,28 +37,32 @@ PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name, CPhidgetServoHandle phi
     _phidgetHandle = phidgetHandle;
 }
 
-const int PhidgetSimpleBoard::getMaxActuators() const {
+int PhidgetSimpleBoard::getMaxActuators() {
     int* count;
     CPhidgetServo_getMotorCount(_phidgetHandle, count);
     return *count;
 }
 
 std::vector<Actuator*> PhidgetSimpleBoard::initAllActuators() {
+    std::vector<Actuator*> result;
     for (int iMotor = 0; iMotor < getMaxActuators(); iMotor++) {
-        PhidgetSimpleServo* servo = new PhidgetSimpleServo(_phidgetHandle, iMotor);
-        if (hasDevice(servo))
-            removeDevice(servo);
-        addDevice(servo);
+        result.push_back(initActuator(iMotor));
     }
-    return drobot::util::castVector<Device*, Actuator*>(getDevices());
+    return result;
 }
 
-Actuator* PhidgetSimpleBoard::initActuator(int index) {
-    PhidgetSimpleServo* servo = new PhidgetSimpleServo(_phidgetHandle, index);
+Actuator* PhidgetSimpleBoard::initActuator(int index, std::string name) {
+    PhidgetSimpleServo* servo = new PhidgetSimpleServo(name, _phidgetHandle, index);
     if (hasDevice(servo))
         removeDevice(servo);
     addDevice(servo);
     return servo;
+}
+
+Actuator* PhidgetSimpleBoard::initActuator(int index) {
+    std::stringstream name;
+    name << getName() << "." << index;
+    return initActuator(index, name.str());
 }
 
 }
