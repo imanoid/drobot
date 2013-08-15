@@ -49,18 +49,18 @@ public:
 	// Oja: -0.25, 0.25
 	static const double WEIGHT_MIN = 0.0;		// minimum weight for initialization
 	static const double WEIGHT_MAX = 1.0;		// maximum weight for initialization
-	static const int OUTPUT_FN = OUTPUT_SIGMOID;	// sigmoid or linear output
+	static const int OUTPUT_FN = OUTPUT_LINEAR;	// sigmoid or linear output
 	static const double SIGMOID_BETA = 0.3;		// beta value for sigmoid function
-	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_OJA;
+	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
 	static const double LEARNING_RATE = 0.1;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
-	static const double REWARD_MIN = 0.0;		// negative reward
-	static const double REWARD_MAX = 1.0;		// positive reward
+	static const double REWARD_MIN = -1.0;		// negative reward
+	static const double REWARD_MAX = 0.0;		// positive reward
 	// min/max values for population coding
-	static const int POPULATION_MIN_X = -80;	// motor pos. leftmost
-	static const int POPULATION_MAX_X = 80;		// motor pos. rightmost
-	static const int POPULATION_MIN_Y = -80;	// motor pos. upmost
-	static const int POPULATION_MAX_Y = 80;		// motor pos. downmost
+	static const int POPULATION_MIN_X = -30;	// motor pos. leftmost
+	static const int POPULATION_MAX_X = 30;		// motor pos. rightmost
+	static const int POPULATION_MIN_Y = -30;	// motor pos. upmost
+	static const int POPULATION_MAX_Y = 30;		// motor pos. downmost
 
 	/*
 	 * Runtime cycle parameters
