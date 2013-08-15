@@ -5,6 +5,9 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
+ActuatorBoard::ActuatorBoard(std::string name) : DeviceBoard(name) {
+}
+
 const std::vector<Actuator*> ActuatorBoard::getActuators() const {
     return drobot::util::castVector<Device*, Actuator*>(getDevices());
 }

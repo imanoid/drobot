@@ -12,6 +12,8 @@ private:
     std::vector<Device*> _devices;
     bool _enabled;
 public:
+    DeviceBoard(std::string name);
+    virtual void initChannels();
     const std::vector<Device*> getDevices() const;
     bool addDevice(Device* device);
     bool removeDevice(std::string name);

@@ -3,6 +3,12 @@
 namespace drobot {
 namespace device {
 
+DeviceBoard::DeviceBoard(std::string name) : Device::Device(name) {
+}
+
+void DeviceBoard::initChannels() {
+}
+
 const std::vector<Device*> DeviceBoard::getDevices() const {
     return _devices;
 }

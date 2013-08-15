@@ -10,12 +10,14 @@ namespace vestibular {
 
 class PhidgetVestibular : public Vestibular
 {
+private:
+    CPhidgetSpatialHandle _phidgetHandle;
+    bool _enabled;
 public:
-    PhidgetVestibular();
-    PhidgetVestibular(int serial);
-    PhidgetVestibular(CPhidgetSpatialHandle phid) :
-            _phid(phid) {
-    }
+    PhidgetVestibular(std::string name);
+    PhidgetVestibular(std::string name, int serial);
+    PhidgetVestibular(std::string name, CPhidgetSpatialHandle phidgetHandle);
+    virtual void initChannels();
     int getAccelerationAxisCount();
     int getGyroAxisCount();
     int getCompassAxisCount();
@@ -39,9 +41,6 @@ public:
     virtual void enable();
     virtual void disable();
     virtual bool isEnabled();
-private:
-    CPhidgetSpatialHandle _phid;
-    bool _enabled;
 };
 
 }

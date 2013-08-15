@@ -12,7 +12,9 @@ namespace actuator {
 class PhidgetAdvancedServo : public Actuator, public PhidgetDevice
 {
 public:
-    PhidgetAdvancedServo(CPhidgetAdvancedServoHandle phidgetHandle, int index);
+    PhidgetAdvancedServo(std::string name, CPhidgetAdvancedServoHandle phidgetHandle, int index);
+
+    virtual void initChannels();
 
     virtual void enable();
     virtual void disable();

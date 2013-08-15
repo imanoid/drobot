@@ -14,8 +14,9 @@ private:
     bool _enabled;
     int _index;
 public:
-    SimpleTactileSensor(int index);
-    SimpleTactileSensor(int index, double value);
+    SimpleTactileSensor(std::string name, int index);
+    SimpleTactileSensor(std::string name, int index, double value);
+    virtual void initChannels();
     virtual double getValue();
     void setValue(double value);
     virtual void enable();

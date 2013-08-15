@@ -7,7 +7,8 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-PhidgetSimpleBoard::PhidgetSimpleBoard(int serial) {
+PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name) : ActuatorBoard(name) {
+    int serial = -1;
     _phidgetHandle = 0;
 
     CPhidgetServo_create(&_phidgetHandle);
@@ -17,6 +18,22 @@ PhidgetSimpleBoard::PhidgetSimpleBoard(int serial) {
     if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 2000))) {
         //TODO: throw Exception
     }
+}
+
+PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name, int serial) : ActuatorBoard(name) {
+    _phidgetHandle = 0;
+
+    CPhidgetServo_create(&_phidgetHandle);
+    CPhidget_open((CPhidgetHandle)_phidgetHandle, serial);
+
+    int result;
+    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 2000))) {
+        //TODO: throw Exception
+    }
+}
+
+PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name, CPhidgetServoHandle phidgetHandle) : ActuatorBoard(name) {
+    _phidgetHandle = phidgetHandle;
 }
 
 const int PhidgetSimpleBoard::getMaxActuators() const {

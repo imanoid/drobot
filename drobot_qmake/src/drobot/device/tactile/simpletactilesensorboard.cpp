@@ -1,6 +1,6 @@
 #include "simpletactilesensorboard.h"
 #include "simpletactilesensor.h"
-#include "../rs232.h"
+#include "../driver/rs232.h"
 #include <iostream>
 #include <boost/thread.hpp>
 #include "../../util/util.h"
@@ -50,7 +50,7 @@ void SimpleTactileSensorBoard::updateLoop() {
     int portFileDescriptor;
     bool aligned = false;
 
-    if ((portFileDescriptor = rs232::RS232_OpenPort(_path.c_str(), 230400, true,
+    if ((portFileDescriptor = driver::rs232::RS232_OpenPort(_path.c_str(), 230400, true,
             &initialPortSettings)) == -1) {
         std::cerr << "Couldn't open port! Device name is: '" << _path << "'."
                 << std::endl;
@@ -61,11 +61,11 @@ void SimpleTactileSensorBoard::updateLoop() {
 
     while (isEnabled()) {
         while (!aligned) {
-            rs232::RS232_ReceiveBuffer(portFileDescriptor, activations, _maxSensors);
+            driver::rs232::RS232_ReceiveBuffer(portFileDescriptor, activations, _maxSensors);
             for (int index = 1; index < 34; index++) {
                 if (activations[index - 1] == 255
                         && activations[index] == 255) {
-                    if (rs232::RS232_ReceiveBuffer(portFileDescriptor, activations,
+                    if (driver::rs232::RS232_ReceiveBuffer(portFileDescriptor, activations,
                             _maxSensors - index + 1)
                             == _maxSensors - index + 1) {
                         aligned = true;
@@ -76,7 +76,7 @@ void SimpleTactileSensorBoard::updateLoop() {
             }
 
             if (activations[0] == 255 && activations[_maxSensors + 1] == 255) {
-                if (rs232::RS232_ReceiveBuffer(portFileDescriptor, activations, 1)
+                if (driver::rs232::RS232_ReceiveBuffer(portFileDescriptor, activations, 1)
                         == 1) {
                     aligned = true;
                 }
@@ -86,7 +86,7 @@ void SimpleTactileSensorBoard::updateLoop() {
         int read = 0;
         while (read < _maxSensors + 2) {
             read += std::max(
-                    rs232::RS232_ReceiveBuffer(portFileDescriptor, activations + read,
+                    driver::rs232::RS232_ReceiveBuffer(portFileDescriptor, activations + read,
                             _maxSensors + 2 - read), 0); //usleep(100);
         }
 
@@ -102,7 +102,7 @@ void SimpleTactileSensorBoard::updateLoop() {
         }
     }
 
-    rs232::RS232_ClosePort(portFileDescriptor, &initialPortSettings);
+    driver::rs232::RS232_ClosePort(portFileDescriptor, &initialPortSettings);
 }
 
 }

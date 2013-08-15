@@ -15,9 +15,12 @@ class PhidgetAdvancedBoard : public ActuatorBoard, public PhidgetDevice
 private:
     CPhidgetAdvancedServoHandle _phidgetHandle;
 public:
-    PhidgetAdvancedBoard(int serial);
+    PhidgetAdvancedBoard(std::string name);
+    PhidgetAdvancedBoard(std::string name, int serial);
+    PhidgetAdvancedBoard(std::string name, CPhidgetAdvancedServoHandle phidgetHandle);
     const int getMaxActuators() const;
     std::vector<Actuator*> initAllActuators();
+    Actuator* initActuator(int index, std::string name);
     Actuator* initActuator(int index);
 };
 

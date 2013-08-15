@@ -22,26 +22,35 @@ HEADERS += \
     src/drobot/device/vestibular/phidgetvestibular.h \
     src/drobot/device/vestibular/phidgetvestibularfactory.h \
     src/drobot/device/vestibular/vestibular.h \
-    src/drobot/device/vision/capture/capture.h \
-    src/drobot/device/vision/capture/capturedevices.h \
-    src/drobot/device/vision/capture/dc1394device.h \
     src/drobot/device/vision/vision.h \
     src/drobot/device/device.h \
     src/drobot/device/deviceboard.h \
     src/drobot/device/devicefactory.h \
     src/drobot/device/devicemanager.h \
     src/drobot/device/phidgetdevice.h \
-    src/drobot/device/rs232.h \
+    src/drobot/device/driver/rs232.h \
     src/drobot/program/program.h \
     src/drobot/program/programfactory.h \
     src/drobot/program/programmanager.h \
     src/drobot/util/util.h \
     src/drobot/widget/mainwindow.h \
-    src/drobot/experiment/deviceTest/program/devicetestprogram.h \
-    src/drobot/experiment/deviceTest/program/devicetestprogramfactory.h \
     src/drobot/experiment/tactileTest/program/tactiletestprogram.h \
     src/drobot/experiment/tactileTest/program/tactiletestprogramfactory.h \
-    src/drobot/experiment/tactileTest/widget/tactiletestmainwidget.h
+    src/drobot/experiment/tactileTest/widget/tactiletestmainwidget.h \
+    src/drobot/event/event.h \
+    src/drobot/event/eventmanager.h \
+    src/drobot/event/eventlistener.h \
+    src/drobot/device/channel/channel.h \
+    src/drobot/device/channel/normalizer.h \
+    src/drobot/device/channel/linearnormalizer.h \
+    src/drobot/device/actuator/channel/actuatorpositionchannel.h \
+    src/drobot/device/actuator/channel/actuatorvelocitychannel.h \
+    src/drobot/device/actuator/channel/actuatoraccelerationchannel.h \
+    src/drobot/device/tactile/channel/tactilesensorvaluechannel.h \
+    src/drobot/device/vestibular/channel/vestibularaccelerationchannel.h \
+    src/drobot/device/vestibular/channel/vestibularangularratechannel.h \
+    src/drobot/robot/robot.h \
+    src/drobot/robot/controller.h
 
 SOURCES += \
     src/drobot/device/actuator/actuatorboard.cpp \
@@ -57,26 +66,35 @@ SOURCES += \
     src/drobot/device/tactile/tactilesensorboard.cpp \
     src/drobot/device/vestibular/phidgetvestibular.cpp \
     src/drobot/device/vestibular/phidgetvestibularfactory.cpp \
-    src/drobot/device/vision/capture/capture.cpp \
-    src/drobot/device/vision/capture/dc1394device.cpp \
-    src/drobot/device/vision/vision.cpp \
     src/drobot/device/device.cpp \
     src/drobot/device/deviceboard.cpp \
     src/drobot/device/devicefactory.cpp \
     src/drobot/device/devicemanager.cpp \
     src/drobot/device/phidgetdevice.cpp \
-    src/drobot/device/rs232.cpp \
+    src/drobot/device/driver/rs232.cpp \
     src/drobot/program/program.cpp \
     src/drobot/program/programfactory.cpp \
     src/drobot/program/programmanager.cpp \
     src/drobot/util/util.cpp \
     src/drobot/widget/mainwindow.cpp \
     src/drobot/main.cpp \
-    src/drobot/experiment/deviceTest/program/devicetestprogram.cpp \
-    src/drobot/experiment/deviceTest/program/devicetestprogramfactory.cpp \
     src/drobot/experiment/tactileTest/program/tactiletestprogram.cpp \
     src/drobot/experiment/tactileTest/program/tactiletestprogramfactory.cpp \
-    src/drobot/experiment/tactileTest/widget/tactiletestmainwidget.cpp
+    src/drobot/experiment/tactileTest/widget/tactiletestmainwidget.cpp \
+    src/drobot/event/event.cpp \
+    src/drobot/event/eventmanager.cpp \
+    src/drobot/event/eventlistener.cpp \
+    src/drobot/device/channel/channel.cpp \
+    src/drobot/device/channel/linearnormalizer.cpp \
+    src/drobot/device/actuator/channel/actuatorpositionchannel.cpp \
+    src/drobot/device/actuator/channel/actuatorvelocitychannel.cpp \
+    src/drobot/device/actuator/channel/actuatoraccelerationchannel.cpp \
+    src/drobot/device/tactile/channel/tactilesensorvaluechannel.cpp \
+    src/drobot/device/vestibular/channel/vestibularaccelerationchannel.cpp \
+    src/drobot/device/vestibular/channel/vestibularangularratechannel.cpp \
+    src/drobot/device/actuator/actuator.cpp \
+    src/drobot/robot/robot.cpp \
+    src/drobot/robot/controller.cpp
 
 OTHER_FILES +=
 

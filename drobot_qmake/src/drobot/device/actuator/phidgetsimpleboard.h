@@ -11,13 +11,15 @@ namespace actuator {
 
 class PhidgetSimpleBoard : public ActuatorBoard, public PhidgetDevice
 {
+private:
+    CPhidgetServoHandle _phidgetHandle;
 public:
-    PhidgetSimpleBoard(int serial);
+    PhidgetSimpleBoard(std::string name);
+    PhidgetSimpleBoard(std::string name, int serial);
+    PhidgetSimpleBoard(std::string name, CPhidgetServoHandle phidgetHandle);
     const int getMaxActuators() const;
     std::vector<Actuator*> initAllActuators();
     Actuator* initActuator(int index);
-private:
-    CPhidgetServoHandle _phidgetHandle;
 };
 
 }

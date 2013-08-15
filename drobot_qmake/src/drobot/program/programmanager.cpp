@@ -1,5 +1,5 @@
 #include "programmanager.h"
-#include "../experiment/tactileTest/program/programfactory.h"
+#include "../experiment/tactileTest/program/tactiletestprogramfactory.h"
 #include <sstream>
 #include <string>
 

@@ -10,6 +10,7 @@ namespace actuator {
 class Actuator : public Device
 {
 public:
+    Actuator(std::string name);
     virtual double getPosition() = 0;
     virtual void setPosition(double position) = 0;
     virtual double getVelocity() = 0;

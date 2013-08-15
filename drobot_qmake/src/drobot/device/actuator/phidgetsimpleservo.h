@@ -18,6 +18,8 @@ private:
 public:
     PhidgetSimpleServo(CPhidgetServoHandle phidgetHandle, int index);
 
+    virtual void initChannels();
+
     virtual void enable();
     virtual void disable();
     virtual bool isEnabled();

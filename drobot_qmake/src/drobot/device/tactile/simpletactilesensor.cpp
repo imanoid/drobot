@@ -1,20 +1,27 @@
 #include "simpletactilesensor.h"
 #include "../deviceboard.h"
+#include "channel/tactilesensorvaluechannel.h"
+#include "../channel/linearnormalizer.h"
 
 namespace drobot {
 namespace device {
 namespace tactile {
 
-SimpleTactileSensor::SimpleTactileSensor(int index) {
+SimpleTactileSensor::SimpleTactileSensor(std::string name, int index) : TactileSensor(name) {
     _index = index;
     _value = 0;
     _enabled = false;
 }
 
-SimpleTactileSensor::SimpleTactileSensor(int index, double value) {
+SimpleTactileSensor::SimpleTactileSensor(std::string name, int index, double value) : TactileSensor(name) {
     _index = index;
     _value = value;
     _enabled = false;
+}
+
+void SimpleTactileSensor::initChannels() {
+    channel::TactileSensorValueChannel* value = new channel::TactileSensorValueChannel("value", new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(value);
 }
 
 double SimpleTactileSensor::getValue() {

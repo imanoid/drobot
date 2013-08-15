@@ -1,13 +1,20 @@
 #include "phidgetsimpleservo.h"
+#include "../channel/linearnormalizer.h"
 
 namespace drobot {
 namespace device {
 namespace actuator {
 
-PhidgetSimpleServo::PhidgetSimpleServo(
-        CPhidgetServoHandle phidgetHandle, int index) : PhidgetDevice::PhidgetDevice((CPhidgetHandle)phidgetHandle) {
+PhidgetSimpleServo::PhidgetSimpleServo(std::string name, CPhidgetServoHandle phidgetHandle, int index) :
+    Actuator(name), PhidgetDevice::PhidgetDevice((CPhidgetHandle)phidgetHandle) {
     _phidgetHandle = phidgetHandle;
     _index = index;
+}
+
+void PhidgetSimpleServo::initChannels() {
+    channel::ActuatorPositionChannel* position = new channel::ActuatorPositionChannel("position", new device::channel::LinearNormalizer(0, 180));
+    addOutputChannel(position);
+    addInputChannel(position);
 }
 
 void PhidgetSimpleServo::enable() {

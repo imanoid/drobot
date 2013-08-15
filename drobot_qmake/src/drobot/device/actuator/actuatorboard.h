@@ -12,6 +12,7 @@ namespace actuator {
 class ActuatorBoard : public DeviceBoard
 {
 public:
+    ActuatorBoard(std::string name);
     const std::vector<Actuator*> getActuators() const;
     Actuator* getActuator(std::string name) const;
 };

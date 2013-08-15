@@ -1,19 +1,23 @@
 #include "phidgetvestibular.h"
 #include <sstream>
 #include <iostream>
+#include "channel/vestibularaccelerationchannel.h"
+#include "channel/vestibularangularratechannel.h"
+#include "../channel/linearnormalizer.h"
 
 namespace drobot {
 namespace device {
 namespace vestibular {
 
-PhidgetVestibular::PhidgetVestibular() {
-    _phid = 0;
-    CPhidgetSpatial_create (&_phid);
-    CPhidget_open((CPhidgetHandle) _phid, -1);
+PhidgetVestibular::PhidgetVestibular(std::string name) : Vestibular(name) {
+    int serial = -1;
+    _phidgetHandle = 0;
+    CPhidgetSpatial_create (&_phidgetHandle);
+    CPhidget_open((CPhidgetHandle) _phidgetHandle, serial);
 
     int result;
     const char *err;
-    if ((result = CPhidget_waitForAttachment((CPhidgetHandle) _phid, 10000))) {
+    if ((result = CPhidget_waitForAttachment((CPhidgetHandle) _phidgetHandle, 10000))) {
         CPhidget_getErrorDescription(result, &err);
         std::stringstream errorMsg;
         errorMsg << "Problem waiting for attachment: " << err;
@@ -22,38 +26,57 @@ PhidgetVestibular::PhidgetVestibular() {
     }
 }
 
-PhidgetVestibular::PhidgetVestibular(int serial) {
-    _phid = 0;
-    CPhidgetSpatial_create (&_phid);
-    CPhidget_open((CPhidgetHandle) _phid, serial);
+PhidgetVestibular::PhidgetVestibular(std::string name, int serial) : Vestibular(name) {
+    _phidgetHandle = 0;
+    CPhidgetSpatial_create (&_phidgetHandle);
+    CPhidget_open((CPhidgetHandle) _phidgetHandle, serial);
 
     int result;
     const char *err;
-    if ((result = CPhidget_waitForAttachment((CPhidgetHandle) _phid, 10000))) {
+    if ((result = CPhidget_waitForAttachment((CPhidgetHandle) _phidgetHandle, 10000))) {
         CPhidget_getErrorDescription(result, &err);
         std::stringstream errorMsg;
         errorMsg << "Problem waiting for attachment: " << err;
         std::cerr << errorMsg.str() << std::endl;
         throw errorMsg.str();
     }
+}
 
+PhidgetVestibular::PhidgetVestibular(std::string name, CPhidgetSpatialHandle phidgetHandle) : Vestibular(name) {
+    _phidgetHandle = phidgetHandle;
+}
+
+void PhidgetVestibular::initChannels() {
+    channel::VestibularAccelerationChannel* acceleration0 = new channel::VestibularAccelerationChannel("acceleration.0", 0, new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(acceleration0);
+    channel::VestibularAccelerationChannel* acceleration1 = new channel::VestibularAccelerationChannel("acceleration.1", 1, new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(acceleration1);
+    channel::VestibularAccelerationChannel* acceleration2 = new channel::VestibularAccelerationChannel("acceleration.2", 2, new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(acceleration2);
+
+    channel::VestibularAngularRateChannel* angularRate0 = new channel::VestibularAngularRateChannel("angularRate.0", 0, new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(angularRate0);
+    channel::VestibularAngularRateChannel* angularRate1 = new channel::VestibularAngularRateChannel("angularRate.1", 1, new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(angularRate1);
+    channel::VestibularAngularRateChannel* angularRate2 = new channel::VestibularAngularRateChannel("angularRate.2", 2, new device::channel::LinearNormalizer(0, 255), this);
+    addInputChannel(angularRate2);
 }
 
 int PhidgetVestibular::getAccelerationAxisCount() {
     int count;
-    CPhidgetSpatial_getAccelerationAxisCount(_phid, &count);
+    CPhidgetSpatial_getAccelerationAxisCount(_phidgetHandle, &count);
     return count;
 }
 
 int PhidgetVestibular::getGyroAxisCount() {
     int* count;
-    CPhidgetSpatial_getGyroAxisCount(_phid, count);
+    CPhidgetSpatial_getGyroAxisCount(_phidgetHandle, count);
     return *count;
 }
 
 int PhidgetVestibular::getCompassAxisCount() {
     int* count;
-    CPhidgetSpatial_getCompassAxisCount(_phid, count);
+    CPhidgetSpatial_getCompassAxisCount(_phidgetHandle, count);
     return *count;
 }
 
@@ -61,7 +84,7 @@ std::vector<double> PhidgetVestibular::getAcceleration() {
     std::vector<double> accelerations;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double acceleration;
-        CPhidgetSpatial_getAcceleration(_phid, dim, &acceleration);
+        CPhidgetSpatial_getAcceleration(_phidgetHandle, dim, &acceleration);
         accelerations.push_back(acceleration);
     }
     return accelerations;
@@ -71,7 +94,7 @@ std::vector<double> PhidgetVestibular::getAccelerationMax() {
     std::vector<double> accelerations;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double acceleration;
-        CPhidgetSpatial_getAccelerationMax(_phid, dim, &acceleration);
+        CPhidgetSpatial_getAccelerationMax(_phidgetHandle, dim, &acceleration);
         accelerations.push_back(acceleration);
     }
     return accelerations;
@@ -81,7 +104,7 @@ std::vector<double> PhidgetVestibular::getAccelerationMin() {
     std::vector<double> accelerations;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double acceleration;
-        CPhidgetSpatial_getAccelerationMin(_phid, dim, &acceleration);
+        CPhidgetSpatial_getAccelerationMin(_phidgetHandle, dim, &acceleration);
         accelerations.push_back(acceleration);
     }
     return accelerations;
@@ -91,7 +114,7 @@ std::vector<double> PhidgetVestibular::getAngularRate() {
     std::vector<double> angularRates;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double angularRate;
-        CPhidgetSpatial_getAngularRate(_phid, dim, &angularRate);
+        CPhidgetSpatial_getAngularRate(_phidgetHandle, dim, &angularRate);
         angularRates.push_back(angularRate);
     }
     return angularRates;
@@ -101,7 +124,7 @@ std::vector<double> PhidgetVestibular::getAngularRateMax() {
     std::vector<double> angularRates;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double angularRate;
-        CPhidgetSpatial_getAngularRateMax(_phid, dim, &angularRate);
+        CPhidgetSpatial_getAngularRateMax(_phidgetHandle, dim, &angularRate);
         angularRates.push_back(angularRate);
     }
     return angularRates;
@@ -111,7 +134,7 @@ std::vector<double> PhidgetVestibular::getAngularRateMin() {
     std::vector<double> angularRates;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double angularRate;
-        CPhidgetSpatial_getAngularRateMin(_phid, dim, &angularRate);
+        CPhidgetSpatial_getAngularRateMin(_phidgetHandle, dim, &angularRate);
         angularRates.push_back(angularRate);
     }
     return angularRates;
@@ -121,7 +144,7 @@ std::vector<double> PhidgetVestibular::getMagneticField() {
     std::vector<double> magneticFields;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double magneticField;
-        CPhidgetSpatial_getMagneticField(_phid, dim, &magneticField);
+        CPhidgetSpatial_getMagneticField(_phidgetHandle, dim, &magneticField);
         magneticFields.push_back(magneticField);
     }
     return magneticFields;
@@ -131,7 +154,7 @@ std::vector<double> PhidgetVestibular::getMagneticFieldMax() {
     std::vector<double> magneticFields;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double magneticField;
-        CPhidgetSpatial_getMagneticFieldMax(_phid, dim, &magneticField);
+        CPhidgetSpatial_getMagneticFieldMax(_phidgetHandle, dim, &magneticField);
         magneticFields.push_back(magneticField);
     }
     return magneticFields;
@@ -142,7 +165,7 @@ std::vector<double> PhidgetVestibular::getMagneticFieldMin() {
     std::vector<double> magneticFields;
     for (int dim = 0; dim < this->getAccelerationAxisCount(); dim++) {
         double magneticField;
-        CPhidgetSpatial_getMagneticFieldMin(_phid, dim, &magneticField);
+        CPhidgetSpatial_getMagneticFieldMin(_phidgetHandle, dim, &magneticField);
         magneticFields.push_back(magneticField);
     }
     return magneticFields;
@@ -150,28 +173,28 @@ std::vector<double> PhidgetVestibular::getMagneticFieldMin() {
 }
 
 void PhidgetVestibular::zeroGyro() {
-    CPhidgetSpatial_zeroGyro (_phid);
+    CPhidgetSpatial_zeroGyro (_phidgetHandle);
 }
 
 int PhidgetVestibular::getDataRate() {
     int milliseconds;
-    CPhidgetSpatial_getDataRate(_phid, &milliseconds);
+    CPhidgetSpatial_getDataRate(_phidgetHandle, &milliseconds);
     return milliseconds;
 }
 
 void PhidgetVestibular::setDataRate(int milliseconds) {
-    CPhidgetSpatial_setDataRate(_phid, milliseconds);
+    CPhidgetSpatial_setDataRate(_phidgetHandle, milliseconds);
 }
 
 int PhidgetVestibular::getDataRateMax() {
     int max;
-    CPhidgetSpatial_getDataRateMax(_phid, &max);
+    CPhidgetSpatial_getDataRateMax(_phidgetHandle, &max);
     return max;
 }
 
 int PhidgetVestibular::getDataRateMin() {
     int min;
-    CPhidgetSpatial_getDataRateMax(_phid, &min);
+    CPhidgetSpatial_getDataRateMax(_phidgetHandle, &min);
     return min;
 }
 
@@ -184,14 +207,14 @@ void PhidgetVestibular::setCompassCorrectionParameters(double magneticField,
     while (T.size() < 6)
         T.push_back(0);
 
-    CPhidgetSpatial_setCompassCorrectionParameters(_phid, magneticField,
+    CPhidgetSpatial_setCompassCorrectionParameters(_phidgetHandle, magneticField,
             offset[0], offset[1], offset[2], gain[0], gain[1], gain[2], T[0],
             T[1], T[2], T[3], T[4], T[5]);
 
 }
 
 void PhidgetVestibular::resetCompassCorrectionParameters() {
-    CPhidgetSpatial_resetCompassCorrectionParameters(_phid);
+    CPhidgetSpatial_resetCompassCorrectionParameters(_phidgetHandle);
 }
 
 void PhidgetVestibular::enable() {
