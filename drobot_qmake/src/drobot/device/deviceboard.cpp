@@ -7,6 +7,15 @@ DeviceBoard::DeviceBoard(std::string name) : Device::Device(name) {
 }
 
 void DeviceBoard::initChannels() {
+    Device::clearInputChannels();
+    Device::clearOutputChannels();
+    std::vector<Device*> devices = getDevices();
+    for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
+        Device* dev = *iDevice;
+        dev->initChannels();
+        Device::addInputChannels(dev->getInputChannels());
+        Device::addOutputChannels(dev->getOutputChannels());
+    }
 }
 
 void DeviceBoard::enable() {

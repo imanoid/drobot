@@ -88,6 +88,20 @@ void ChannelManager::clearOutputChannels() {
     _outputChannels.clear();
 }
 
+std::map<Channel*, double> ChannelManager::getInputs() {
+    std::map<Channel*, double> inputs;
+    for (std::vector<Channel*>::iterator iChannel = _inputChannels.begin(); iChannel != _inputChannels.end(); iChannel++) {
+        inputs[*iChannel] = (*iChannel)->getValue();
+    }
+    return inputs;
+}
+
+void ChannelManager::setOutputs(std::map<Channel*, double> outputs) {
+    for (std::map<Channel*, double>::iterator iOutput = outputs.begin(); iOutput != outputs.end(); iOutput++) {
+        iOutput->first->setValue(iOutput->second);
+    }
+}
+
 std::vector<Channel*> ChannelManager::getInputChannels() {
     return _inputChannels;
 }

@@ -9,6 +9,7 @@ class Runnable
 protected:
     bool _running;
 public:
+    Runnable();
     void run_thread();
     void cancel();
     bool isRunning();

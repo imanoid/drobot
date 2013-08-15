@@ -4,7 +4,8 @@ namespace drobot {
 namespace experiment {
 namespace robot {
 
-void StupidController::step(long tick, std::vector<device::channel::Channel*> inputChannels, std::vector<device::channel::Channel*> outputChannel) {
+std::map<device::channel::Channel*, double> StupidController::step(long tick, std::map<device::channel::Channel*, double> inputs) {
+    return std::map<device::channel::Channel*, double>();
 }
 
 } // namespace robot

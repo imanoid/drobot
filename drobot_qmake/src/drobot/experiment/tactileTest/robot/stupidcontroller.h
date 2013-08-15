@@ -10,7 +10,7 @@ namespace robot {
 class StupidController : public drobot::robot::Controller
 {
 public:
-    virtual void step(long tick, std::vector<device::channel::Channel*> inputChannels, std::vector<device::channel::Channel*> outputChannel) = 0;
+    virtual std::map<device::channel::Channel*, double> step(long tick, std::map<device::channel::Channel*, double> inputs);
 };
 
 } // namespace robot

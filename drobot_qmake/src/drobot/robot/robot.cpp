@@ -1,5 +1,7 @@
 #include "robot.h"
 #include "event/stepevent.h"
+#include <unistd.h>
+#include <iostream>
 
 namespace drobot {
 namespace robot {
@@ -19,14 +21,16 @@ void Robot::run() {
         return;
     _running = true;
 
-    std::vector<device::channel::Channel*> inputChannels;
-    std::vector<device::channel::Channel*> outputChannels;
-
     long tick = 0;
     while (_running) {
-        _controller->step(tick, inputChannels, outputChannels);
-        _eventManager->fireEvent(new event::StepEvent(tick, _deviceManager->getInputChannels(), _deviceManager->getOutputChannels()));
+        std::map<device::channel::Channel*, double> inputs = _deviceManager->getInputs();
+        std::cout << inputs.size() << std::endl;
+        std::cout << inputs.begin()->first->getName() << " " << inputs.begin()->second << std::endl;
+        std::map<device::channel::Channel*, double> outputs = _controller->step(tick, inputs);
+        _deviceManager->setOutputs(outputs);
+        _eventManager->fireEvent(new event::StepEvent(tick, inputs, outputs));
         tick++;
+        usleep(20000);
     }
 }
 

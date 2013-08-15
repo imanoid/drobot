@@ -12,6 +12,7 @@ class TactileSensor : public Device
 public:
     TactileSensor(std::string name);
     virtual double getValue() = 0;
+    virtual void initChannels() = 0;
 };
 
 }

@@ -3,6 +3,7 @@
 
 #include "channel.h"
 #include <vector>
+#include <map>
 
 namespace drobot {
 namespace device {
@@ -26,6 +27,8 @@ public:
     bool hasOutputChannel(Channel* channel);
     void clearInputChannels();
     void clearOutputChannels();
+    std::map<Channel*, double> getInputs();
+    void setOutputs(std::map<Channel*, double> outputs);
     std::vector<Channel*> getInputChannels();
     std::vector<Channel*> getOutputChannels();
 };

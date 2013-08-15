@@ -11,9 +11,12 @@ template<typename Source, typename Target>
 struct Source2Target { Target operator ()( Source source ) const { return dynamic_cast<Target>(source); } };
 
 template<typename Source, typename Target>
-std::vector<Target> castVector(const std::vector<Source> source) {
+std::vector<Target> castVector(std::vector<Source> source) {
     std::vector<Target> target;
-    std::transform( source.begin(), source.end(), target.begin(), Source2Target<Source, Target>() );
+    for (typename std::vector<Source>::iterator iSource = source.begin(); iSource != source.end(); iSource++) {
+        target.push_back(dynamic_cast<Target>(*iSource));
+    }
+    return target;
 }
 
 }
