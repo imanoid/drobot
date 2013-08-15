@@ -130,8 +130,17 @@ std::map<std::string, double> DRobotPerceptron::mappedOutput(std::map<std::strin
 
 Eigen::VectorXd DRobotPerceptron::sigmoid(Eigen::VectorXd h, double beta)
 {
-	for (int i = 0; i < nOutputs; i++) {
+	for (unsigned int i = 0; i < nOutputs; i++) {
 		h(i) = 1.0 / (1.0 + exp(-2 * beta * h(i)));;
+	}
+
+	return h;
+}
+
+Eigen::VectorXd DRobotPerceptron::threshold(Eigen::VectorXd h, double thresh)
+{
+	for (unsigned int i = 0; i < nOutputs; i++) {
+		h(i) = (h(i) >= thresh) ? 1.0 : 0.0;
 	}
 
 	return h;
@@ -149,6 +158,14 @@ double *DRobotPerceptron::calculateOutputSigmoid(double *input, double beta)
 {
 	calculateOutput(input);
 	outputs = sigmoid(outputs, beta);
+
+	return outputs.data();
+}
+
+double *DRobotPerceptron::calculateOutputThreshold(double *input, double thresh)
+{
+	calculateOutput(input);
+	outputs = threshold(outputs, thresh);
 
 	return outputs.data();
 }

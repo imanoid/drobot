@@ -39,6 +39,7 @@ public:
 
 	double *calculateOutput(double *input);
 	double *calculateOutputSigmoid(double *input, double beta = 0.3);
+	double *calculateOutputThreshold(double *input, double thresh = 0.5);
 
 	void initWeights(double** matrix);
 	void initWeights(double min, double max);
@@ -67,6 +68,7 @@ private:
 	std::vector<std::string> outputNodes;
 
 	Eigen::VectorXd sigmoid(Eigen::VectorXd h, double beta);
+	Eigen::VectorXd threshold(Eigen::VectorXd h, double thresh);
 };
 
 }
