@@ -210,7 +210,6 @@ public:
 		cv::Point dist, pdist;
 		dist.x = pdist.x = MAX_DIST_X;
 		dist.y = pdist.y = MAX_DIST_Y;
-		double ndist, pndist;			// euclidean distance
 		double maxOut = 0.0, absMaxOutY = 0.0;
 		int iMaxOut = -1, iMaxOutY = -1;
 
@@ -365,9 +364,7 @@ public:
 
 				ball = vision->getLastBallCenter();
 				pdist = dist;
-				pndist = cv::norm(pdist);
 				dist = center - ball;
-				ndist = cv::norm(dist);
 				distLogger->log(&t_now, 2, dist.x, dist.y);
 				ddistLogger->log(&t_now, 2, pdist.x - dist.x, pdist.y - dist.y);
 
@@ -384,14 +381,14 @@ public:
 				double pdx = std::abs(pdist.x);
 				double pdy = std::abs(pdist.y);
 
-				if (ndist < 4.0
+				if (dx < 4.0
 					|| ((std::abs(x_after - x_before) > 0.0)
 						&& (dx < pdx)))
 					reward_x = REWARD_MAX;
 				else
 					reward_x = REWARD_MIN;
 
-				if (ndist < 4.0
+				if (dy < 4.0
 					|| ((std::abs(y_after - y_before) > 0.0)
 						&& (dy < pdy)))
 					reward_y = REWARD_MAX;
@@ -404,9 +401,6 @@ public:
 						<< "dist=" << dist
 						<< ", pdist=" << pdist
 						<< ", ddist=" << pdist - dist
-						<< ", ndist=" << ndist
-						<< ", pndist=" << pndist
-						<< ", dndist=" << pndist - ndist
 						<< ", reward=" << reward_x << "/" << reward_y
 						<< std::endl;
 
