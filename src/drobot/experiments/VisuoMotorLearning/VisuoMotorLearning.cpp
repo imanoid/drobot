@@ -43,6 +43,8 @@ public:
 	/*
 	 * Experiment parameters
 	 */
+	static const bool RUN_FOREVER = false;		// whether to run the experiment forever (until Ctrl-C)
+	static const int MAX_STEPS = 20000;		// if not running forever: number of steps to perform the experiment
 	static const int N_OUTPUTS = 10;		// number of output neurons per perceptron
 	// Original: -0.005, 0.005
 	// McMillen: 0.0, 1.0
@@ -245,7 +247,13 @@ public:
 
 		bug_on(gettimeofday(&t_start, NULL));
 
-		while(1) {
+		(*tout) << "Running experiment ";
+		if (RUN_FOREVER)
+			(*tout) << "forever" << std::endl;
+		else
+			(*tout) << " for " << MAX_STEPS << " steps" << std::endl;
+
+		while (RUN_FOREVER || cStep < MAX_STEPS) {
 			processVision();
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
@@ -442,6 +450,8 @@ public:
 			tout->flush();
 			usleep(T);
 		}
+
+		(*tout) << "Experiment successfully finished" << std::endl;
 	}
 
 	void init()
