@@ -1,4 +1,3 @@
-
 #ifndef _DROBOT_DROBOTPERCEPTRON_H_
 #define _DROBOT_DROBOTPERCEPTRON_H_
 
@@ -23,6 +22,8 @@ public:
 		LEARN_HEBBIAN_COVARIANCE,
 		/* McMillen et al. 2011, formula (11) */
 		LEARN_MCMILLEN,
+		/* Chialvo and Bak 1999 */
+		LEARN_MISTAKES,
 	};
 
 	DRobotPerceptron(learn_rule_t lrule, int nInputs, int nOutputs);
@@ -73,4 +74,4 @@ private:
 
 }
 
-#endif
+#endif /* _DROBOT_DROBOTPERCEPTRON_H_ */

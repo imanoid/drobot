@@ -51,11 +51,10 @@ DRobotPerceptron::~DRobotPerceptron() {
 void DRobotPerceptron::updateWeights(double reward, double lRate, int start, int end)
 {
 	double avg_in, avg_out;
+	double dw;
 
 	for (int i = start; i <= end; i++) {
 		for (int j = 0; j < nInputs; j++) {
-			double dw;
-
 			switch (_lrule) {
 			case LEARN_OJA:
 				dw = lRate * outputs(i)
@@ -73,6 +72,14 @@ void DRobotPerceptron::updateWeights(double reward, double lRate, int start, int
 			case LEARN_MCMILLEN:
 				dw = reward * outputs(i) * inputs(j);
 				weights(i, j) = (1.0 - lRate) * weights(i, j) + lRate * dw;
+				break;
+			case LEARN_MISTAKES:
+				dw = reward * lRate;
+				weights(i, j) += dw;
+				if (weights(i, j) < 0.0)
+					weights(i, j) = 0.0;
+				else if (weights(i, j) > 1.0)
+					weights(i, j) = 1.0;
 				break;
 			default:
 				break;
