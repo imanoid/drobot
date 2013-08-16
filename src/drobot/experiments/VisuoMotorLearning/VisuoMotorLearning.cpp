@@ -454,7 +454,7 @@ public:
 		actuation = new drobot::DRobotActuation();
 
 		for (int i = 0; i < servoLabels.size(); i++) {
-			actuation->addServoMotor(servoLabels[i],0,i,servoInits[i], servoMins[i], servoMaxs[i]);
+			actuation->addServoMotor(servoLabels[i], 0, servoIdx[i], servoInits[i], servoMins[i], servoMaxs[i]);
 		}
 
 		servoSliders = new drobot::DRobotSliderGroup("Servos", servoLabels, servoInits, servoMins, servoMaxs);
@@ -528,6 +528,10 @@ public:
 		servoLabels.push_back("Left eye tilt");
 		servoLabels.push_back("Ball motion");
 
+		servoIdx.push_back(3);
+		servoIdx.push_back(2);
+		servoIdx.push_back(1);
+
 		servoInits.push_back(82);
 		servoInits.push_back(101);
 		servoInits.push_back(90);
@@ -536,7 +540,7 @@ public:
 		servoMins.push_back(87);
 		servoMins.push_back(40);
 
-		servoMaxs.push_back(112);
+		servoMaxs.push_back(114);
 		servoMaxs.push_back(114);
 		servoMaxs.push_back(170);
 	}
@@ -602,6 +606,7 @@ public:
 	std::vector<double> servoMins;
 	std::vector<double> servoMaxs;
 	std::vector<double> servoInits;
+	std::vector<int> servoIdx;
 
 private:
 	int nRows, nCols;
