@@ -47,19 +47,12 @@ PhidgetVestibular::PhidgetVestibular(std::string name, CPhidgetSpatialHandle phi
 }
 
 void PhidgetVestibular::initChannels() {
-    channel::VestibularAccelerationChannel* acceleration0 = new channel::VestibularAccelerationChannel("acceleration.0", 0, new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(acceleration0);
-    channel::VestibularAccelerationChannel* acceleration1 = new channel::VestibularAccelerationChannel("acceleration.1", 1, new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(acceleration1);
-    channel::VestibularAccelerationChannel* acceleration2 = new channel::VestibularAccelerationChannel("acceleration.2", 2, new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(acceleration2);
-
-    channel::VestibularAngularRateChannel* angularRate0 = new channel::VestibularAngularRateChannel("angularRate.0", 0, new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(angularRate0);
-    channel::VestibularAngularRateChannel* angularRate1 = new channel::VestibularAngularRateChannel("angularRate.1", 1, new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(angularRate1);
-    channel::VestibularAngularRateChannel* angularRate2 = new channel::VestibularAngularRateChannel("angularRate.2", 2, new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(angularRate2);
+    getChannelManager()->add(new channel::VestibularAccelerationChannel("acceleration.0", INPUT, 0, new device::channel::LinearNormalizer(0, 255), this));
+    getChannelManager()->add(new channel::VestibularAccelerationChannel("acceleration.1", INPUT, 1, new device::channel::LinearNormalizer(0, 255), this));
+    getChannelManager()->add(new channel::VestibularAccelerationChannel("acceleration.2", INPUT, 2, new device::channel::LinearNormalizer(0, 255), this));
+    getChannelManager()->add(new channel::VestibularAngularRateChannel("angularRate.0", INPUT, 0, new device::channel::LinearNormalizer(0, 255), this));
+    getChannelManager()->add(new channel::VestibularAngularRateChannel("angularRate.1", INPUT, 1, new device::channel::LinearNormalizer(0, 255), this));
+    getChannelManager()->add(new channel::VestibularAngularRateChannel("angularRate.2", INPUT, 2, new device::channel::LinearNormalizer(0, 255), this));
 }
 
 int PhidgetVestibular::getAccelerationAxisCount() {

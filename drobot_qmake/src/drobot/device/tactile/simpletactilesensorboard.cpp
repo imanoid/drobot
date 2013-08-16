@@ -13,6 +13,7 @@ SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string
     TactileSensorBoard(name) {
     _path = path;
     _maxSensors = 32;
+
 }
 
 SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string path, int maxSensors) :
@@ -22,7 +23,7 @@ SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string
 }
 
 std::vector<TactileSensor*> SimpleTactileSensorBoard::initAllSensors() {
-    clearDevices();
+    clear();
     std::vector<TactileSensor*> result;
     for (int iSensor = 0; iSensor < _maxSensors; iSensor++) {
         result.push_back(initSensor(iSensor));
@@ -32,9 +33,9 @@ std::vector<TactileSensor*> SimpleTactileSensorBoard::initAllSensors() {
 
 TactileSensor* SimpleTactileSensorBoard::initSensor(int index, std::string name) {
     SimpleTactileSensor* sensor = new SimpleTactileSensor(name, index);
-    if (hasDevice(sensor))
-        removeDevice(sensor);
-    addDevice(sensor);
+    if (has(sensor))
+        remove(sensor);
+    add(sensor);
     return sensor;
 
 }

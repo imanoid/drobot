@@ -18,6 +18,9 @@ public:
     virtual void enable();
     virtual void disable();
     virtual bool isEnabled();
+    virtual void onAdd(Device *item);
+    virtual void onRemove(Device *item);
+    virtual channel::ChannelManager* getChannelManager();
 };
 
 } // namespace device

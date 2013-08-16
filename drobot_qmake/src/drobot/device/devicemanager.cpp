@@ -31,80 +31,40 @@ void DeviceManager::parseDevice(QDomElement element) {
     if (skip.compare("false") == 0) {
         QString type = element.attribute("type");
         std::vector<Device*> devices = _deviceFactories[type.toStdString()]->createFromDomElement(element);
-        this->addDevices(devices);
+        this->add(devices);
     }
 }
 
 //public
-std::vector<Device*> DeviceManager::getDevices() {
-    std::vector<Device*> devices;
 
-    for (std::map<std::string, Device*>::iterator iDevice = _devices.begin(); iDevice != _devices.end(); iDevice++) {
-        devices.push_back(iDevice->second);
-    }
-
-    return devices;
+DeviceManager::DeviceManager() : Manager() {
+    _channelManager = new channel::ChannelManager;
 }
 
-Device* DeviceManager::getDevice(std::string name) {
-    std::map<std::string, Device*>::iterator dev = _devices.find(name);
-    if (dev == _devices.end())
-        return 0;
-    else
-        return dev->second;
+DeviceManager::DeviceManager(std::vector<Device*> items) : Manager(items) {
+    _channelManager = new channel::ChannelManager;
 }
 
-bool DeviceManager::addDevice(Device* device) {
-    if (!hasDevice(device->getName())) {
-        _devices[device->getName()] = device;
-        addInputChannels(device->getInputChannels());
-        addOutputChannels(device->getOutputChannels());
-        return true;
-    } else {
-        return false;
-    }
+void DeviceManager::onAdd(Device* item) {
+    _channelManager->add(item->getChannelManager()->list());
 }
 
-void DeviceManager::addDevices(std::vector<Device *> devices) {
+void DeviceManager::onRemove(Device* item) {
+    _channelManager->remove(item->getChannelManager()->list());
+}
+
+void DeviceManager::enable() {
+    std::vector<Device*> devices = list();
     for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
-        addDevice(*iDevice);
+        (*iDevice)->enable();
     }
 }
 
-bool DeviceManager::removeDevice(std::string name) {
-    if (hasDevice(name)) {
-        Device* dev = _devices[name];
-        _devices.erase(name);
-        removeInputChannels(dev->getInputChannels());
-        removeOutputChannels(dev->getOutputChannels());
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool DeviceManager::removeDevice(Device* device) {
-    removeDevice(device->getName());
-}
-
-void DeviceManager::removeDevices(std::vector<Device*> devices) {
+void DeviceManager::disable() {
+    std::vector<Device*> devices = list();
     for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
-        removeDevice((*iDevice)->getName());
+        (*iDevice)->disable();
     }
-}
-
-bool DeviceManager::hasDevice(std::string name) {
-    return _devices.find(name) != _devices.end();
-}
-
-bool DeviceManager::hasDevice(Device* device) {
-    return hasDevice(device->getName());
-}
-
-void DeviceManager::clearDevices() {
-    _devices.clear();
-    clearInputChannels();
-    clearOutputChannels();
 }
 
 void DeviceManager::loadFromFile(std::string path) {
@@ -120,6 +80,10 @@ void DeviceManager::registerDeviceFactory(DeviceFactory* deviceFactory) {
 
 void DeviceManager::unregisterDeviceFactory(DeviceFactory* deviceFactory) {
     _deviceFactories.erase(deviceFactory->getName());
+}
+
+channel::ChannelManager* DeviceManager::getChannelManager() {
+    return _channelManager;
 }
 
 }

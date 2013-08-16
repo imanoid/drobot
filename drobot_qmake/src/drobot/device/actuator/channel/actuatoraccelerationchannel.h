@@ -12,8 +12,8 @@ namespace channel {
 class ActuatorAccelerationChannel : public device::channel::Channel
 {
 public:
-    ActuatorAccelerationChannel(std::string name);
-    ActuatorAccelerationChannel(std::string name, device::channel::Normalizer* normalizer, device::Device* device);
+    ActuatorAccelerationChannel(std::string name, ChannelType type);
+    ActuatorAccelerationChannel(std::string name, ChannelType type, device::channel::Normalizer* normalizer, device::Device* device);
     virtual void setValue(double value);
     virtual double getValue();
 };

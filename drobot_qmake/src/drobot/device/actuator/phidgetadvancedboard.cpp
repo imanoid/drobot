@@ -52,9 +52,9 @@ std::vector<Actuator*> PhidgetAdvancedBoard::initAllActuators() {
 
 Actuator* PhidgetAdvancedBoard::initActuator(int index, std::string name) {
     PhidgetAdvancedServo* servo = new PhidgetAdvancedServo(name, _phidgetHandle, index);
-    if (hasDevice(servo))
-        removeDevice(servo);
-    addDevice(servo);
+    if (has(servo))
+        remove(servo->getName());
+    add(servo);
     return servo;
 }
 

@@ -24,8 +24,7 @@ int SimpleTactileSensor::getIndex() {
 }
 
 void SimpleTactileSensor::initChannels() {
-    channel::TactileSensorValueChannel* value = new channel::TactileSensorValueChannel("value", new device::channel::LinearNormalizer(0, 255), this);
-    addInputChannel(value);
+    getChannelManager()->add(new channel::TactileSensorValueChannel("value", INPUT, new device::channel::LinearNormalizer(0, 255), this));
 }
 
 double SimpleTactileSensor::getValue() {

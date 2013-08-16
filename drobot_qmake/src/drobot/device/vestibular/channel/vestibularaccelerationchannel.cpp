@@ -7,13 +7,13 @@ namespace device {
 namespace vestibular {
 namespace channel {
 
-VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, int dimension) :
-    Channel(name) {
+VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, ChannelType type, int dimension) :
+    Channel(name, type) {
     _dimension = dimension;
 }
 
-VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, int dimension, device::channel::Normalizer* normalizer, device::Device* device) :
-    Channel(name, normalizer, device) {
+VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device) :
+    Channel(name, type, normalizer, device) {
     _dimension = dimension;
 }
 
@@ -21,7 +21,7 @@ void VestibularAccelerationChannel::setValue(double value) {
 }
 
 double VestibularAccelerationChannel::getValue() {
-    return _device->toVestibular()->getAcceleration()[_dimension];
+    return getDevice()->toVestibular()->getAcceleration()[_dimension];
 }
 
 } // namespace channel

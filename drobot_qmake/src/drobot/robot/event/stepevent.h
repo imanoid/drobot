@@ -14,13 +14,9 @@ class StepEvent : public drobot::event::Event
 {
 private:
     long _tick;
-    std::map<device::channel::Channel*, double> _inputs;
-    std::map<device::channel::Channel*, double> _outputs;
+    std::map<device::channel::Channel*, double> _values;
 public:
-    StepEvent(long tick, std::map<device::channel::Channel*, double> inputs, std::map<device::channel::Channel*, double> outputs);
-    StepEvent(long tick, std::vector<device::channel::Channel*> inputChannels, std::vector<device::channel::Channel*> outputChannels);
-    void setInputValue(device::channel::Channel* channel, double value);
-    void setOutputValue(device::channel::Channel* channel, double value);
+    StepEvent(long tick, std::vector<device::channel::Channel*> channels);
     virtual std::string toString();
 };
 

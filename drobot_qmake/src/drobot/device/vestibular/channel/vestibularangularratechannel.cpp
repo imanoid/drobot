@@ -7,13 +7,13 @@ namespace device {
 namespace vestibular {
 namespace channel {
 
-VestibularAngularRateChannel::VestibularAngularRateChannel(std::string name, int dimension) :
-    Channel(name) {
+VestibularAngularRateChannel::VestibularAngularRateChannel(std::string name, ChannelType type, int dimension) :
+    Channel(name, type) {
     _dimension = dimension;
 }
 
-VestibularAngularRateChannel::VestibularAngularRateChannel(std::string name, int dimension, device::channel::Normalizer* normalizer, device::Device* device) :
-    Channel(name, normalizer, device) {
+VestibularAngularRateChannel::VestibularAngularRateChannel(std::string name, ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device) :
+    Channel(name, type, normalizer, device) {
     _dimension = dimension;
 }
 
@@ -21,7 +21,7 @@ void VestibularAngularRateChannel::setValue(double value) {
 }
 
 double VestibularAngularRateChannel::getValue() {
-    return _device->toVestibular()->getAngularRate()[_dimension];
+    return getDevice()->toVestibular()->getAngularRate()[_dimension];
 }
 
 } // namespace channel

@@ -9,11 +9,11 @@ ActuatorBoard::ActuatorBoard(std::string name) : DeviceBoard(name) {
 }
 
 std::vector<Actuator*> ActuatorBoard::getActuators() {
-    return drobot::util::castVector<Device*, Actuator*>(getDevices());
+    return drobot::util::castVector<Device*, Actuator*>(list());
 }
 
 Actuator* ActuatorBoard::getActuator(std::string name) {
-    return dynamic_cast<Actuator*>(getDevice(name));
+    return dynamic_cast<Actuator*>(get(name));
 }
 
 }

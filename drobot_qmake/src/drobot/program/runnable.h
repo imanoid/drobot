@@ -11,6 +11,7 @@ protected:
 public:
     Runnable();
     void run_thread();
+    void run_interval(int msec);
     void cancel();
     bool isRunning();
     virtual void run() = 0;

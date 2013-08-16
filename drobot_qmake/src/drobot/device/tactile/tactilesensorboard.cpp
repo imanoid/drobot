@@ -9,11 +9,11 @@ TactileSensorBoard::TactileSensorBoard(std::string name) : DeviceBoard(name) {
 }
 
 std::vector<TactileSensor*> TactileSensorBoard::getTactileSensors() {
-    return util::castVector<Device*, TactileSensor*>(getDevices());
+    return util::castVector<Device*, TactileSensor*>(list());
 }
 
 TactileSensor* TactileSensorBoard::getTactileSensor(std::string name) {
-    return dynamic_cast<TactileSensor*>(getDevice(name));
+    return dynamic_cast<TactileSensor*>(get(name));
 }
 
 }

@@ -13,9 +13,7 @@ PhidgetAdvancedServo::PhidgetAdvancedServo(std::string name, CPhidgetAdvancedSer
 }
 
 void PhidgetAdvancedServo::initChannels() {
-    channel::ActuatorPositionChannel* position = new channel::ActuatorPositionChannel("position", new device::channel::LinearNormalizer(0, 180), this);
-    addInputChannel(position);
-    addOutputChannel(position);
+    getChannelManager()->add(new channel::ActuatorPositionChannel("position", OUTPUT, new device::channel::LinearNormalizer(0, 180), this));
 }
 
 void PhidgetAdvancedServo::enable() {

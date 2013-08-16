@@ -4,33 +4,21 @@
 #include "channel.h"
 #include <vector>
 #include <map>
+#include "../../object/manager.h"
+#include "channeltype.h"
 
 namespace drobot {
 namespace device {
 namespace channel {
 
-class ChannelManager
+class ChannelManager : public object::Manager<Channel>
 {
-private:
-    std::vector<Channel*> _inputChannels;
-    std::vector<Channel*> _outputChannels;
 public:
-    bool addInputChannel(Channel* channel);
-    bool addOutputChannel(Channel* channel);
-    void addInputChannels(std::vector<Channel*> channels);
-    void addOutputChannels(std::vector<Channel*> channels);
-    bool removeInputChannel(Channel* channel);
-    bool removeOutputChannel(Channel* channel);
-    void removeInputChannels(std::vector<Channel*> channels);
-    void removeOutputChannels(std::vector<Channel*> channels);
-    bool hasInputChannel(Channel* channel);
-    bool hasOutputChannel(Channel* channel);
-    void clearInputChannels();
-    void clearOutputChannels();
-    std::map<Channel*, double> getInputs();
-    void setOutputs(std::map<Channel*, double> outputs);
-    std::vector<Channel*> getInputChannels();
-    std::vector<Channel*> getOutputChannels();
+    ChannelManager();
+    ChannelManager(std::vector<Channel*> items);
+    std::vector<Channel*> listByType(ChannelType type);
+    void read();
+    void write();
 };
 
 } // namespace channel

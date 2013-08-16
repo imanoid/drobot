@@ -2,7 +2,7 @@
 #include "../widget/tactiletestmainwidget.h"
 #include "../../../device/tactile/simpletactilesensorboard.h"
 #include "../../../device/tactile/simpletactilesensor.h"
-
+#include "../../../util/clock.h"
 #include <iostream>
 #include <unistd.h>
 #include "../../../robot/robot.h"
@@ -17,20 +17,21 @@ Program::Program(std::string name) : drobot::program::Program::Program(name) {
 }
 
 void Program::run() {
+    util::Clock* clock = new util::Clock(24);
     drobot::device::tactile::SimpleTactileSensorBoard* board = new drobot::device::tactile::SimpleTactileSensorBoard("board0", "/dev/ttyUSB0");
-    board->enable();
     board->initAllSensors();
     board->initChannels();
-    std::vector<device::Device*> sensors = board->getDevices();
+    std::vector<device::Device*> sensors = board->list();
 
     device::DeviceManager* deviceManager = new device::DeviceManager();
-    deviceManager->addDevices(sensors);
+    deviceManager->add(sensors);
 
     event::EventManager* eventManager = new event::EventManager();
 
-    drobot::robot::Controller* controller = new robot::StupidController();
+    drobot::robot::Controller* controller = new robot::StupidController("booo");
 
-    drobot::robot::Robot* robo = new drobot::robot::Robot(deviceManager, controller, eventManager);
+    deviceManager->enable();
+    drobot::robot::Robot* robo = new drobot::robot::Robot(deviceManager, controller, eventManager, clock);
     robo->run();
 }
 

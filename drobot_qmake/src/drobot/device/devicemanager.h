@@ -6,35 +6,36 @@
 #include <vector>
 #include "device.h"
 #include "devicefactory.h"
-#include <QtXml/QDomElement>
 #include "channel/channelmanager.h"
+#include <QtXml/QDomElement>
+#include "../object/manager.h"
 
 namespace drobot {
 namespace device {
 
-class DeviceManager : public channel::ChannelManager
+class DeviceManager : public object::Manager<Device>
 {
 private:
-    std::map<std::string, Device*> _devices;
     std::map<std::string, DeviceFactory*> _deviceFactories;
+
+    channel::ChannelManager* _channelManager;
 
     void parseElement(QDomElement element);
     void parseDeviceGroup(QDomElement element);
     void parseDevice(QDomElement element);
 public:
-    std::vector<Device*> getDevices();
-    Device* getDevice(std::string name);
-    bool addDevice(Device* device);
-    void addDevices(std::vector<Device*> devices);
-    bool removeDevice(std::string name);
-    bool removeDevice(Device* device);
-    void removeDevices(std::vector<Device*> devices);
-    bool hasDevice(std::string name);
-    bool hasDevice(Device* device);
-    void clearDevices();
+    DeviceManager();
+    DeviceManager(std::vector<Device*> items);
+    virtual void onAdd(Device* item);
+    virtual void onRemove(Device* item);
+
+    void enable();
+    void disable();
+
     void loadFromFile(std::string path);
     void registerDeviceFactory(DeviceFactory* deviceFactory);
     void unregisterDeviceFactory(DeviceFactory* deviceFactory);
+    virtual channel::ChannelManager* getChannelManager();
 };
 
 }

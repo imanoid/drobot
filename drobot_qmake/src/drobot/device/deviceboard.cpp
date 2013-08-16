@@ -7,33 +7,47 @@ DeviceBoard::DeviceBoard(std::string name) : Device::Device(name) {
 }
 
 void DeviceBoard::initChannels() {
-    Device::clearInputChannels();
-    Device::clearOutputChannels();
-    std::vector<Device*> devices = getDevices();
+    Device::getChannelManager()->clear();
+    std::vector<Device*> devices = list();
     for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
         Device* dev = *iDevice;
         dev->initChannels();
-        Device::addInputChannels(dev->getInputChannels());
-        Device::addOutputChannels(dev->getOutputChannels());
-    }
-}
-
-void DeviceBoard::enable() {
-    for (std::vector<Device*>::iterator iDevice = getDevices().begin(); iDevice != getDevices().end(); iDevice++) {
-        (*iDevice)->enable();
-    }
-    _enabled = true;
-}
-
-void DeviceBoard::disable() {
-    for (std::vector<Device*>::iterator iDevice = getDevices().begin(); iDevice != getDevices().end(); iDevice++) {
-        (*iDevice)->disable();
+        Device::getChannelManager()->add(dev->getChannelManager()->list());
     }
     _enabled = false;
 }
 
+void DeviceBoard::enable() {
+    _enabled = true;
+    std::vector<Device*> devices = list();
+    for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
+        (*iDevice)->enable();
+    }
+}
+
+void DeviceBoard::disable() {
+    _enabled = false;
+    std::vector<Device*> devices = list();
+    for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
+        (*iDevice)->disable();
+    }
+}
+
 bool DeviceBoard::isEnabled() {
     return _enabled;
+}
+
+void DeviceBoard::onAdd(Device *item) {
+    item->setDeviceBoard(this);
+}
+
+void DeviceBoard::onRemove(Device *item) {
+    item->setDeviceBoard(0);
+}
+
+
+channel::ChannelManager* DeviceBoard::getChannelManager() {
+    return DeviceManager::getChannelManager();
 }
 
 } // namespace device

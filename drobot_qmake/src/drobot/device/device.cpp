@@ -2,12 +2,25 @@
 #include "vestibular/vestibular.h"
 #include "tactile/tactilesensor.h"
 #include "actuator/actuator.h"
+#include "deviceboard.h"
+#include <sstream>
 
 namespace drobot {
 namespace device {
 
-Device::Device(std::string name) {
-    _name = name;
+Device::Device(std::string name) : Item(name) {
+    _channelManager = new channel::ChannelManager;
+    _deviceBoard = 0;
+}
+
+std::string Device::getName() {
+    if (_deviceBoard != 0) {
+        std::stringstream name;
+        name << _deviceBoard->getName() << "." << _name;
+        return name.str();
+    } else {
+        return Item::getName();
+    }
 }
 
 DeviceBoard* Device::getDeviceBoard() {
@@ -18,12 +31,8 @@ void Device::setDeviceBoard(DeviceBoard* deviceBoard) {
     _deviceBoard = deviceBoard;
 }
 
-std::string Device::getName() {
-    return _name;
-}
-
-void Device::setName(std::string name) {
-    _name = name;
+Device* Device::toDevice() {
+    return dynamic_cast<Device*>(this);
 }
 
 actuator::Actuator* Device::toActuator() {
@@ -36,6 +45,10 @@ tactile::TactileSensor* Device::toTactileSensor() {
 
 vestibular::Vestibular* Device::toVestibular() {
     return dynamic_cast<vestibular::Vestibular*>(this);
+}
+
+channel::ChannelManager* Device::getChannelManager() {
+    return _channelManager;
 }
 
 }

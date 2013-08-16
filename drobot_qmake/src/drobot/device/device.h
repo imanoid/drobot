@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include "channel/channelmanager.h"
+#include "../object/item.h"
 
 namespace drobot {
 namespace device {
@@ -20,24 +21,24 @@ namespace vestibular {
 
 class DeviceBoard;
 
-class Device : public channel::ChannelManager
-{
+class Device : public object::Item {
 private:
-    std::string _name;
     DeviceBoard* _deviceBoard;
+    channel::ChannelManager* _channelManager;
 public:
     Device(std::string name);
     virtual void enable() = 0;
     virtual void disable() = 0;
     virtual bool isEnabled() = 0;
     virtual void initChannels() = 0;
+    virtual std::string getName();
     DeviceBoard* getDeviceBoard();
     void setDeviceBoard(DeviceBoard* deviceBoard);
-    std::string getName();
-    void setName(std::string name);
+    Device* toDevice();
     actuator::Actuator* toActuator();
     tactile::TactileSensor* toTactileSensor();
     vestibular::Vestibular* toVestibular();
+    virtual channel::ChannelManager* getChannelManager();
 };
 
 }

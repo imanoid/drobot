@@ -7,17 +7,17 @@ namespace device {
 namespace tactile {
 namespace channel {
 
-TactileSensorValueChannel::TactileSensorValueChannel(std::string name) :
-    Channel(name) {}
+TactileSensorValueChannel::TactileSensorValueChannel(std::string name, ChannelType type) :
+    Channel(name, type) {}
 
-TactileSensorValueChannel::TactileSensorValueChannel(std::string name, device::channel::Normalizer* normalizer, device::Device* device) :
-    Channel(name, normalizer, device) {}
+TactileSensorValueChannel::TactileSensorValueChannel(std::string name, ChannelType type, device::channel::Normalizer* normalizer, device::Device* device) :
+    Channel(name, type, normalizer, device) {}
 
 void TactileSensorValueChannel::setValue(double value) {
 }
 
 double TactileSensorValueChannel::getValue() {
-    return _device->toTactileSensor()->getValue();
+    return getDevice()->toTactileSensor()->getValue();
 }
 
 } // namespace channel

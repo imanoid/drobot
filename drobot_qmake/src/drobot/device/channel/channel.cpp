@@ -6,14 +6,26 @@ namespace drobot {
 namespace device {
 namespace channel {
 
-Channel::Channel(std::string name) {
-    _name = name;
+Channel::Channel(std::string name, ChannelType type) : Item(name) {
+    _type = type;
+    if (_type == INPUT) {
+        _update = true;
+    } else if (_type == OUTPUT) {
+        _update = false;
+        _value = 0;
+    }
 }
 
-Channel::Channel(std::string name, Normalizer* normalizer, Device* device) {
-    _name = name;
+Channel::Channel(std::string name, ChannelType type, Normalizer* normalizer, Device* device) : Item(name) {
+    _type = type;
     _normalizer = normalizer;
     _device = device;
+    if (_type == INPUT) {
+        _update = true;
+    } else if (_type == OUTPUT) {
+        _update = false;
+        _value = 0;
+    }
 }
 
 void Channel::setNormalizer(Normalizer* normalizer) {
@@ -33,25 +45,51 @@ Device* Channel::getDevice() {
 }
 
 void Channel::setNormalizedValue(double value) {
-    setValue(_normalizer->denormalize(value));
+    _value = _normalizer->denormalize(value);
 }
 
 double Channel::getNormalizedValue() {
-    return _normalizer->normalize(getValue());
+    return _normalizer->normalize(_value);
 }
 
-void Channel::setName(std::string name) {
-    _name = name;
+void Channel::setRealValue(double value) {
+    _value = value;
+}
+
+double Channel::getRealValue() {
+    return _value;
 }
 
 std::string Channel::getName() {
-    return _name;
+    if (_device != 0) {
+        std::stringstream name;
+        name << _device->getName() << "." << _name;
+        return name.str();
+    } else {
+        return Item::getName();
+    }
 }
 
-std::string Channel::getFullName() {
-    std::stringstream name;
-    name << getDevice()->getName() << "." << _name;
-    return name.str();
+void Channel::setType(ChannelType type) {
+    _type = type;
+}
+
+ChannelType Channel::getType() {
+    return _type;
+}
+
+void Channel::read() {
+    if (_type == INPUT) {
+        _value = getValue();
+        _update = false;
+    }
+}
+
+void Channel::write() {
+    if (_update && _type == OUTPUT) {
+        setValue(_value);
+        _update = false;
+    }
 }
 
 } // namespace channel

@@ -14,8 +14,8 @@ class VestibularAngularRateChannel : public device::channel::Channel
 private:
     int _dimension;
 public:
-    VestibularAngularRateChannel(std::string name, int dimension);
-    VestibularAngularRateChannel(std::string name, int dimension, device::channel::Normalizer* normalizer, device::Device* device);
+    VestibularAngularRateChannel(std::string name, ChannelType type, int dimension);
+    VestibularAngularRateChannel(std::string name, ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device);
     virtual void setValue(double value);
     virtual double getValue();
 };

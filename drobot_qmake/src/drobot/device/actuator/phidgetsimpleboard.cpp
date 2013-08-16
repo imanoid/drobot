@@ -53,9 +53,9 @@ std::vector<Actuator*> PhidgetSimpleBoard::initAllActuators() {
 
 Actuator* PhidgetSimpleBoard::initActuator(int index, std::string name) {
     PhidgetSimpleServo* servo = new PhidgetSimpleServo(name, _phidgetHandle, index);
-    if (hasDevice(servo))
-        removeDevice(servo);
-    addDevice(servo);
+    if (has(servo))
+        remove(servo->toDevice());
+    add(servo);
     return servo;
 }
 

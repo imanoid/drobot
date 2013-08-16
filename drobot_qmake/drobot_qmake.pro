@@ -57,7 +57,11 @@ HEADERS += \
     src/drobot/robot/event/stepevent.h \
     src/drobot/datalogger/datalogger.h \
     src/drobot/datalogger/simpledatalogger.h \
-    src/drobot/datalogger/simpledatalogentry.h
+    src/drobot/datalogger/simpledatalogentry.h \
+    src/drobot/object/item.h \
+    src/drobot/object/manager.h \
+    src/drobot/device/channel/channeltype.h \
+    src/drobot/util/clock.h
 
 SOURCES += \
     src/drobot/device/actuator/actuatorboard.cpp \
@@ -108,7 +112,9 @@ SOURCES += \
     src/drobot/device/vestibular/vestibular.cpp \
     src/drobot/experiment/tactileTest/robot/stupidcontroller.cpp \
     src/drobot/robot/event/stepevent.cpp \
-    src/drobot/datalogger/simpledatalogger.cpp
+    src/drobot/datalogger/simpledatalogger.cpp \
+    src/drobot/object/item.cpp \
+    src/drobot/util/clock.cpp
 
 OTHER_FILES +=
 
