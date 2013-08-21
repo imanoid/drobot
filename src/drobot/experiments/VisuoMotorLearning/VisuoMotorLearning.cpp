@@ -45,6 +45,8 @@ public:
 	 */
 	static const bool RUN_FOREVER = false;		// whether to run the experiment forever (until Ctrl-C)
 	static const int MAX_STEPS = 25000;		// if not running forever: number of steps to perform the experiment
+	static const int N_INPUT_ROWS = 15;		// number of rows in the input
+	static const int N_INPUT_COLS = 15;		// number of columns in the input
 	static const int N_OUTPUTS = 10;		// number of output neurons per perceptron
 	// Original: -0.005, 0.005
 	// McMillen: 0.0, 1.0
@@ -88,13 +90,8 @@ public:
 		usleep(10000);
 		processVision();
 
-//		int nRows = vision->tdFrameLPCortical.rows;
-//		int nCols = vision->tdFrameLPCortical.cols;
-//		int nRows = vision->frameSegmented.rows;
-//		int nCols = vision->frameSegmented.cols;
-		nRows = vision->frameSegmented5x5.rows;
-		nCols = vision->frameSegmented5x5.cols;
-
+		nRows = N_INPUT_ROWS;
+		nCols = N_INPUT_COLS;
 		nInputs = nRows * nCols;
 		nOutputs = N_OUTPUTS;
 		inputs = new double[nInputs];
@@ -177,7 +174,7 @@ public:
 
 		cv::Scalar minThresh(minH, minS, minV);
 		cv::Scalar maxThresh(maxH, maxS, maxV);
-		vision->applySegmentation(minThresh, maxThresh);
+		vision->applySegmentation(minThresh, maxThresh, N_INPUT_ROWS, N_INPUT_COLS);
 
 		vision->applyTransforms();
 	}
@@ -219,7 +216,7 @@ public:
 		memset(&t_now, 0, sizeof(t_now));
 
 		const char *param_names[] = {
-			"nRowsIn", "inColsIn", "nOutputs",
+			"nRowsIn", "nColsIn", "nOutputs",
 			"popMinX", "popMaxX",
 			"popMinY", "popMaxY",
 			"weightMin", "weightMax", "outputFn", "sigmoidBeta",
@@ -290,7 +287,7 @@ public:
 				bug_on(gettimeofday(&t_now, NULL));
 				timersub(&t_now, &t_start, &t_now);
 
-				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
+				convertPixelsToDoubleArray(vision->frameSegmentedX.data, inputs, nInputs);
 
 				if (OUTPUT_FN == OUTPUT_SIGMOID && SIGMOID_BETA > 0.0) {
 					/* sigmoid output */
@@ -434,7 +431,7 @@ public:
 //			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
 			display_filter->imshow(vision->frameFiltered);
 			cv::Mat scaled;
-			cv::resize(vision->frameSegmented5x5, scaled, cv::Size(200, 200), 0, 0, cv::INTER_NEAREST);
+			cv::resize(vision->frameSegmentedX, scaled, cv::Size(200, 200), 0, 0, cv::INTER_NEAREST);
 			display_seg->imshow(scaled);
 
 			if (manualControl) {

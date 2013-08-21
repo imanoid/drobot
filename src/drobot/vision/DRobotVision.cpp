@@ -45,7 +45,7 @@ cv::Mat DRobotVision::getFrame()
 	return frame;
 }
 
-void DRobotVision::applySegmentation(cv::Scalar minThresh, cv::Scalar maxThresh)
+void DRobotVision::applySegmentation(cv::Scalar minThresh, cv::Scalar maxThresh, int nRows, int nCols)
 {
 	cv::cvtColor(frameResized, frameHsv, CV_BGR2HSV);
 
@@ -85,11 +85,11 @@ void DRobotVision::applySegmentation(cv::Scalar minThresh, cv::Scalar maxThresh)
 	frameSegmented = cv::Mat::zeros(frameFiltered.size(), CV_8UC1);
 	circle(frameSegmented, lastCenter, lastRadius, cv::Scalar(255, 255, 255), -1, 8, 0);
 
-	frameSegmented5x5 = cv::Mat::zeros(5, 5, CV_8UC1);
-	int x = lastCenter.x / (FRAME_WIDTH / 5);
-	int y = lastCenter.y / (FRAME_HEIGHT/ 5);
+	frameSegmentedX = cv::Mat::zeros(nRows, nCols, CV_8UC1);
+	int x = ((double) lastCenter.x / FRAME_WIDTH) * nCols;
+	int y = ((double) lastCenter.y / FRAME_HEIGHT) * nRows;
 
-	frameSegmented5x5.at<unsigned char>(y, x) = 255;
+	frameSegmentedX.at<unsigned char>(y, x) = 255;
 }
 
 void DRobotVision::applyTransforms()
