@@ -70,7 +70,7 @@ public:
 	static const unsigned int T = 50000;		// duration of 1 cycle
 	static const int UPDATE_STEPS_INTERVAL = 20;	// # of cycles after which to update motor positions
 	static const int LEARNING_STEPS_INTERVAL = 10; 	// # of cycles after the movement execution to wait before learning
-	static const int RANDOM_MOVE_INTERVAL = 500;	// # of cycles after which a random move is performed
+	static const int RANDOM_MOVE_INTERVAL = 250;	// # of cycles after which a random move is performed
 
 	VisuoMotorLearning()
 	{
@@ -269,15 +269,18 @@ public:
 			if (!manualControl && enableRandom && cStep % RANDOM_MOVE_INTERVAL == 0) {
 				double max_x = actuation->getMotorMax(0);
 				double max_y = actuation->getMotorMax(1);
-				double dx = (((double) rand() / RAND_MAX) * max_x) - (max_x / 2.0);
-				double dy = (((double) rand() / RAND_MAX) * max_y) - (max_y / 2.0);
+				double min_x = actuation->getMotorMin(0);
+				double min_y = actuation->getMotorMin(1);
+				double px = (((double) rand() / RAND_MAX) * (max_x - min_x)) + min_x;
+				double py = (((double) rand() / RAND_MAX) * (max_y - min_y)) + min_y;
 
-				(*tout) << "[" << cStep << "] performing random movement: "
-					<< dx << "/" << dy << std::endl;
 				x_before = actuation->getMotorPosition(0);
-				actuation->setMotorIncrement(0, dx);
 				y_before = actuation->getMotorPosition(1);
-				actuation->setMotorIncrement(1, dy);
+
+				(*tout) << "[" << cStep << "] performing random movement to: "
+					<< px << "/" << py << std::endl;
+				actuation->setMotorPosition(0, px);
+				actuation->setMotorPosition(1, py);
 
 				// make sure we also learn from random movements
 				mStep = cStep;
