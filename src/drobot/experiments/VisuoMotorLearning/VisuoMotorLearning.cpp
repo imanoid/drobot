@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <sys/resource.h>
+
 #include <QApplication>
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
@@ -44,7 +46,9 @@ public:
 	 * Experiment parameters
 	 */
 	static const bool RUN_FOREVER = false;		// whether to run the experiment forever (until Ctrl-C)
-	static const int MAX_STEPS = 20000;		// if not running forever: number of steps to perform the experiment
+	static const int MAX_STEPS = 25000;		// if not running forever: number of steps to perform the experiment
+	static const int N_INPUT_ROWS = 25;		// number of rows in the input
+	static const int N_INPUT_COLS = 25;		// number of columns in the input
 	static const int N_OUTPUTS = 10;		// number of output neurons per perceptron
 	// Original: -0.005, 0.005
 	// McMillen: 0.0, 1.0
@@ -54,15 +58,15 @@ public:
 	static const int OUTPUT_FN = OUTPUT_LINEAR;	// sigmoid or linear output
 	static const double SIGMOID_BETA = 0.3;		// beta value for sigmoid function
 	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
-	static const double LEARNING_RATE = 0.1;	// learning rate
+	static const double LEARNING_RATE = 0.15;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
 	static const double REWARD_MIN = -1.0;		// negative reward
-	static const double REWARD_MAX = 0.0;		// positive reward
+	static const double REWARD_MAX = 1.0;		// positive reward
 	// min/max values for population coding
-	static const int POPULATION_MIN_X = -30;	// motor pos. leftmost
-	static const int POPULATION_MAX_X = 30;		// motor pos. rightmost
-	static const int POPULATION_MIN_Y = -30;	// motor pos. upmost
-	static const int POPULATION_MAX_Y = 30;		// motor pos. downmost
+	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
+	static const int POPULATION_MAX_X = 20;		// motor pos. rightmost
+	static const int POPULATION_MIN_Y = -20;	// motor pos. upmost
+	static const int POPULATION_MAX_Y = 20;		// motor pos. downmost
 
 	/*
 	 * Runtime cycle parameters
@@ -70,7 +74,7 @@ public:
 	static const unsigned int T = 50000;		// duration of 1 cycle
 	static const int UPDATE_STEPS_INTERVAL = 20;	// # of cycles after which to update motor positions
 	static const int LEARNING_STEPS_INTERVAL = 10; 	// # of cycles after the movement execution to wait before learning
-	static const int RANDOM_MOVE_INTERVAL = 500;	// # of cycles after which a random move is performed
+	static const int RANDOM_MOVE_INTERVAL = 250;	// # of cycles after which a random move is performed
 
 	VisuoMotorLearning()
 	{
@@ -79,6 +83,16 @@ public:
 
 	void setup()
 	{
+		struct rlimit rlim;
+		getrlimit(RLIMIT_NOFILE, &rlim);
+		std::cout << "cur: " << rlim.rlim_cur << "/max: " << rlim.rlim_max << std::endl;
+
+		rlim.rlim_cur = rlim.rlim_max = 16384;
+
+		setrlimit(RLIMIT_NOFILE, &rlim);
+		getrlimit(RLIMIT_NOFILE, &rlim);
+		std::cout << "cur: " << rlim.rlim_cur << "/max: " << rlim.rlim_max << std::endl;
+
 		actuation->setInitialPositions();
 
 		/* Make sure we have both differentials (1st and 2nd) */
@@ -88,13 +102,8 @@ public:
 		usleep(10000);
 		processVision();
 
-//		int nRows = vision->tdFrameLPCortical.rows;
-//		int nCols = vision->tdFrameLPCortical.cols;
-//		int nRows = vision->frameSegmented.rows;
-//		int nCols = vision->frameSegmented.cols;
-		nRows = vision->frameSegmented5x5.rows;
-		nCols = vision->frameSegmented5x5.cols;
-
+		nRows = N_INPUT_ROWS;
+		nCols = N_INPUT_COLS;
 		nInputs = nRows * nCols;
 		nOutputs = N_OUTPUTS;
 		inputs = new double[nInputs];
@@ -177,7 +186,7 @@ public:
 
 		cv::Scalar minThresh(minH, minS, minV);
 		cv::Scalar maxThresh(maxH, maxS, maxV);
-		vision->applySegmentation(minThresh, maxThresh);
+		vision->applySegmentation(minThresh, maxThresh, N_INPUT_ROWS, N_INPUT_COLS);
 
 		vision->applyTransforms();
 	}
@@ -219,7 +228,7 @@ public:
 		memset(&t_now, 0, sizeof(t_now));
 
 		const char *param_names[] = {
-			"nRowsIn", "inColsIn", "nOutputs",
+			"nRowsIn", "nColsIn", "nOutputs",
 			"popMinX", "popMaxX",
 			"popMinY", "popMaxY",
 			"weightMin", "weightMax", "outputFn", "sigmoidBeta",
@@ -252,7 +261,7 @@ public:
 		else
 			(*tout) << " for " << MAX_STEPS << " steps" << std::endl;
 
-		while (RUN_FOREVER || cStep < MAX_STEPS) {
+		while (RUN_FOREVER || cStep <= MAX_STEPS) {
 			processVision();
 
 			manualControl = expSliders->getValue(0) > 0 ? true : false;
@@ -269,15 +278,18 @@ public:
 			if (!manualControl && enableRandom && cStep % RANDOM_MOVE_INTERVAL == 0) {
 				double max_x = actuation->getMotorMax(0);
 				double max_y = actuation->getMotorMax(1);
-				double dx = (((double) rand() / RAND_MAX) * max_x) - (max_x / 2.0);
-				double dy = (((double) rand() / RAND_MAX) * max_y) - (max_y / 2.0);
+				double min_x = actuation->getMotorMin(0);
+				double min_y = actuation->getMotorMin(1);
+				double px = (((double) rand() / RAND_MAX) * (max_x - min_x)) + min_x;
+				double py = (((double) rand() / RAND_MAX) * (max_y - min_y)) + min_y;
 
-				(*tout) << "[" << cStep << "] performing random movement: "
-					<< dx << "/" << dy << std::endl;
 				x_before = actuation->getMotorPosition(0);
-				actuation->setMotorIncrement(0, dx);
 				y_before = actuation->getMotorPosition(1);
-				actuation->setMotorIncrement(1, dy);
+
+				(*tout) << "[" << cStep << "] performing random movement to: "
+					<< px << "/" << py << std::endl;
+				actuation->setMotorPosition(0, px);
+				actuation->setMotorPosition(1, py);
 
 				// make sure we also learn from random movements
 				mStep = cStep;
@@ -287,7 +299,7 @@ public:
 				bug_on(gettimeofday(&t_now, NULL));
 				timersub(&t_now, &t_start, &t_now);
 
-				convertPixelsToDoubleArray(vision->frameSegmented5x5.data, inputs, nInputs);
+				convertPixelsToDoubleArray(vision->frameSegmentedX.data, inputs, nInputs);
 
 				if (OUTPUT_FN == OUTPUT_SIGMOID && SIGMOID_BETA > 0.0) {
 					/* sigmoid output */
@@ -376,21 +388,21 @@ public:
 				y_after = actuation->getMotorPosition(1);
 
 				double reward_x, reward_y;
-				double dx = std::abs(dist.x);
-				double dy = std::abs(dist.y);
-				double pdx = std::abs(pdist.x);
-				double pdy = std::abs(pdist.y);
+				double b_dx = std::abs(dist.x);
+				double b_dy = std::abs(dist.y);
+				double b_pdx = std::abs(pdist.x);
+				double b_pdy = std::abs(pdist.y);
 
-				if (dx < 4.0
-					|| ((std::abs(x_after - x_before) > 0.0)
-						&& (dx < pdx)))
+				if (b_dx < 4.0
+					|| ((x_after != x_before)
+						&& (b_dx < b_pdx)))
 					reward_x = REWARD_MAX;
 				else
 					reward_x = REWARD_MIN;
 
-				if (dy < 4.0
-					|| ((std::abs(y_after - y_before) > 0.0)
-						&& (dy < pdy)))
+				if (b_dy < 4.0
+					|| ((y_after != y_before)
+						&& (b_dy < b_pdy)))
 					reward_y = REWARD_MAX;
 				else
 					reward_y = REWARD_MIN;
@@ -431,7 +443,7 @@ public:
 //			display_thresh_2nd->imshow(vision->td2FrameLPCartesian);
 			display_filter->imshow(vision->frameFiltered);
 			cv::Mat scaled;
-			cv::resize(vision->frameSegmented5x5, scaled, cv::Size(200, 200), 0, 0, cv::INTER_NEAREST);
+			cv::resize(vision->frameSegmentedX, scaled, cv::Size(200, 200), 0, 0, cv::INTER_NEAREST);
 			display_seg->imshow(scaled);
 
 			if (manualControl) {
@@ -541,7 +553,7 @@ public:
 		servoInits.push_back(90);
 
 		servoMins.push_back(74);
-		servoMins.push_back(87);
+		servoMins.push_back(85);
 		servoMins.push_back(40);
 
 		servoMaxs.push_back(114);
