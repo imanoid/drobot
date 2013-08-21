@@ -379,21 +379,21 @@ public:
 				y_after = actuation->getMotorPosition(1);
 
 				double reward_x, reward_y;
-				double dx = std::abs(dist.x);
-				double dy = std::abs(dist.y);
-				double pdx = std::abs(pdist.x);
-				double pdy = std::abs(pdist.y);
+				double b_dx = std::abs(dist.x);
+				double b_dy = std::abs(dist.y);
+				double b_pdx = std::abs(pdist.x);
+				double b_pdy = std::abs(pdist.y);
 
-				if (dx < 4.0
-					|| ((std::abs(x_after - x_before) > 0.0)
-						&& (dx < pdx)))
+				if (b_dx < 4.0
+					|| ((x_after != x_before)
+						&& (b_dx < b_pdx)))
 					reward_x = REWARD_MAX;
 				else
 					reward_x = REWARD_MIN;
 
-				if (dy < 4.0
-					|| ((std::abs(y_after - y_before) > 0.0)
-						&& (dy < pdy)))
+				if (b_dy < 4.0
+					|| ((y_after != y_before)
+						&& (b_dy < b_pdy)))
 					reward_y = REWARD_MAX;
 				else
 					reward_y = REWARD_MIN;
