@@ -54,15 +54,15 @@ public:
 	static const int OUTPUT_FN = OUTPUT_LINEAR;	// sigmoid or linear output
 	static const double SIGMOID_BETA = 0.3;		// beta value for sigmoid function
 	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
-	static const double LEARNING_RATE = 0.1;	// learning rate
+	static const double LEARNING_RATE = 0.2;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
 	static const double REWARD_MIN = -1.0;		// negative reward
-	static const double REWARD_MAX = 0.0;		// positive reward
+	static const double REWARD_MAX = 1.0;		// positive reward
 	// min/max values for population coding
-	static const int POPULATION_MIN_X = -30;	// motor pos. leftmost
-	static const int POPULATION_MAX_X = 30;		// motor pos. rightmost
-	static const int POPULATION_MIN_Y = -30;	// motor pos. upmost
-	static const int POPULATION_MAX_Y = 30;		// motor pos. downmost
+	static const int POPULATION_MIN_X = -20;	// motor pos. leftmost
+	static const int POPULATION_MAX_X = 20;		// motor pos. rightmost
+	static const int POPULATION_MIN_Y = -20;	// motor pos. upmost
+	static const int POPULATION_MAX_Y = 20;		// motor pos. downmost
 
 	/*
 	 * Runtime cycle parameters
@@ -544,7 +544,7 @@ public:
 		servoInits.push_back(90);
 
 		servoMins.push_back(74);
-		servoMins.push_back(87);
+		servoMins.push_back(85);
 		servoMins.push_back(40);
 
 		servoMaxs.push_back(114);
