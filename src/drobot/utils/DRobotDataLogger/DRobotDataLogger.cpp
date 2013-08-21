@@ -28,7 +28,7 @@ DRobotDataLogger::DRobotDataLogger(const char *dir, const char *file)
 	_file.open(p.c_str());
 
 	if (!_file.is_open()) {
-		std::cerr << "Error: failed to open file" << std::endl;
+		std::cerr << "Error: failed to open file " << p.c_str() << ": " << strerror(errno) << std::endl;
 		throw "";
 	}
 

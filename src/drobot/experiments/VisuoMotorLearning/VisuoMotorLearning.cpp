@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <sys/resource.h>
+
 #include <QApplication>
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
@@ -45,8 +47,8 @@ public:
 	 */
 	static const bool RUN_FOREVER = false;		// whether to run the experiment forever (until Ctrl-C)
 	static const int MAX_STEPS = 25000;		// if not running forever: number of steps to perform the experiment
-	static const int N_INPUT_ROWS = 15;		// number of rows in the input
-	static const int N_INPUT_COLS = 15;		// number of columns in the input
+	static const int N_INPUT_ROWS = 25;		// number of rows in the input
+	static const int N_INPUT_COLS = 25;		// number of columns in the input
 	static const int N_OUTPUTS = 10;		// number of output neurons per perceptron
 	// Original: -0.005, 0.005
 	// McMillen: 0.0, 1.0
@@ -56,7 +58,7 @@ public:
 	static const int OUTPUT_FN = OUTPUT_LINEAR;	// sigmoid or linear output
 	static const double SIGMOID_BETA = 0.3;		// beta value for sigmoid function
 	static const DRobotPerceptron::learn_rule_t LEARNING_RULE = DRobotPerceptron::LEARN_MCMILLEN;
-	static const double LEARNING_RATE = 0.2;	// learning rate
+	static const double LEARNING_RATE = 0.15;	// learning rate
 	static const int WTA_LEARNING_NEIGH = 1; 	// # of neighbour neurons on each side for WTA-learning
 	static const double REWARD_MIN = -1.0;		// negative reward
 	static const double REWARD_MAX = 1.0;		// positive reward
@@ -81,6 +83,16 @@ public:
 
 	void setup()
 	{
+		struct rlimit rlim;
+		getrlimit(RLIMIT_NOFILE, &rlim);
+		std::cout << "cur: " << rlim.rlim_cur << "/max: " << rlim.rlim_max << std::endl;
+
+		rlim.rlim_cur = rlim.rlim_max = 16384;
+
+		setrlimit(RLIMIT_NOFILE, &rlim);
+		getrlimit(RLIMIT_NOFILE, &rlim);
+		std::cout << "cur: " << rlim.rlim_cur << "/max: " << rlim.rlim_max << std::endl;
+
 		actuation->setInitialPositions();
 
 		/* Make sure we have both differentials (1st and 2nd) */
