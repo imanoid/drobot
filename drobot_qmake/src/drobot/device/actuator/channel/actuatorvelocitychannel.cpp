@@ -7,18 +7,18 @@ namespace device {
 namespace actuator {
 namespace channel {
 
-ActuatorVelocityChannel::ActuatorVelocityChannel(std::string name, ChannelType type) :
+ActuatorVelocityChannel::ActuatorVelocityChannel(std::string name, device::channel::ChannelType type) :
     Channel(name, type) {}
 
-ActuatorVelocityChannel::ActuatorVelocityChannel(std::string name, ChannelType type, device::channel::Normalizer* normalizer, device::Device* device) :
+ActuatorVelocityChannel::ActuatorVelocityChannel(std::string name, device::channel::ChannelType type, device::channel::Normalizer* normalizer, device::Device* device) :
     Channel(name, type, normalizer, device) {}
 
 void ActuatorVelocityChannel::setValue(double value) {
-    getDevice()->toActuator()->setVelocity(value);
+    _device->toActuator()->setVelocity(value);
 }
 
 double ActuatorVelocityChannel::getValue() {
-    return getDevice()->toActuator()->getVelocity();
+    return _device->toActuator()->getVelocity();
 }
 
 } // namespace channel

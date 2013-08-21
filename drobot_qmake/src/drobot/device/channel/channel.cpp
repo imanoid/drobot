@@ -1,6 +1,7 @@
 #include "channel.h"
 #include "../device.h"
 #include <sstream>
+#include <iostream>
 
 namespace drobot {
 namespace device {
@@ -37,6 +38,7 @@ Normalizer* Channel::getNormalizer() {
 }
 
 void Channel::setDevice(Device* device) {
+    std::cout << this << "setDevice" << std::endl;
     _device = device;
 }
 
@@ -46,6 +48,8 @@ Device* Channel::getDevice() {
 
 void Channel::setNormalizedValue(double value) {
     _value = _normalizer->denormalize(value);
+    if (_type == OUTPUT)
+        _update = true;
 }
 
 double Channel::getNormalizedValue() {
@@ -54,6 +58,8 @@ double Channel::getNormalizedValue() {
 
 void Channel::setRealValue(double value) {
     _value = value;
+    if (_type == OUTPUT)
+        _update = true;
 }
 
 double Channel::getRealValue() {
@@ -63,7 +69,7 @@ double Channel::getRealValue() {
 std::string Channel::getName() {
     if (_device != 0) {
         std::stringstream name;
-        name << _device->getName() << "." << _name;
+        name << _device->getName() << "_" << _name;
         return name.str();
     } else {
         return Item::getName();
@@ -81,7 +87,6 @@ ChannelType Channel::getType() {
 void Channel::read() {
     if (_type == INPUT) {
         _value = getValue();
-        _update = false;
     }
 }
 

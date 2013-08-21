@@ -115,9 +115,13 @@ void SimpleTactileSensorBoard::updateLoop() {
         }
 
         for (int iSensor = 0; iSensor < _maxSensors; iSensor++) {
-            getTactileSensor(iSensor)->setValue((double) activations[iSensor]);
+            SimpleTactileSensor* sensor = getTactileSensor(iSensor);
+            if (sensor != 0) {
+                sensor->setValue((double) activations[iSensor]);
+            }
         }
     }
+    delete activations;
 
     driver::rs232::RS232_ClosePort(portFileDescriptor, &initialPortSettings);
 }

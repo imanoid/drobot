@@ -1,5 +1,5 @@
-#ifndef _DROBOT_WIDGET_MAINWINDOW_H_
-#define _DROBOT_WIDGET_MAINWINDOW_H_
+#ifndef DROBOT_WIDGET_MAINWINDOW_H
+#define DROBOT_WIDGET_MAINWINDOW_H
 
 #include <QMainWindow>
 #include "../program/programmanager.h"
@@ -21,7 +21,7 @@ public:
 public slots:
     void onProgramLaunch();
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     drobot::program::ProgramManager* _programManager;
 };
 

@@ -1,7 +1,6 @@
 #include "devicemanager.h"
 #include <QFile>
 #include <QtXml/QDomDocument>
-#include <iostream>
 
 namespace drobot {
 namespace device {
@@ -11,6 +10,8 @@ void DeviceManager::parseElement(QDomElement element) {
     QString name = element.tagName();
     if (name.compare("deviceGroup") == 0) {
         parseDeviceGroup(element);
+    } else if (name.startsWith("device")) {
+        parseDevice(element);
     }
 }
 
@@ -29,28 +30,29 @@ void DeviceManager::parseDeviceGroup(QDomElement element) {
 void DeviceManager::parseDevice(QDomElement element) {
     QString skip = element.attribute("skip", "false");
     if (skip.compare("false") == 0) {
-        QString type = element.attribute("type");
-        std::vector<Device*> devices = _deviceFactories[type.toStdString()]->createFromDomElement(element);
-        this->add(devices);
+        _deviceFactories->get(element.nodeName().toStdString())->createFromDomElement(element, this);
     }
 }
 
 //public
-
 DeviceManager::DeviceManager() : Manager() {
-    _channelManager = new channel::ChannelManager;
+    _channels = new channel::ChannelManager;
+    _deviceBoards = new object::Manager<DeviceBoard>();
+    _deviceFactories = new object::Manager<DeviceFactory>();
+    _deviceFactories->add(new tactile::SimpleTactileSensorFactory());
+    _deviceFactories->add(new actuator::PhidgetAdvancedServoFactory());
 }
 
 DeviceManager::DeviceManager(std::vector<Device*> items) : Manager(items) {
-    _channelManager = new channel::ChannelManager;
+    _channels = new channel::ChannelManager;
 }
 
 void DeviceManager::onAdd(Device* item) {
-    _channelManager->add(item->getChannelManager()->list());
+    _channels->add(item->getChannels()->list());
 }
 
 void DeviceManager::onRemove(Device* item) {
-    _channelManager->remove(item->getChannelManager()->list());
+    _channels->remove(item->getChannels()->list());
 }
 
 void DeviceManager::enable() {
@@ -71,19 +73,23 @@ void DeviceManager::loadFromFile(std::string path) {
     QFile* file = new QFile(QString::fromStdString(path));
     QDomDocument doc("mydocument");
     doc.setContent(file);
-    parseElement(doc.documentElement());
+    QDomElement rootElement = doc.documentElement();
+    QDomNodeList children = rootElement.childNodes();
+    for (int i = 0; i < children.count(); i++) {
+        parseElement(children.at(i).toElement());
+    }
 }
 
-void DeviceManager::registerDeviceFactory(DeviceFactory* deviceFactory) {
-    _deviceFactories[deviceFactory->getName()] = deviceFactory;
+channel::ChannelManager* DeviceManager::getChannels() {
+    return _channels;
 }
 
-void DeviceManager::unregisterDeviceFactory(DeviceFactory* deviceFactory) {
-    _deviceFactories.erase(deviceFactory->getName());
+object::Manager<DeviceFactory>* DeviceManager::getDeviceFactories() {
+    return _deviceFactories;
 }
 
-channel::ChannelManager* DeviceManager::getChannelManager() {
-    return _channelManager;
+object::Manager<DeviceBoard>*  DeviceManager::getDeviceBoards() {
+    return _deviceBoards;
 }
 
 }

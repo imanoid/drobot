@@ -2,11 +2,16 @@
 #include "phidgetsimpleservo.h"
 #include <phidget21.h>
 #include "../../util/util.h"
+#include "../../util/exception.h"
 #include <sstream>
 
 namespace drobot {
 namespace device {
 namespace actuator {
+
+CPhidgetHandle& PhidgetSimpleBoard::getPhidgetHandle() {
+    return (CPhidgetHandle&) _phidgetHandle;
+}
 
 PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name) : ActuatorBoard(name) {
     int serial = -1;
@@ -16,8 +21,10 @@ PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name) : ActuatorBoard(name) {
     CPhidget_open((CPhidgetHandle)_phidgetHandle, serial);
 
     int result;
-    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 2000))) {
-        //TODO: throw Exception
+    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 10000))) {
+        util::Exception ex;
+        ex << "PhidgetSimpleBoard(" << serial << ") couldn't be attached!";
+        throw ex;
     }
 }
 
@@ -28,8 +35,10 @@ PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name, int serial) : ActuatorB
     CPhidget_open((CPhidgetHandle)_phidgetHandle, serial);
 
     int result;
-    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 2000))) {
-        //TODO: throw Exception
+    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 10000))) {
+        util::Exception ex;
+        ex << "PhidgetSimpleBoard(" << serial << ") couldn't be attached!";
+        throw ex;
     }
 }
 

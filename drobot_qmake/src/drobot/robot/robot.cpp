@@ -24,7 +24,8 @@ void Robot::run() {
     _running = true;
 
     long tick = 0;
-    device::channel::ChannelManager* channels = _deviceManager->getChannelManager();
+    device::channel::ChannelManager* channels = _deviceManager->getChannels();
+
     while (_running) {
         channels->read();
         _controller->step(tick, channels);

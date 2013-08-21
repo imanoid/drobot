@@ -9,10 +9,12 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-class PhidgetSimpleBoard : public ActuatorBoard, public PhidgetDevice
+class PhidgetSimpleBoard : public ActuatorBoard
 {
 private:
     CPhidgetServoHandle _phidgetHandle;
+protected:
+    virtual CPhidgetHandle& getPhidgetHandle();
 public:
     PhidgetSimpleBoard(std::string name);
     PhidgetSimpleBoard(std::string name, int serial);

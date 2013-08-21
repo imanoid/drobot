@@ -1,11 +1,17 @@
 #include "phidgetadvancedboard.h"
 #include <phidget21.h>
 #include "../../util/util.h"
+#include "../../util/exception.h"
 #include <sstream>
+#include <iostream>
 
 namespace drobot {
 namespace device {
 namespace actuator {
+
+CPhidgetHandle& PhidgetAdvancedBoard::getPhidgetHandle() {
+    return (CPhidgetHandle&) _phidgetHandle;
+}
 
 PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name) : ActuatorBoard(name) {
     int serial = -1;
@@ -15,8 +21,10 @@ PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name) : ActuatorBoard(nam
     CPhidget_open((CPhidgetHandle)_phidgetHandle, serial);
 
     int result;
-    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 2000))) {
-        //TODO: throw Exception
+    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 10000))) {
+        util::Exception ex;
+        ex << "PhidgetAdvancedBoard(" << serial << ") couldn't be attached!";
+        throw ex;
     }
 }
 
@@ -27,13 +35,20 @@ PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name, int serial) : Actua
     CPhidget_open((CPhidgetHandle)_phidgetHandle, serial);
 
     int result;
-    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 2000))) {
-        //TODO: throw Exception
+    if((result = CPhidget_waitForAttachment((CPhidgetHandle)_phidgetHandle, 10000))) {
+        util::Exception ex;
+        ex << "PhidgetAdvancedBoard(" << serial << ") couldn't be attached!";
+        throw ex;
     }
 }
 
 PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name, CPhidgetAdvancedServoHandle phidgetHandle) : ActuatorBoard(name) {
     _phidgetHandle = phidgetHandle;
+}
+
+PhidgetAdvancedBoard::~PhidgetAdvancedBoard() {
+    disable();
+    CPhidget_delete((CPhidgetHandle)_phidgetHandle);
 }
 
 int PhidgetAdvancedBoard::getMaxActuators() {

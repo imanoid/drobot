@@ -17,10 +17,11 @@ class Channel : public object::Item
 {
 private:
     Normalizer* _normalizer;
-    Device* _device;
     ChannelType _type;
     double _value;
     bool _update;
+protected:
+    Device* _device;
 public:
     Channel(std::string name, ChannelType type);
     Channel(std::string name, ChannelType type, Normalizer* normalizer, Device* device);

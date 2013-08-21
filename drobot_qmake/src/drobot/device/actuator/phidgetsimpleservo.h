@@ -9,16 +9,15 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-class PhidgetSimpleServo : public Actuator, public PhidgetDevice
+class PhidgetSimpleServo : public Actuator
 {
 private:
     CPhidgetServoHandle _phidgetHandle;
     int _index;
-
+protected:
+    virtual CPhidgetHandle& getPhidgetHandle();
 public:
     PhidgetSimpleServo(std::string name, CPhidgetServoHandle phidgetHandle, int index);
-
-    virtual void initChannels();
 
     virtual void enable();
     virtual void disable();
@@ -26,15 +25,18 @@ public:
 
     virtual double getPosition();
     virtual void setPosition(double position);
+    virtual double getPositionMin();
+    virtual double getPositionMax();
 
     virtual double getVelocity();
     virtual void setVelocity(double velocity);
+    virtual double getVelocityMin();
+    virtual double getVelocityMax();
 
     virtual double getAcceleration();
     virtual void setAcceleration(double acceleration);
-
-    double getPositionMin();
-    double getPositionMax();
+    virtual double getAccelerationMin();
+    virtual double getAccelerationMax();
 };
 
 }

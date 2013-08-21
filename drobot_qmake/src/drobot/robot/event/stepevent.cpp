@@ -18,8 +18,8 @@ std::string StepEvent::toString() {
     str << "tick: " << _tick << std::endl;
     str << "values" << std::endl << "======" << std::endl;
     for (std::map<device::channel::Channel*, double>::iterator iChannel = _values.begin(); iChannel != _values.end(); iChannel++) {
-        //str << iChannel->first->getName() << "=" << iChannel->second << std::endl;
-        str << iChannel->second << ";";
+        str << iChannel->first->getName() << "=" << iChannel->second << std::endl;
+        //str << iChannel->second << ";";
     }
     str << std::endl;
     return str.str();

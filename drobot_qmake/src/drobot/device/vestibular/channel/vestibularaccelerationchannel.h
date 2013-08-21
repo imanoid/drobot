@@ -14,8 +14,8 @@ class VestibularAccelerationChannel : public device::channel::Channel
 private:
     int _dimension;
 public:
-    VestibularAccelerationChannel(std::string name, ChannelType type, int dimension);
-    VestibularAccelerationChannel(std::string name, ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device);
+    VestibularAccelerationChannel(std::string name, device::channel::ChannelType type, int dimension);
+    VestibularAccelerationChannel(std::string name, device::channel::ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device);
     virtual void setValue(double value);
     virtual double getValue();
 };

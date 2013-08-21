@@ -2,19 +2,23 @@
 #define DROBOT_DEVICE_DEVICEFACTORY_H
 
 #include <QtXml/QDomElement>
-#include "device.h"
 #include <vector>
+#include "../object/item.h"
+#include "channel/channelfactory.h"
 
 namespace drobot {
 namespace device {
 
-class DeviceFactory
+class DeviceManager;
+
+class DeviceFactory : public object::Item
 {
-private:
-    std::string _name;
+protected:
+    object::Manager<channel::ChannelFactory>* _channelFactories;
 public:
-    virtual std::vector<Device*> createFromDomElement(QDomElement) = 0;
-    std::string getName();
+    DeviceFactory(std::string name);
+    virtual void createFromDomElement(QDomElement element, DeviceManager* devices) = 0;
+    object::Manager<channel::ChannelFactory>* getChannelFactories();
 };
 
 } // namespace device

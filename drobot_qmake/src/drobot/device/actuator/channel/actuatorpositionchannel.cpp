@@ -7,10 +7,10 @@ namespace device {
 namespace actuator {
 namespace channel {
 
-ActuatorPositionChannel::ActuatorPositionChannel(std::string name, ChannelType type) :
+ActuatorPositionChannel::ActuatorPositionChannel(std::string name, device::channel::ChannelType type) :
     Channel(name, type) {}
 
-ActuatorPositionChannel::ActuatorPositionChannel(std::string name, ChannelType type, device::channel::Normalizer* normalizer, device::Device* device) :
+ActuatorPositionChannel::ActuatorPositionChannel(std::string name, device::channel::ChannelType type, device::channel::Normalizer* normalizer, device::Device* device) :
     Channel(name, type, normalizer, device) {}
 
 void ActuatorPositionChannel::setValue(double value) {

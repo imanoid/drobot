@@ -7,12 +7,12 @@ namespace device {
 namespace vestibular {
 namespace channel {
 
-VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, ChannelType type, int dimension) :
+VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, device::channel::ChannelType type, int dimension) :
     Channel(name, type) {
     _dimension = dimension;
 }
 
-VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device) :
+VestibularAccelerationChannel::VestibularAccelerationChannel(std::string name, device::channel::ChannelType type, int dimension, device::channel::Normalizer* normalizer, device::Device* device) :
     Channel(name, type, normalizer, device) {
     _dimension = dimension;
 }

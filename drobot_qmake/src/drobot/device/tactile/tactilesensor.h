@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DEVICE_TACTILE_TACTILESENSOR_H_
-#define _DROBOT_DEVICE_TACTILE_TACTILESENSOR_H_
+#ifndef DROBOT_DEVICE_TACTILE_TACTILESENSOR_H
+#define DROBOT_DEVICE_TACTILE_TACTILESENSOR_H
 
 #include "../device.h"
 
@@ -12,7 +12,8 @@ class TactileSensor : public Device
 public:
     TactileSensor(std::string name);
     virtual double getValue() = 0;
-    virtual void initChannels() = 0;
+    virtual double getValueMin() = 0;
+    virtual double getValueMax() = 0;
 };
 
 }

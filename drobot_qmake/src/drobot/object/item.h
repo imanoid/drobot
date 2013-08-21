@@ -12,6 +12,7 @@ protected:
     std::string _name;
 public:
     Item(std::string name);
+    virtual ~Item();
     void setName(std::string name);
     virtual std::string getName();
 };

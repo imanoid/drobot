@@ -9,12 +9,12 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-class PhidgetAdvancedServo : public Actuator, public PhidgetDevice
+class PhidgetAdvancedServo : public Actuator
 {
+protected:
+    virtual CPhidgetHandle& getPhidgetHandle();
 public:
     PhidgetAdvancedServo(std::string name, CPhidgetAdvancedServoHandle phidgetHandle, int index);
-
-    virtual void initChannels();
 
     virtual void enable();
     virtual void disable();
@@ -22,22 +22,32 @@ public:
 
     virtual double getPosition();
     virtual void setPosition(double position);
-    double getPositionMin();
+    virtual double getPositionMin();
     void setPositionMin(double positionMin);
-    double getPositionMax();
+    virtual double getPositionMax();
     void setPositionMax(double positionMax);
 
     virtual double getAcceleration();
     virtual void setAcceleration(double acceleration);
-    double getAccelerationMin();
-    double getAccelerationMax();
+    virtual double getAccelerationMin();
+    virtual double getAccelerationMax();
 
     virtual double getVelocity();
     virtual void setVelocity(double velocity);
-    double getVelocityMin();
-    double getVelocityMax();
-    double getVelocityLimit();
-    void setVelocityLimit(double velocityLimit);
+    virtual double getVelocityMin();
+    virtual double getVelocityMax();
+
+    double getMovingAcceleration();
+    void setMovingAcceleration(double acceleration);
+    double getMovingAccelerationMin();
+    double getMovingAccelerationMax();
+
+    double getMovingVelocity();
+    void setMovingVelocity(double velocity);
+    double getMovingVelocityMin();
+    double getMovingVelocityMax();
+    double getMovingVelocityLimit();
+    void setMovingVelocityLimit(double velocityLimit);
 
     bool isMoving();
 

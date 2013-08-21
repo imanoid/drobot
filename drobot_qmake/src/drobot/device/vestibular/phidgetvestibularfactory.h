@@ -1,7 +1,9 @@
 #ifndef DROBOT_DEVICE_VESTIBULAR_PHIDGETVESTIBULARFACTORY_H
 #define DROBOT_DEVICE_VESTIBULAR_PHIDGETVESTIBULARFACTORY_H
 
+#include "../../object/manager.h"
 #include "../devicefactory.h"
+#include "../channel/channelfactory.h"
 
 namespace drobot {
 namespace device {
@@ -10,7 +12,8 @@ namespace vestibular {
 class PhidgetVestibularFactory : public DeviceFactory
 {
 public:
-    virtual std::vector<Device*> createFromDomElement(QDomElement element);
+    PhidgetVestibularFactory();
+    virtual void createFromDomElement(QDomElement element, DeviceManager* devices);
 };
 
 } // namespace vestibular

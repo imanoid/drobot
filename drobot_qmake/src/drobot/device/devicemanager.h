@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DEVICE_DEVICEMANAGER_H_
-#define _DROBOT_DEVICE_DEVICEMANAGER_H_
+#ifndef DROBOT_DEVICE_DEVICEMANAGER_H
+#define DROBOT_DEVICE_DEVICEMANAGER_H
 
 #include <string>
 #include <map>
@@ -9,6 +9,8 @@
 #include "channel/channelmanager.h"
 #include <QtXml/QDomElement>
 #include "../object/manager.h"
+#include "actuator/phidgetadvancedservofactory.h"
+#include "tactile/simpletactilesensorfactory.h"
 
 namespace drobot {
 namespace device {
@@ -16,9 +18,9 @@ namespace device {
 class DeviceManager : public object::Manager<Device>
 {
 private:
-    std::map<std::string, DeviceFactory*> _deviceFactories;
-
-    channel::ChannelManager* _channelManager;
+    object::Manager<DeviceFactory>* _deviceFactories;
+    channel::ChannelManager* _channels;
+    object::Manager<DeviceBoard>* _deviceBoards;
 
     void parseElement(QDomElement element);
     void parseDeviceGroup(QDomElement element);
@@ -33,9 +35,9 @@ public:
     void disable();
 
     void loadFromFile(std::string path);
-    void registerDeviceFactory(DeviceFactory* deviceFactory);
-    void unregisterDeviceFactory(DeviceFactory* deviceFactory);
-    virtual channel::ChannelManager* getChannelManager();
+    virtual channel::ChannelManager* getChannels();
+    object::Manager<DeviceFactory>* getDeviceFactories();
+    object::Manager<DeviceBoard>* getDeviceBoards();
 };
 
 }

@@ -9,14 +9,11 @@ HEADERS += \
     src/drobot/device/actuator/actuator.h \
     src/drobot/device/actuator/actuatorboard.h \
     src/drobot/device/actuator/phidgetadvancedboard.h \
-    src/drobot/device/actuator/phidgetadvancedboardfactory.h \
     src/drobot/device/actuator/phidgetadvancedservo.h \
     src/drobot/device/actuator/phidgetsimpleboard.h \
-    src/drobot/device/actuator/phidgetsimpleboardfactory.h \
     src/drobot/device/actuator/phidgetsimpleservo.h \
     src/drobot/device/tactile/simpletactilesensor.h \
     src/drobot/device/tactile/simpletactilesensorboard.h \
-    src/drobot/device/tactile/simpletactilesensorboardfactory.h \
     src/drobot/device/tactile/tactilesensor.h \
     src/drobot/device/tactile/tactilesensorboard.h \
     src/drobot/device/vestibular/phidgetvestibular.h \
@@ -25,7 +22,6 @@ HEADERS += \
     src/drobot/device/vision/vision.h \
     src/drobot/device/device.h \
     src/drobot/device/deviceboard.h \
-    src/drobot/device/devicefactory.h \
     src/drobot/device/devicemanager.h \
     src/drobot/device/phidgetdevice.h \
     src/drobot/device/driver/rs232.h \
@@ -45,7 +41,6 @@ HEADERS += \
     src/drobot/device/channel/linearnormalizer.h \
     src/drobot/device/actuator/channel/actuatorpositionchannel.h \
     src/drobot/device/actuator/channel/actuatorvelocitychannel.h \
-    src/drobot/device/actuator/channel/actuatoraccelerationchannel.h \
     src/drobot/device/tactile/channel/tactilesensorvaluechannel.h \
     src/drobot/device/vestibular/channel/vestibularaccelerationchannel.h \
     src/drobot/device/vestibular/channel/vestibularangularratechannel.h \
@@ -61,25 +56,39 @@ HEADERS += \
     src/drobot/object/item.h \
     src/drobot/object/manager.h \
     src/drobot/device/channel/channeltype.h \
-    src/drobot/util/clock.h
+    src/drobot/util/clock.h \
+    src/drobot/device/actuator/phidgetadvancedservofactory.h \
+    src/drobot/device/actuator/phidgetsimpleservofactory.h \
+    src/drobot/device/devicefactory.h \
+    src/drobot/device/tactile/simpletactilesensorfactory.h \
+    src/drobot/device/channel/channelfactory.h \
+    src/drobot/device/channel/normalizerfactory.h \
+    src/drobot/device/actuator/channel/actuatorpositionchannelfactory.h \
+    src/drobot/device/tactile/channel/tactilesensorvaluechannelfactory.h \
+    src/drobot/device/vision/pixel.h \
+    src/drobot/util/exception.h \
+    src/drobot/device/vestibular/channel/vestibularaccelerationchannelfactory.h \
+    src/drobot/device/vestibular/channel/vestibularangularratechannelfactory.h \
+    src/drobot/device/actuator/channel/actuatoraccelerationchannel.h \
+    src/drobot/device/actuator/channel/actuatoraccelerationchannelfactory.h \
+    src/drobot/device/actuator/channel/actuatorvelocitychannelfactory.h \
+    src/drobot/device/deviceConstants.h \
+    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannel.h \
+    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.h
 
 SOURCES += \
     src/drobot/device/actuator/actuatorboard.cpp \
     src/drobot/device/actuator/phidgetadvancedboard.cpp \
-    src/drobot/device/actuator/phidgetadvancedboardfactory.cpp \
     src/drobot/device/actuator/phidgetadvancedservo.cpp \
     src/drobot/device/actuator/phidgetsimpleboard.cpp \
-    src/drobot/device/actuator/phidgetsimpleboardfactory.cpp \
     src/drobot/device/actuator/phidgetsimpleservo.cpp \
     src/drobot/device/tactile/simpletactilesensor.cpp \
     src/drobot/device/tactile/simpletactilesensorboard.cpp \
-    src/drobot/device/tactile/simpletactilesensorboardfactory.cpp \
     src/drobot/device/tactile/tactilesensorboard.cpp \
     src/drobot/device/vestibular/phidgetvestibular.cpp \
     src/drobot/device/vestibular/phidgetvestibularfactory.cpp \
     src/drobot/device/device.cpp \
     src/drobot/device/deviceboard.cpp \
-    src/drobot/device/devicefactory.cpp \
     src/drobot/device/devicemanager.cpp \
     src/drobot/device/phidgetdevice.cpp \
     src/drobot/device/driver/rs232.cpp \
@@ -99,7 +108,6 @@ SOURCES += \
     src/drobot/device/channel/linearnormalizer.cpp \
     src/drobot/device/actuator/channel/actuatorpositionchannel.cpp \
     src/drobot/device/actuator/channel/actuatorvelocitychannel.cpp \
-    src/drobot/device/actuator/channel/actuatoraccelerationchannel.cpp \
     src/drobot/device/tactile/channel/tactilesensorvaluechannel.cpp \
     src/drobot/device/vestibular/channel/vestibularaccelerationchannel.cpp \
     src/drobot/device/vestibular/channel/vestibularangularratechannel.cpp \
@@ -114,7 +122,23 @@ SOURCES += \
     src/drobot/robot/event/stepevent.cpp \
     src/drobot/datalogger/simpledatalogger.cpp \
     src/drobot/object/item.cpp \
-    src/drobot/util/clock.cpp
+    src/drobot/util/clock.cpp \
+    src/drobot/device/actuator/phidgetadvancedservofactory.cpp \
+    src/drobot/device/actuator/phidgetsimpleservofactory.cpp \
+    src/drobot/device/devicefactory.cpp \
+    src/drobot/device/tactile/simpletactilesensorfactory.cpp \
+    src/drobot/device/channel/channelfactory.cpp \
+    src/drobot/device/actuator/channel/actuatorpositionchannelfactory.cpp \
+    src/drobot/device/channel/channeltype.cpp \
+    src/drobot/device/tactile/channel/tactilesensorvaluechannelfactory.cpp \
+    src/drobot/util/exception.cpp \
+    src/drobot/device/vestibular/channel/vestibularaccelerationchannelfactory.cpp \
+    src/drobot/device/vestibular/channel/vestibularangularratechannelfactory.cpp \
+    src/drobot/device/actuator/channel/actuatoraccelerationchannel.cpp \
+    src/drobot/device/actuator/channel/actuatoraccelerationchannelfactory.cpp \
+    src/drobot/device/actuator/channel/actuatorvelocitychannelfactory.cpp \
+    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannel.cpp \
+    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.cpp
 
 OTHER_FILES +=
 

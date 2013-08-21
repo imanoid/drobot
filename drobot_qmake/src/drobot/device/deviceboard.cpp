@@ -4,16 +4,6 @@ namespace drobot {
 namespace device {
 
 DeviceBoard::DeviceBoard(std::string name) : Device::Device(name) {
-}
-
-void DeviceBoard::initChannels() {
-    Device::getChannelManager()->clear();
-    std::vector<Device*> devices = list();
-    for (std::vector<Device*>::iterator iDevice = devices.begin(); iDevice != devices.end(); iDevice++) {
-        Device* dev = *iDevice;
-        dev->initChannels();
-        Device::getChannelManager()->add(dev->getChannelManager()->list());
-    }
     _enabled = false;
 }
 
@@ -46,8 +36,8 @@ void DeviceBoard::onRemove(Device *item) {
 }
 
 
-channel::ChannelManager* DeviceBoard::getChannelManager() {
-    return DeviceManager::getChannelManager();
+channel::ChannelManager* DeviceBoard::getChannels() {
+    return DeviceManager::getChannels();
 }
 
 } // namespace device

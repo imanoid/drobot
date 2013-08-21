@@ -1,0 +1,18 @@
+<config>
+<deviceGroup name="actuator" skip="false">
+    <device:phidgetAdvancedServo serial="303292" index="0" name="LeftEyeServo0" skip="false">
+        <channel:position type="OUTPUT" />
+    </device:phidgetAdvancedServo>
+    <device:phidgetAdvancedServo serial="303292" index="1" name="LeftEyeServo1">
+        <channel:position type="OUTPUT" />
+    </device:phidgetAdvancedServo>
+    <device:phidgetAdvancedServo serial="303292" index="2" name="NeckServo">
+        <channel:position type="OUTPUT" />
+    </device:phidgetAdvancedServo>
+</deviceGroup>
+<deviceGroup name="tactile" skip="false">
+    <device:simpleTactileSensor path="/dev/ttyUSB0" index="1" name="LeftHandTactileSensor">
+        <channel:value type="INPUT" />
+    </device:simpleTactileSensor>
+</deviceGroup>
+</config>

@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DEVICE_PHIDGETDEVICE_H_
-#define _DROBOT_DEVICE_PHIDGETDEVICE_H_
+#ifndef DROBOT_DEVICE_PHIDGETDEVICE_H
+#define DROBOT_DEVICE_PHIDGETDEVICE_H
 
 #include "device.h"
 #include <phidget21.h>
@@ -9,12 +9,9 @@ namespace device {
 
 class PhidgetDevice
 {
-private:
-    CPhidgetHandle _phidgetHandle;
+protected:
+    virtual CPhidgetHandle& getPhidgetHandle() = 0;
 public:
-    PhidgetDevice(CPhidgetHandle phidgetHandle);
-    PhidgetDevice();
-    virtual ~PhidgetDevice();
     std::string getPhidgetName();
     int getPhidgetSerialNumber();
     int getPhidgetVersion();

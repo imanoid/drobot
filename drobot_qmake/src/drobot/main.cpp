@@ -13,7 +13,5 @@ int main( int argc, char* argv[]) {
     app.setApplicationName("Application Example");
     drobot::widget::MainWindow mainWin;
     mainWin.showMaximized();
-    drobot::device::DeviceManager manager;
-    manager.loadFromFile(std::string("config.xml"));
     return app.exec();
 }

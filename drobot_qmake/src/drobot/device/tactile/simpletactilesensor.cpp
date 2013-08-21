@@ -2,6 +2,7 @@
 #include "../deviceboard.h"
 #include "channel/tactilesensorvaluechannel.h"
 #include "../channel/linearnormalizer.h"
+#include "../deviceConstants.h"
 
 namespace drobot {
 namespace device {
@@ -23,16 +24,20 @@ int SimpleTactileSensor::getIndex() {
     return _index;
 }
 
-void SimpleTactileSensor::initChannels() {
-    getChannelManager()->add(new channel::TactileSensorValueChannel("value", INPUT, new device::channel::LinearNormalizer(0, 255), this));
-}
-
 double SimpleTactileSensor::getValue() {
     return _value;
 }
 
 void SimpleTactileSensor::setValue(double value) {
     _value = value;
+}
+
+double SimpleTactileSensor::getValueMin() {
+    return SIMPLE_TACTILE_SENSOR_MIN_VALUE_DEFAULT;
+}
+
+double SimpleTactileSensor::getValueMax() {
+    return SIMPLE_TACTILE_SENSOR_MAX_VALUE_DEFAULT;
 }
 
 void SimpleTactileSensor::enable() {

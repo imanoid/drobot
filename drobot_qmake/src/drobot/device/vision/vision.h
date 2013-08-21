@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DEVICE_VISION_H_
-#define _DROBOT_DEVICE_VISION_H_
+#ifndef DROBOT_DEVICE_VISION_H
+#define DROBOT_DEVICE_VISION_H
 
 #include "../device.h"
 
@@ -8,9 +8,6 @@ namespace device {
 namespace vision {
 
 class Vision : public Device {
-
-public:
-
 };
 
 }

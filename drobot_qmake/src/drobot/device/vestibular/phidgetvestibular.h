@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DEVICE_VESTIBULAR_PHIDGETVESTIBULAR_H_
-#define _DROBOT_DEVICE_VESTIBULAR_PHIDGETVESTIBULAR_H_
+#ifndef DROBOT_DEVICE_VESTIBULAR_PHIDGETVESTIBULAR_H
+#define DROBOT_DEVICE_VESTIBULAR_PHIDGETVESTIBULAR_H
 
 #include "vestibular.h"
 #include "phidget21.h"
@@ -13,23 +13,24 @@ class PhidgetVestibular : public Vestibular
 private:
     CPhidgetSpatialHandle _phidgetHandle;
     bool _enabled;
+protected:
+    virtual CPhidgetHandle getPhidgetHandle();
 public:
     PhidgetVestibular(std::string name);
     PhidgetVestibular(std::string name, int serial);
     PhidgetVestibular(std::string name, CPhidgetSpatialHandle phidgetHandle);
-    virtual void initChannels();
     int getAccelerationAxisCount();
     int getGyroAxisCount();
     int getCompassAxisCount();
     virtual std::vector<double> getAcceleration();
-    std::vector<double> getAccelerationMax();
-    std::vector<double> getAccelerationMin();
+    virtual std::vector<double> getAccelerationMax();
+    virtual std::vector<double> getAccelerationMin();
     virtual std::vector<double> getAngularRate();
-    std::vector<double> getAngularRateMax();
-    std::vector<double> getAngularRateMin();
-    std::vector<double> getMagneticField();
-    std::vector<double> getMagneticFieldMax();
-    std::vector<double> getMagneticFieldMin();
+    virtual std::vector<double> getAngularRateMax();
+    virtual std::vector<double> getAngularRateMin();
+    virtual std::vector<double> getMagneticField();
+    virtual std::vector<double> getMagneticFieldMax();
+    virtual std::vector<double> getMagneticFieldMin();
     void zeroGyro();
     int getDataRate();
     void setDataRate(int milliseconds);

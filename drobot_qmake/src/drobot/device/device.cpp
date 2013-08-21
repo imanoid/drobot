@@ -13,16 +13,6 @@ Device::Device(std::string name) : Item(name) {
     _deviceBoard = 0;
 }
 
-std::string Device::getName() {
-    if (_deviceBoard != 0) {
-        std::stringstream name;
-        name << _deviceBoard->getName() << "." << _name;
-        return name.str();
-    } else {
-        return Item::getName();
-    }
-}
-
 DeviceBoard* Device::getDeviceBoard() {
     return _deviceBoard;
 }
@@ -47,7 +37,7 @@ vestibular::Vestibular* Device::toVestibular() {
     return dynamic_cast<vestibular::Vestibular*>(this);
 }
 
-channel::ChannelManager* Device::getChannelManager() {
+channel::ChannelManager* Device::getChannels() {
     return _channelManager;
 }
 

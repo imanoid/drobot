@@ -17,9 +17,10 @@ public:
     SimpleTactileSensor(std::string name, int index);
     SimpleTactileSensor(std::string name, int index, double value);
     int getIndex();
-    virtual void initChannels();
     virtual double getValue();
     void setValue(double value);
+    virtual double getValueMin();
+    virtual double getValueMax();
     virtual void enable();
     virtual void disable();
     virtual bool isEnabled();

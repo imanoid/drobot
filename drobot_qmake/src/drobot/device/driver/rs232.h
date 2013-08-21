@@ -1,5 +1,5 @@
-#ifndef _DROBOT_DEVICE_RS232_H_
-#define _DROBOT_DEVICE_RS232_H_
+#ifndef DROBOT_DEVICE_DRIVER_RS232_H
+#define DROBOT_DEVICE_DRIVER_RS232_H
 
 #ifdef __cplusplus
 extern "C" {

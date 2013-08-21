@@ -1,19 +1,19 @@
 #include "phidgetadvancedservo.h"
-#include "channel/actuatorpositionchannel.h"
 #include "../channel/linearnormalizer.h"
+#include "../deviceConstants.h"
 
 namespace drobot {
 namespace device {
 namespace actuator {
 
-PhidgetAdvancedServo::PhidgetAdvancedServo(std::string name, CPhidgetAdvancedServoHandle phidgetHandle, int index) :
-    Actuator(name), PhidgetDevice::PhidgetDevice((CPhidgetHandle)phidgetHandle) {
-    _phidgetHandle = phidgetHandle;
-    _index = index;
+CPhidgetHandle& PhidgetAdvancedServo::getPhidgetHandle() {
+    return (CPhidgetHandle&) _phidgetHandle;
 }
 
-void PhidgetAdvancedServo::initChannels() {
-    getChannelManager()->add(new channel::ActuatorPositionChannel("position", OUTPUT, new device::channel::LinearNormalizer(0, 180), this));
+PhidgetAdvancedServo::PhidgetAdvancedServo(std::string name, CPhidgetAdvancedServoHandle phidgetHandle, int index) :
+    Actuator(name) {
+    _phidgetHandle = phidgetHandle;
+    _index = index;
 }
 
 void PhidgetAdvancedServo::enable() {
@@ -31,9 +31,9 @@ bool PhidgetAdvancedServo::isEnabled() {
 }
 
 double PhidgetAdvancedServo::getPosition() {
-    double* position;
-    CPhidgetAdvancedServo_getPosition(_phidgetHandle, _index, position);
-    return *position;
+    double position;
+    CPhidgetAdvancedServo_getPosition(_phidgetHandle, _index, &position);
+    return position;
 }
 
 void PhidgetAdvancedServo::setPosition(double position) {
@@ -41,9 +41,9 @@ void PhidgetAdvancedServo::setPosition(double position) {
 }
 
 double PhidgetAdvancedServo::getPositionMin() {
-    double* positionMin;
-    CPhidgetAdvancedServo_getPositionMin(_phidgetHandle, _index, positionMin);
-    return *positionMin;
+    double positionMin;
+    CPhidgetAdvancedServo_getPositionMin(_phidgetHandle, _index, &positionMin);
+    return positionMin;
 }
 
 void PhidgetAdvancedServo::setPositionMin(double positionMin) {
@@ -51,70 +51,98 @@ void PhidgetAdvancedServo::setPositionMin(double positionMin) {
 }
 
 double PhidgetAdvancedServo::getPositionMax() {
-    double* positionMax;
-    CPhidgetAdvancedServo_getPositionMax(_phidgetHandle, _index, positionMax);
-    return *positionMax;
+    double positionMax;
+    CPhidgetAdvancedServo_getPositionMax(_phidgetHandle, _index, &positionMax);
+    return positionMax;
 }
 
 void PhidgetAdvancedServo::setPositionMax(double positionMax) {
     CPhidgetAdvancedServo_setPositionMax(_phidgetHandle, _index, positionMax);
 }
 
-double PhidgetAdvancedServo::getAcceleration() {
-    double* acceleration;
-    CPhidgetAdvancedServo_getAcceleration(_phidgetHandle, _index, acceleration);
-    return *acceleration;
+double PhidgetAdvancedServo::getMovingAcceleration() {
+    double acceleration;
+    CPhidgetAdvancedServo_getAcceleration(_phidgetHandle, _index, &acceleration);
+    return acceleration;
 }
 
-void PhidgetAdvancedServo::setAcceleration(double acceleration) {
+void PhidgetAdvancedServo::setMovingAcceleration(double acceleration) {
     CPhidgetAdvancedServo_setAcceleration(_phidgetHandle, _index, acceleration);
 }
 
+double PhidgetAdvancedServo::getMovingAccelerationMin() {
+    double accelerationMin;
+    CPhidgetAdvancedServo_getAccelerationMin(_phidgetHandle, _index, &accelerationMin);
+    return accelerationMin;
+}
+
+double PhidgetAdvancedServo::getMovingAccelerationMax() {
+    double accelerationMax;
+    CPhidgetAdvancedServo_getAccelerationMax(_phidgetHandle, _index, &accelerationMax);
+    return accelerationMax;
+}
+
+double PhidgetAdvancedServo::getAcceleration() {
+    return 0;
+}
+
+void PhidgetAdvancedServo::setAcceleration(double acceleration) {
+
+}
+
 double PhidgetAdvancedServo::getAccelerationMin() {
-    double* accelerationMin;
-    CPhidgetAdvancedServo_getAccelerationMin(_phidgetHandle, _index,
-            accelerationMin);
-    return *accelerationMin;
+    return PHIDGET_ADVANCED_SERVO_MIN_ACCELERATION_DEFAULT;
 }
 
 double PhidgetAdvancedServo::getAccelerationMax() {
-    double* accelerationMax;
-    CPhidgetAdvancedServo_getAccelerationMax(_phidgetHandle, _index,
-            accelerationMax);
-    return *accelerationMax;
+    return PHIDGET_ADVANCED_SERVO_MAX_ACCELERATION_DEFAULT;
 }
 
 double PhidgetAdvancedServo::getVelocity() {
-    double* velocity;
-    CPhidgetAdvancedServo_getVelocity(_phidgetHandle, _index, velocity);
-    return *velocity;
+    return 0;
 }
 
 void PhidgetAdvancedServo::setVelocity(double velocity) {
+
 }
 
 double PhidgetAdvancedServo::getVelocityMin() {
-    double* velocityMin;
-    CPhidgetAdvancedServo_getVelocityMin(_phidgetHandle, _index, velocityMin);
-    return *velocityMin;
+    return PHIDGET_ADVANCED_SERVO_MIN_VELOCITY_DEFAULT;
 }
 
 double PhidgetAdvancedServo::getVelocityMax() {
-    double* velocityMax;
-    CPhidgetAdvancedServo_getVelocityMax(_phidgetHandle, _index, velocityMax);
-    return *velocityMax;
+    return PHIDGET_ADVANCED_SERVO_MAX_VELOCITY_DEFAULT;
 }
 
-double PhidgetAdvancedServo::getVelocityLimit() {
-    double* velocityLimit;
-    CPhidgetAdvancedServo_getVelocityLimit(_phidgetHandle, _index,
-            velocityLimit);
-    return *velocityLimit;
+double PhidgetAdvancedServo::getMovingVelocity() {
+    double velocity;
+    CPhidgetAdvancedServo_getVelocity(_phidgetHandle, _index, &velocity);
+    return velocity;
 }
 
-void PhidgetAdvancedServo::setVelocityLimit(double velocityLimit) {
-    CPhidgetAdvancedServo_setVelocityLimit(_phidgetHandle, _index,
-            velocityLimit);
+void PhidgetAdvancedServo::setMovingVelocity(double velocity) {
+}
+
+double PhidgetAdvancedServo::getMovingVelocityMin() {
+    double velocityMin;
+    CPhidgetAdvancedServo_getVelocityMin(_phidgetHandle, _index, &velocityMin);
+    return velocityMin;
+}
+
+double PhidgetAdvancedServo::getMovingVelocityMax() {
+    double velocityMax;
+    CPhidgetAdvancedServo_getVelocityMax(_phidgetHandle, _index, &velocityMax);
+    return velocityMax;
+}
+
+double PhidgetAdvancedServo::getMovingVelocityLimit() {
+    double velocityLimit;
+    CPhidgetAdvancedServo_getVelocityLimit(_phidgetHandle, _index, &velocityLimit);
+    return velocityLimit;
+}
+
+void PhidgetAdvancedServo::setMovingVelocityLimit(double velocityLimit) {
+    CPhidgetAdvancedServo_setVelocityLimit(_phidgetHandle, _index, velocityLimit);
 }
 
 int PhidgetAdvancedServo::getIndex() {
@@ -122,27 +150,25 @@ int PhidgetAdvancedServo::getIndex() {
 }
 
 bool PhidgetAdvancedServo::isMoving() {
-    int* stopped;
-    CPhidgetAdvancedServo_getStopped(_phidgetHandle, _index, stopped);
+    int stopped;
+    CPhidgetAdvancedServo_getStopped(_phidgetHandle, _index, &stopped);
     return stopped == 0;
 }
 
 bool PhidgetAdvancedServo::isSpeedRamping() {
-    int* speedRamping;
-    CPhidgetAdvancedServo_getSpeedRampingOn(_phidgetHandle, _index,
-            speedRamping);
-    return *speedRamping == 1;
+    int speedRamping;
+    CPhidgetAdvancedServo_getSpeedRampingOn(_phidgetHandle, _index, &speedRamping);
+    return speedRamping == 1;
 }
 
 void PhidgetAdvancedServo::setSpeedRamping(bool speedRamping) {
-    CPhidgetAdvancedServo_setSpeedRampingOn(_phidgetHandle, _index,
-            speedRamping);
+    CPhidgetAdvancedServo_setSpeedRampingOn(_phidgetHandle, _index, speedRamping);
 }
 
 double PhidgetAdvancedServo::getCurrent() {
-    double* current;
-    CPhidgetAdvancedServo_getCurrent(_phidgetHandle, _index, current);
-    return *current;
+    double current;
+    CPhidgetAdvancedServo_getCurrent(_phidgetHandle, _index, &current);
+    return current;
 }
 
 }

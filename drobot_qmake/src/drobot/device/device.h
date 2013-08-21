@@ -18,6 +18,9 @@ namespace tactile {
 namespace vestibular {
     class Vestibular;
 }
+namespace vision {
+    class Vision;
+}
 
 class DeviceBoard;
 
@@ -30,15 +33,14 @@ public:
     virtual void enable() = 0;
     virtual void disable() = 0;
     virtual bool isEnabled() = 0;
-    virtual void initChannels() = 0;
-    virtual std::string getName();
     DeviceBoard* getDeviceBoard();
     void setDeviceBoard(DeviceBoard* deviceBoard);
     Device* toDevice();
     actuator::Actuator* toActuator();
     tactile::TactileSensor* toTactileSensor();
     vestibular::Vestibular* toVestibular();
-    virtual channel::ChannelManager* getChannelManager();
+    vision::Vision* toVision();
+    virtual channel::ChannelManager* getChannels();
 };
 
 }
