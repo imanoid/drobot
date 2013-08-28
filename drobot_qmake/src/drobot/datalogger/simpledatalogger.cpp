@@ -13,11 +13,11 @@ SimpleDataLogger::SimpleDataLogger(int maxValues, int modulo) {
     _maxValues = maxValues;
 }
 
-void SimpleDataLogger::log(long tick, std::map<device::channel::Channel*, double> inputs, std::map<device::channel::Channel*, double> outputs) {
-    if (tick % getModulo() == 0) {
-        _data.push_back(new SimpleDataLogEntry(tick, inputs, outputs));
+void SimpleDataLogger::log(long tick, std::map<device::channel::Channel*, double> values) {
+    if (_modulo <= 1 || tick % _modulo == 0) {
+        _data.push_back(new SimpleDataLogEntry(tick, values));
     }
-    if (getMaxValues() > -1 && _data.size() > getMaxValues()) {
+    if (_maxValues > -1 && _data.size() > _maxValues) {
         _data.erase(_data.begin());
     }
 }
@@ -42,7 +42,7 @@ void SimpleDataLogger::saveToFile(std::string path) {
 
 }
 
-void SimpleDataLogger::loadFromFile(std::string path) {
+void SimpleDataLogger::loadFromFile(std::string path, device::channel::ChannelManager channels) {
 
 }
 

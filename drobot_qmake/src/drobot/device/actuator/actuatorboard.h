@@ -8,7 +8,9 @@
 namespace drobot {
 namespace device {
 namespace actuator {
-
+/**
+ * @brief Baseclass for all the actuator boards.
+ */
 class ActuatorBoard : public DeviceBoard
 {
 public:

@@ -10,14 +10,29 @@
 namespace drobot {
 namespace event {
 
-class EventManager
-{
+/**
+ * @brief Used for managing events.
+ * @details Each robot has it's own EventManager.
+ */
+class EventManager {
 private:
     std::map<std::string, std::vector<EventListener*> > _eventListeners;
 public:
     EventManager();
+    /**
+     * @brief add an EventListener
+     * @param eventListener
+     */
     void registerEventListener(EventListener* eventListener);
+    /**
+     * @brief remove an EventListener
+     * @param eventListener
+     */
     void unregisterEventListener(EventListener* eventListener);
+    /**
+     * @brief fire Event
+     * @param event
+     */
     void fireEvent(Event* event);
 };
 

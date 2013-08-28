@@ -7,13 +7,35 @@
 namespace drobot {
 namespace datalogger {
 
-class DataLogger
-{
+/**
+ * @brief The DataLogger class is a base class for collecting data from the robot.
+ */
+class DataLogger {
 public:
-    virtual void log(long tick, std::map<device::channel::Channel*, double> inputs, std::map<device::channel::Channel*, double> outputs) = 0;
+    virtual void log(long tick, std::map<device::channel::Channel*, double> values) = 0;
+    /**
+     * @brief setMaxValues. max count of values.
+     * @details If bigger than 0 the values from the oldest ticks are deleted so that the size doesn't exceeds maxValues
+     * @param maxValues
+     */
     virtual void setMaxValues(int maxValues) = 0;
+    /**
+     * @brief getMaxValues. max count of values.
+     * @details If bigger than 0 the values from the oldest ticks are deleted so that the size doesn't exceeds maxValues
+     * @return maxValues
+     */
     virtual int getMaxValues() = 0;
+    /**
+     * @brief setModulo. which ticks are recorded
+     * @details if bigger than 0 only ticks with (tick % module == 0) are recorded
+     * @param modulo
+     */
     virtual void setModulo(int modulo) = 0;
+    /**
+     * @brief getModulo. which ticks are recorded
+     * @details if bigger than 0 only ticks with (tick % module == 0) are recorded
+     * @return modulo
+     */
     virtual int getModulo() = 0;
 };
 

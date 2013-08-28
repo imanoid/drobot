@@ -11,11 +11,12 @@ namespace channel {
 
 class ActuatorPositionChannel : public device::channel::Channel
 {
+protected:
+    virtual void setValue(double value);
+    virtual double getValue();
 public:
     ActuatorPositionChannel(std::string name, device::channel::ChannelType type);
     ActuatorPositionChannel(std::string name, device::channel::ChannelType type, device::channel::Normalizer* normalizer, device::Device* device);
-    virtual void setValue(double value);
-    virtual double getValue();
 };
 
 } // namespace channel

@@ -15,7 +15,7 @@ struct Pixel {
     }
 
     Pixel(int brightness) {
-        this->brightness;
+        this->brightness = brightness;
     }
 
     Pixel(int red, int green, int blue, int brightness) {

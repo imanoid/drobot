@@ -1,0 +1,78 @@
+\hypertarget{classdrobot_1_1event_1_1Event}{\section{drobot\-:\-:event\-:\-:Event Class Reference}
+\label{classdrobot_1_1event_1_1Event}\index{drobot\-::event\-::\-Event@{drobot\-::event\-::\-Event}}
+}
+
+
+The \hyperlink{classdrobot_1_1event_1_1Event}{Event} class.  
+
+
+
+
+{\ttfamily \#include $<$event.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:event\-:\-:Event\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdrobot_1_1event_1_1Event}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1event_1_1Event_af80625172e5af3af44f7e9c760f99969}{{\bfseries Event} (std\-::string type)}\label{classdrobot_1_1event_1_1Event_af80625172e5af3af44f7e9c760f99969}
+
+\item 
+std\-::string \hyperlink{classdrobot_1_1event_1_1Event_ab68894db84882d95424818d6bc4b36d4}{get\-Type} ()
+\begin{DoxyCompactList}\small\item\em get\-Type. Used to determine which Event\-Listeners to use by the \hyperlink{classdrobot_1_1event_1_1EventManager}{Event\-Manager} class \end{DoxyCompactList}\item 
+virtual std\-::string \hyperlink{classdrobot_1_1event_1_1Event_a25b725cbb7dbdb4a41b9c4e9fc3785d8}{to\-String} ()=0
+\begin{DoxyCompactList}\small\item\em create a string representatio of this event used for console debugging \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1event_1_1Event_a285621fe5004655e8c6924c864d378bd}{std\-::string \hyperlink{classdrobot_1_1event_1_1Event_a285621fe5004655e8c6924c864d378bd}{\-\_\-type}}\label{classdrobot_1_1event_1_1Event_a285621fe5004655e8c6924c864d378bd}
+
+\begin{DoxyCompactList}\small\item\em \-\_\-type of the event. Used to determine which Event\-Listeners to use by the \hyperlink{classdrobot_1_1event_1_1EventManager}{Event\-Manager} class \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classdrobot_1_1event_1_1Event}{Event} class. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1event_1_1Event_ab68894db84882d95424818d6bc4b36d4}{\index{drobot\-::event\-::\-Event@{drobot\-::event\-::\-Event}!get\-Type@{get\-Type}}
+\index{get\-Type@{get\-Type}!drobot::event::Event@{drobot\-::event\-::\-Event}}
+\subsubsection[{get\-Type}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string drobot\-::event\-::\-Event\-::get\-Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1event_1_1Event_ab68894db84882d95424818d6bc4b36d4}
+
+
+get\-Type. Used to determine which Event\-Listeners to use by the \hyperlink{classdrobot_1_1event_1_1EventManager}{Event\-Manager} class 
+
+\begin{DoxyReturn}{Returns}
+the type 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1event_1_1Event_a25b725cbb7dbdb4a41b9c4e9fc3785d8}{\index{drobot\-::event\-::\-Event@{drobot\-::event\-::\-Event}!to\-String@{to\-String}}
+\index{to\-String@{to\-String}!drobot::event::Event@{drobot\-::event\-::\-Event}}
+\subsubsection[{to\-String}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string drobot\-::event\-::\-Event\-::to\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classdrobot_1_1event_1_1Event_a25b725cbb7dbdb4a41b9c4e9fc3785d8}
+
+
+create a string representatio of this event used for console debugging 
+
+\begin{DoxyReturn}{Returns}
+the string representation 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classdrobot_1_1robot_1_1event_1_1StepEvent_a40504ba9d43d9db0efdd7a16551af2f3}{drobot\-::robot\-::event\-::\-Step\-Event}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/event/event.\-h\item 
+src/drobot/event/event.\-cpp\end{DoxyCompactItemize}

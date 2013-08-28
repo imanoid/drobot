@@ -1,0 +1,64 @@
+\hypertarget{classdrobot_1_1device_1_1channel_1_1ChannelFactory}{\section{drobot\-:\-:device\-:\-:channel\-:\-:Channel\-Factory Class Reference}
+\label{classdrobot_1_1device_1_1channel_1_1ChannelFactory}\index{drobot\-::device\-::channel\-::\-Channel\-Factory@{drobot\-::device\-::channel\-::\-Channel\-Factory}}
+}
+
+
+The \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelFactory}{Channel\-Factory} class.  
+
+
+
+
+{\ttfamily \#include $<$channelfactory.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:device\-:\-:channel\-:\-:Channel\-Factory\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.538117cm]{classdrobot_1_1device_1_1channel_1_1ChannelFactory}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1device_1_1channel_1_1ChannelFactory_ab563684681065c52b85620d60b2abdf8}{{\bfseries Channel\-Factory} (std\-::string name)}\label{classdrobot_1_1device_1_1channel_1_1ChannelFactory_ab563684681065c52b85620d60b2abdf8}
+
+\item 
+virtual void \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelFactory_ab59ee44782347b8878a471bf87f06c43}{create\-From\-Dom\-Element} (Q\-Dom\-Element element, \hyperlink{classdrobot_1_1device_1_1Device}{Device} $\ast$device)=0
+\begin{DoxyCompactList}\small\item\em create channel from Dom Tree element \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelFactory}{Channel\-Factory} class. 
+
+used to create a channel from a Dom Tree element (Q\-Dom\-Element) and add it to a device. The name of the \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelFactory}{Channel\-Factory} must be the same as the tag\-Name of the xml elements. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1device_1_1channel_1_1ChannelFactory_ab59ee44782347b8878a471bf87f06c43}{\index{drobot\-::device\-::channel\-::\-Channel\-Factory@{drobot\-::device\-::channel\-::\-Channel\-Factory}!create\-From\-Dom\-Element@{create\-From\-Dom\-Element}}
+\index{create\-From\-Dom\-Element@{create\-From\-Dom\-Element}!drobot::device::channel::ChannelFactory@{drobot\-::device\-::channel\-::\-Channel\-Factory}}
+\subsubsection[{create\-From\-Dom\-Element}]{\setlength{\rightskip}{0pt plus 5cm}virtual void drobot\-::device\-::channel\-::\-Channel\-Factory\-::create\-From\-Dom\-Element (
+\begin{DoxyParamCaption}
+\item[{Q\-Dom\-Element}]{element, }
+\item[{{\bf Device} $\ast$}]{device}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classdrobot_1_1device_1_1channel_1_1ChannelFactory_ab59ee44782347b8878a471bf87f06c43}
+
+
+create channel from Dom Tree element 
+
+this method has to create one or more channels from the element and add it to the device. 
+\begin{DoxyParams}{Parameters}
+{\em element} & \\
+\hline
+{\em device} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classdrobot_1_1device_1_1actuator_1_1channel_1_1ActuatorAccelerationChannelFactory_a077744d3866b134b15cfe9522eeb99e3}{drobot\-::device\-::actuator\-::channel\-::\-Actuator\-Acceleration\-Channel\-Factory}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1channel_1_1ActuatorPositionChannelFactory_a66d52953c14b0686b3dd61b9f8462476}{drobot\-::device\-::actuator\-::channel\-::\-Actuator\-Position\-Channel\-Factory}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1channel_1_1ActuatorVelocityChannelFactory_ae60b06b9376c9b142137d97849dc8659}{drobot\-::device\-::actuator\-::channel\-::\-Actuator\-Velocity\-Channel\-Factory}, \hyperlink{classdrobot_1_1device_1_1vestibular_1_1channel_1_1VestibularAccelerationChannelFactory_a79214e8381183d99c9f27fc2abe41e59}{drobot\-::device\-::vestibular\-::channel\-::\-Vestibular\-Acceleration\-Channel\-Factory}, \hyperlink{classdrobot_1_1device_1_1vestibular_1_1channel_1_1VestibularAngularRateChannelFactory_a1a1dbc3b83511d7d50f7ff3e7bb12158}{drobot\-::device\-::vestibular\-::channel\-::\-Vestibular\-Angular\-Rate\-Channel\-Factory}, \hyperlink{classdrobot_1_1device_1_1vestibular_1_1channel_1_1VestibularMagneticFieldChannelFactory_a9eee36d4270b5beaa7e56a62bd916aa5}{drobot\-::device\-::vestibular\-::channel\-::\-Vestibular\-Magnetic\-Field\-Channel\-Factory}, and \hyperlink{classdrobot_1_1device_1_1tactile_1_1channel_1_1TactileSensorValueChannelFactory_a2e4369c57cdd99f2c59469f6451e4c0c}{drobot\-::device\-::tactile\-::channel\-::\-Tactile\-Sensor\-Value\-Channel\-Factory}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/device/channel/channelfactory.\-h\item 
+src/drobot/device/channel/channelfactory.\-cpp\end{DoxyCompactItemize}

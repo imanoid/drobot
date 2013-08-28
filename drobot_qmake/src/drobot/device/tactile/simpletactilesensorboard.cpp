@@ -65,8 +65,10 @@ void SimpleTactileSensorBoard::enable() {
 void SimpleTactileSensorBoard::updateLoop() {
     struct termios initialPortSettings;
     int portFileDescriptor;
+    //is the buffer aligned?
     bool aligned = false;
 
+    //Open device
     if ((portFileDescriptor = driver::rs232::RS232_OpenPort(_path.c_str(), 230400, true,
             &initialPortSettings)) == -1) {
         std::cerr << "Couldn't open port! Device name is: '" << _path << "'."
@@ -74,9 +76,12 @@ void SimpleTactileSensorBoard::updateLoop() {
         return;
     }
 
+    //allocate memory for activation cache
     unsigned char* activations = new unsigned char[_maxSensors + 2];
 
+    //Read values while isEnabled()
     while (isEnabled()) {
+        //Allign the buffer first
         while (!aligned) {
             driver::rs232::RS232_ReceiveBuffer(portFileDescriptor, activations, _maxSensors);
             for (int index = 1; index < 34; index++) {
@@ -101,12 +106,14 @@ void SimpleTactileSensorBoard::updateLoop() {
         }
 
         int read = 0;
+        //read the values from the buffer
         while (read < _maxSensors + 2) {
             read += std::max(
                     driver::rs232::RS232_ReceiveBuffer(portFileDescriptor, activations + read,
                             _maxSensors + 2 - read), 0); //usleep(100);
         }
 
+        //check if still aligned otherwhise return to the beginning of the loop
         if (activations[_maxSensors] != 255
                 || activations[_maxSensors + 1] != 255) {
             aligned = false;
@@ -114,6 +121,7 @@ void SimpleTactileSensorBoard::updateLoop() {
             continue;
         }
 
+        //copy the activation values to the SimpleTactileSensors
         for (int iSensor = 0; iSensor < _maxSensors; iSensor++) {
             SimpleTactileSensor* sensor = getTactileSensor(iSensor);
             if (sensor != 0) {
@@ -121,8 +129,10 @@ void SimpleTactileSensorBoard::updateLoop() {
             }
         }
     }
+    //clean up memory
     delete activations;
 
+    //close device
     driver::rs232::RS232_ClosePort(portFileDescriptor, &initialPortSettings);
 }
 

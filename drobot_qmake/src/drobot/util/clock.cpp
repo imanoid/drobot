@@ -6,6 +6,10 @@
 namespace drobot {
 namespace util {
 
+Clock::Clock() {
+    _frequency = 24;
+}
+
 Clock::Clock(double frequency) {
     _frequency = frequency;
 }
@@ -19,7 +23,7 @@ void Clock::waitForTick() {
         usleep(1000);
     }
     _lock = true;
-    boost::thread* t = new boost::thread(boost::bind(&Clock::lock, this));
+    boost::thread* t = new boost::thread(boost::bind(&Clock::unlock, this));
     return;
 }
 
@@ -31,7 +35,7 @@ double Clock::getFrequency() {
     return _frequency;
 }
 
-void Clock::lock() {
+void Clock::unlock() {
     usleep((1.0f / _frequency) * 1000000.0f);
     _lock = false;
 }

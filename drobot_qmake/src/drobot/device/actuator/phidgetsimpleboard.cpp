@@ -46,6 +46,12 @@ PhidgetSimpleBoard::PhidgetSimpleBoard(std::string name, CPhidgetServoHandle phi
     _phidgetHandle = phidgetHandle;
 }
 
+PhidgetSimpleBoard::~PhidgetSimpleBoard() {
+    disable();
+    CPhidget_close((CPhidgetHandle)_phidgetHandle);
+    CPhidget_delete((CPhidgetHandle)_phidgetHandle);
+}
+
 int PhidgetSimpleBoard::getMaxActuators() {
     int* count;
     CPhidgetServo_getMotorCount(_phidgetHandle, count);

@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     _programManager = new drobot::program::ProgramManager();
-    std::vector<std::string> programs = _programManager->listProgramFactories();
+    std::vector<std::string> programs = _programManager->listProgramFactoryNames();
     for (int i = 0; i < programs.size(); i++) {
         std::string programName = programs[i];
 
@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete _programManager;
     delete ui;
 }
 

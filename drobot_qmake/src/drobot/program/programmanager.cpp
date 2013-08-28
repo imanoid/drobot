@@ -2,6 +2,7 @@
 #include "../experiment/tactileTest/program/tactiletestprogramfactory.h"
 #include <sstream>
 #include <string>
+#include "../util/util.h"
 
 namespace drobot {
 namespace program {
@@ -10,39 +11,43 @@ ProgramManager::ProgramManager() {
     registerProgramFactory(new drobot::experiment::tactileTest::program::ProgramFactory());
 }
 
+ProgramManager::~ProgramManager() {
+}
+
 void ProgramManager::registerProgramFactory(ProgramFactory* programFactory) {
-    _programFactories[programFactory->getName()] = programFactory;
+    _programFactories.add(programFactory);
 }
 
 void ProgramManager::unregisterProgramFactory(ProgramFactory* programFactory) {
-    _programFactories.erase(programFactory->getName());
+    _programFactories.remove(programFactory);
 }
 
-std::vector<std::string> ProgramManager::listProgramFactories() {
-    std::vector<std::string> factories;
-    for (std::map<std::string, ProgramFactory*>::iterator iFactory = _programFactories.begin(); iFactory != _programFactories.end(); iFactory++) {
-        factories.push_back(iFactory->first);
-    }
-    return factories;
+std::vector<std::string> ProgramManager::listProgramFactoryNames() {
+    return _programFactories.keys();
 }
 
 Program* ProgramManager::launchProgram(std::string programName) {
-    Program* task = _programFactories[programName]->createInstance();
-    _programs[task->getName()] = task;
+    Program* task = _programFactories.get(programName)->createInstance();
+    _programs.add(task);
     task->run_thread();
     return task;
 }
 
-void ProgramManager::killProgram(std::string task) {
-    _programs.erase(task);
+void ProgramManager::killProgram(std::string programName) {
+    Program* program = _programs.remove(programName);
+    program->cancel();
+    delete program;
 }
 
-std::vector<std::string> ProgramManager::listPrograms() {
-    std::vector<std::string> programs;
-    for (std::map<std::string, Program*>::iterator iProgram = _programs.begin(); iProgram != _programs.end(); iProgram++) {
-        programs.push_back(iProgram->first);
+void ProgramManager::killAll() {
+    std::vector<std::string> programNames = _programs.keys();
+    for (std::vector<std::string>::iterator iProgram = programNames.begin(); iProgram != programNames.end(); iProgram++) {
+        killProgram(*iProgram);
     }
-    return programs;
+}
+
+std::vector<std::string> ProgramManager::listProgramNames() {
+    return _programs.keys();
 }
 
 } // namespace program

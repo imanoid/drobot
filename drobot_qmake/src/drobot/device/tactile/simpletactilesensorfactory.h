@@ -10,7 +10,7 @@ namespace tactile {
 class SimpleTactileSensorFactory : public DeviceFactory {
 public:
     SimpleTactileSensorFactory();
-    virtual void createFromDomElement(QDomElement element, DeviceManager *devices);
+    virtual void createFromDomElement(QDomElement element, robot::Robot* robot);
 };
 
 } // namespace tactile

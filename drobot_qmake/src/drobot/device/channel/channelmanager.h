@@ -11,13 +11,26 @@ namespace drobot {
 namespace device {
 namespace channel {
 
-class ChannelManager : public object::Manager<Channel>
-{
+/**
+ * @brief Special implementation of a Manager for Channel Items.
+ */
+class ChannelManager : public object::Manager<Channel> {
 public:
     ChannelManager();
     ChannelManager(std::vector<Channel*> items);
+    /**
+     * @brief returns channels filtered by type
+     * @param type
+     * @return channels
+     */
     std::vector<Channel*> listByType(ChannelType type);
+    /**
+     * @brief executes the read() method on all channels
+     */
     void read();
+    /**
+     * @brief executes the write() method on all channels
+     */
     void write();
 };
 

@@ -9,7 +9,7 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-CPhidgetHandle& PhidgetAdvancedBoard::getPhidgetHandle() {
+CPhidgetHandle PhidgetAdvancedBoard::getPhidgetHandle() {
     return (CPhidgetHandle&) _phidgetHandle;
 }
 
@@ -48,6 +48,7 @@ PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name, CPhidgetAdvancedSer
 
 PhidgetAdvancedBoard::~PhidgetAdvancedBoard() {
     disable();
+    CPhidget_close((CPhidgetHandle)_phidgetHandle);
     CPhidget_delete((CPhidgetHandle)_phidgetHandle);
 }
 

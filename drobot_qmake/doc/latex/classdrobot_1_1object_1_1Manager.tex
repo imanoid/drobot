@@ -1,0 +1,269 @@
+\hypertarget{classdrobot_1_1object_1_1Manager}{\section{drobot\-:\-:object\-:\-:Manager$<$ T $>$ Class Template Reference}
+\label{classdrobot_1_1object_1_1Manager}\index{drobot\-::object\-::\-Manager$<$ T $>$@{drobot\-::object\-::\-Manager$<$ T $>$}}
+}
+
+
+\hyperlink{classdrobot_1_1object_1_1Item}{Item} container, can be used to prevent memory leaks.  
+
+
+
+
+{\ttfamily \#include $<$manager.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1object_1_1Manager_a383ef791e44bd1349e078ed183094e5f}{{\bfseries Manager} (std\-::vector$<$ T $\ast$ $>$ items)}\label{classdrobot_1_1object_1_1Manager_a383ef791e44bd1349e078ed183094e5f}
+
+\item 
+std\-::vector$<$ T $\ast$ $>$ \hyperlink{classdrobot_1_1object_1_1Manager_a4a9b34e5b7f42b6acafc99bde8d02e61}{values} () const 
+\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classdrobot_1_1object_1_1Manager_a50065ba053bb7e4ebbb0982b2c41abc7}{keys} () const 
+\item 
+T $\ast$ \hyperlink{classdrobot_1_1object_1_1Manager_a5e04e5974661624d8700b9013dc35246}{get} (std\-::string name)
+\item 
+bool \hyperlink{classdrobot_1_1object_1_1Manager_a2ef8b37b97245a3b525f0f7cc8a68049}{add} (T $\ast$item)
+\begin{DoxyCompactList}\small\item\em adds an item \end{DoxyCompactList}\item 
+void \hyperlink{classdrobot_1_1object_1_1Manager_af14a346a13fa1948e97c35458d5f3047}{add} (std\-::vector$<$ T $\ast$ $>$ items)
+\begin{DoxyCompactList}\small\item\em adds a list of items \end{DoxyCompactList}\item 
+virtual void \hyperlink{classdrobot_1_1object_1_1Manager_ae1a7f38749f66bc4be0e0e0350a5ae68}{on\-Add} (T $\ast$item)
+\begin{DoxyCompactList}\small\item\em called when an item is added \end{DoxyCompactList}\item 
+T $\ast$ \hyperlink{classdrobot_1_1object_1_1Manager_ad2023f514760d5ae1a4c72f00724e4e9}{remove} (std\-::string name)
+\begin{DoxyCompactList}\small\item\em removes an item by its name \end{DoxyCompactList}\item 
+T $\ast$ \hyperlink{classdrobot_1_1object_1_1Manager_a1e60717d659da8a4b83d9b6397f0926e}{remove} (T $\ast$item)
+\begin{DoxyCompactList}\small\item\em removes an item \end{DoxyCompactList}\item 
+virtual void \hyperlink{classdrobot_1_1object_1_1Manager_a17b34bb3d364509c925a7dade1fef14b}{on\-Remove} (T $\ast$item)
+\begin{DoxyCompactList}\small\item\em called when an item is removed \end{DoxyCompactList}\item 
+std\-::vector$<$ T $\ast$ $>$ \hyperlink{classdrobot_1_1object_1_1Manager_a47e24b1186210a6232f8da62551902fb}{remove} (std\-::vector$<$ T $\ast$ $>$ items)
+\begin{DoxyCompactList}\small\item\em removes a list of items \end{DoxyCompactList}\item 
+bool \hyperlink{classdrobot_1_1object_1_1Manager_a4bde99ebbba5be83e3d6144c75335bf5}{has} (std\-::string name)
+\begin{DoxyCompactList}\small\item\em checks if item is in the list by its name \end{DoxyCompactList}\item 
+bool \hyperlink{classdrobot_1_1object_1_1Manager_ae7d90ba11895c86b957ac4b81851a0d7}{has} (T $\ast$item)
+\begin{DoxyCompactList}\small\item\em checks if item is in the list \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1object_1_1Manager_ae40cda4743e17cc7736b24db57e53268}{void \hyperlink{classdrobot_1_1object_1_1Manager_ae40cda4743e17cc7736b24db57e53268}{clear} ()}\label{classdrobot_1_1object_1_1Manager_ae40cda4743e17cc7736b24db57e53268}
+
+\begin{DoxyCompactList}\small\item\em removes all the items \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1object_1_1Manager_af54347142e8014f7faa02acb14f7ace3}{bool \hyperlink{classdrobot_1_1object_1_1Manager_af54347142e8014f7faa02acb14f7ace3}{\-\_\-delete\-Items\-On\-Destroy}}\label{classdrobot_1_1object_1_1Manager_af54347142e8014f7faa02acb14f7ace3}
+
+\begin{DoxyCompactList}\small\item\em flag indicating wether the items should be deleted in the Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1object_1_1Manager_a6c91eabd63264c09225f5c35cd0cd792}{std\-::map$<$ std\-::string, T $\ast$ $>$ \hyperlink{classdrobot_1_1object_1_1Manager_a6c91eabd63264c09225f5c35cd0cd792}{\-\_\-items}}\label{classdrobot_1_1object_1_1Manager_a6c91eabd63264c09225f5c35cd0cd792}
+
+\begin{DoxyCompactList}\small\item\em map containing all the items \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$class drobot\-::object\-::\-Manager$<$ T $>$}
+
+\hyperlink{classdrobot_1_1object_1_1Item}{Item} container, can be used to prevent memory leaks. 
+
+Used as a kind of memory database to manage the different \hyperlink{classdrobot_1_1object_1_1Item}{Item} types. If \-\_\-delete\-Items\-On\-Destroy is set it automatically deletes all the items when the destructor is called. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1object_1_1Manager_a2ef8b37b97245a3b525f0f7cc8a68049}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!add@{add}}
+\index{add@{add}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ bool {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::add (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a2ef8b37b97245a3b525f0f7cc8a68049}
+
+
+adds an item 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it is added, false if it's already in the list. 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_af14a346a13fa1948e97c35458d5f3047}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!add@{add}}
+\index{add@{add}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ void {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::add (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ T $\ast$ $>$}]{items}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_af14a346a13fa1948e97c35458d5f3047}
+
+
+adds a list of items 
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdrobot_1_1object_1_1Manager_a5e04e5974661624d8700b9013dc35246}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!get@{get}}
+\index{get@{get}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ T$\ast$ {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::get (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a5e04e5974661624d8700b9013dc35246}
+
+\begin{DoxyParams}{Parameters}
+{\em name} & of the item \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the item 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_a4bde99ebbba5be83e3d6144c75335bf5}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!has@{has}}
+\index{has@{has}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{has}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ bool {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::has (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a4bde99ebbba5be83e3d6144c75335bf5}
+
+
+checks if item is in the list by its name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & of the item \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if item is in the list, false otherwhise 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_ae7d90ba11895c86b957ac4b81851a0d7}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!has@{has}}
+\index{has@{has}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{has}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ bool {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::has (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_ae7d90ba11895c86b957ac4b81851a0d7}
+
+
+checks if item is in the list 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if item is in the list, false otherwhise 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_a50065ba053bb7e4ebbb0982b2c41abc7}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!keys@{keys}}
+\index{keys@{keys}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{keys}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ std\-::vector$<$std\-::string$>$ {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::keys (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a50065ba053bb7e4ebbb0982b2c41abc7}
+\begin{DoxyReturn}{Returns}
+a vector containing all the keys. 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_ae1a7f38749f66bc4be0e0e0350a5ae68}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!on\-Add@{on\-Add}}
+\index{on\-Add@{on\-Add}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{on\-Add}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ virtual void {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::on\-Add (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classdrobot_1_1object_1_1Manager_ae1a7f38749f66bc4be0e0e0350a5ae68}
+
+
+called when an item is added 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdrobot_1_1object_1_1Manager_a17b34bb3d364509c925a7dade1fef14b}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!on\-Remove@{on\-Remove}}
+\index{on\-Remove@{on\-Remove}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{on\-Remove}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ virtual void {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::on\-Remove (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classdrobot_1_1object_1_1Manager_a17b34bb3d364509c925a7dade1fef14b}
+
+
+called when an item is removed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdrobot_1_1object_1_1Manager_ad2023f514760d5ae1a4c72f00724e4e9}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!remove@{remove}}
+\index{remove@{remove}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{remove}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ T$\ast$ {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::remove (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_ad2023f514760d5ae1a4c72f00724e4e9}
+
+
+removes an item by its name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & of the item \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the removed item or 0 if it's not in the list. 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_a1e60717d659da8a4b83d9b6397f0926e}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!remove@{remove}}
+\index{remove@{remove}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{remove}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ T$\ast$ {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::remove (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a1e60717d659da8a4b83d9b6397f0926e}
+
+
+removes an item 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & of the item \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the removed item or 0 if it's not in the list. 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_a47e24b1186210a6232f8da62551902fb}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!remove@{remove}}
+\index{remove@{remove}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{remove}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ std\-::vector$<$T$\ast$$>$ {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::remove (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ T $\ast$ $>$}]{items}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a47e24b1186210a6232f8da62551902fb}
+
+
+removes a list of items 
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the removed items 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1object_1_1Manager_a4a9b34e5b7f42b6acafc99bde8d02e61}{\index{drobot\-::object\-::\-Manager@{drobot\-::object\-::\-Manager}!values@{values}}
+\index{values@{values}!drobot::object::Manager@{drobot\-::object\-::\-Manager}}
+\subsubsection[{values}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T$>$ std\-::vector$<$T$\ast$$>$ {\bf drobot\-::object\-::\-Manager}$<$ T $>$\-::values (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classdrobot_1_1object_1_1Manager_a4a9b34e5b7f42b6acafc99bde8d02e61}
+\begin{DoxyReturn}{Returns}
+a vector containing all the elements. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/object/manager.\-h\end{DoxyCompactItemize}

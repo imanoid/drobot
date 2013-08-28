@@ -1,0 +1,228 @@
+\hypertarget{classdrobot_1_1device_1_1Device}{\section{drobot\-:\-:device\-:\-:Device Class Reference}
+\label{classdrobot_1_1device_1_1Device}\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}}
+}
+
+
+Represents a physical or virtual (simulated) device.  
+
+
+
+
+{\ttfamily \#include $<$device.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:device\-:\-:Device\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.981423cm]{classdrobot_1_1device_1_1Device}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1device_1_1Device_ab55bd66f79422bd251ea5f94e80ba036}{{\bfseries Device} (std\-::string name)}\label{classdrobot_1_1device_1_1Device_ab55bd66f79422bd251ea5f94e80ba036}
+
+\item 
+virtual void \hyperlink{classdrobot_1_1device_1_1Device_a0c28785ff2e79f99b8e9eaefe6749f2b}{enable} ()
+\begin{DoxyCompactList}\small\item\em enables the device. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classdrobot_1_1device_1_1Device_a289499673ae30bd72101c68fbd04cd89}{disable} ()
+\begin{DoxyCompactList}\small\item\em disables the device. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classdrobot_1_1device_1_1Device_aa5b7eac8638d0d2d5ee9bf10607b100e}{is\-Enabled} ()=0
+\begin{DoxyCompactList}\small\item\em check if the device is enabled \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_abb2094b9cb9a794eb9c8c9798b37a376}{get\-Device\-Board} ()
+\item 
+void \hyperlink{classdrobot_1_1device_1_1Device_a60464a906ee599de5d4368a373a368d3}{set\-Device\-Board} (\hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} $\ast$device\-Board)
+\begin{DoxyCompactList}\small\item\em sets the \hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1device_1_1Device}{Device} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a2ad010960f753e0299afae8c89708d34}{to\-Device} ()
+\begin{DoxyCompactList}\small\item\em cast to \hyperlink{classdrobot_1_1device_1_1Device}{Device} \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1device_1_1actuator_1_1Actuator}{actuator\-::\-Actuator} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a4aa4ad98eb5ed0251fa48b6ebd5c96d6}{to\-Actuator} ()
+\begin{DoxyCompactList}\small\item\em cast to \hyperlink{classdrobot_1_1device_1_1actuator_1_1Actuator}{actuator\-::\-Actuator} \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1device_1_1tactile_1_1TactileSensor}{tactile\-::\-Tactile\-Sensor} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a2f95e9596d7fa2dffcf2e398192d46c0}{to\-Tactile\-Sensor} ()
+\begin{DoxyCompactList}\small\item\em cast to \hyperlink{classdrobot_1_1device_1_1tactile_1_1TactileSensor}{tactile\-::\-Tactile\-Sensor} \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1device_1_1vestibular_1_1Vestibular}{vestibular\-::\-Vestibular} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a3ad656dee133fa5df9eaa466b3530234}{to\-Vestibular} ()
+\begin{DoxyCompactList}\small\item\em cast to \hyperlink{classdrobot_1_1device_1_1vestibular_1_1Vestibular}{vestibular\-::\-Vestibular} \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1device_1_1vision_1_1Vision}{vision\-::\-Vision} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a7041c41a60a8eccd694ff08c0a8f5827}{to\-Vision} ()
+\begin{DoxyCompactList}\small\item\em cast to \hyperlink{classdrobot_1_1device_1_1vision_1_1Vision}{vision\-::\-Vision} \end{DoxyCompactList}\item 
+virtual \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelManager}{channel\-::\-Channel\-Manager} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a67e466715422618b28226a17f14c0170}{get\-Channels} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1device_1_1Device_abb3a110d904ae7de3abae5415fc273a3}{\hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_abb3a110d904ae7de3abae5415fc273a3}{\-\_\-device\-Board}}\label{classdrobot_1_1device_1_1Device_abb3a110d904ae7de3abae5415fc273a3}
+
+\begin{DoxyCompactList}\small\item\em \-\_\-device\-Board The \hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} it belongs to \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1device_1_1Device_a3f909e61d1a8e821aa57cc12291ef1a9}{\hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelManager}{channel\-::\-Channel\-Manager} $\ast$ \hyperlink{classdrobot_1_1device_1_1Device_a3f909e61d1a8e821aa57cc12291ef1a9}{\-\_\-channels}}\label{classdrobot_1_1device_1_1Device_a3f909e61d1a8e821aa57cc12291ef1a9}
+
+\begin{DoxyCompactList}\small\item\em \-\_\-channels Data structure containing the channels \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Represents a physical or virtual (simulated) device. 
+
+A device can be any part of a robot actuator or sensor. It can also be used to implement a virtual device like a robot controller for instance. A device contains different kinds of channels represented by the \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{drobot\-::device\-::channel\-::\-Channel} class which are managed by the \-\_\-channels property. To add and remove channels use the \-\_\-channels property (See \hyperlink{classdrobot_1_1object_1_1Manager}{object\-::\-Manager}). Certain devices belong to a \hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} (See \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetAdvancedServo}{actuator\-::\-Phidget\-Advanced\-Servo} for example). 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1device_1_1Device_a289499673ae30bd72101c68fbd04cd89}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!disable@{disable}}
+\index{disable@{disable}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{disable}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::device\-::\-Device\-::disable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1device_1_1Device_a289499673ae30bd72101c68fbd04cd89}
+
+
+disables the device. 
+
+This function has to be implemented by the specific device. For physical devices like actuators this method should power off the device; 
+
+Reimplemented in \hyperlink{classdrobot_1_1device_1_1vestibular_1_1PhidgetVestibular_ae1887d6d36bf2a25925663e35bd6d57d}{drobot\-::device\-::vestibular\-::\-Phidget\-Vestibular}, \hyperlink{classdrobot_1_1robot_1_1Controller_a40384f970deab8157ada1ead78d8b383}{drobot\-::robot\-::\-Controller}, \hyperlink{classdrobot_1_1device_1_1tactile_1_1SimpleTactileSensor_a0599c06afdb09494de0e6756a878cbad}{drobot\-::device\-::tactile\-::\-Simple\-Tactile\-Sensor}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetSimpleServo_ad3dffbddc718a4f447a75bc90c0cb8f1}{drobot\-::device\-::actuator\-::\-Phidget\-Simple\-Servo}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetAdvancedServo_a62ef62d1c2052af2f2b2db1443e21c1b}{drobot\-::device\-::actuator\-::\-Phidget\-Advanced\-Servo}, and \hyperlink{classdrobot_1_1device_1_1DeviceBoard_a65eb028173bd7308192f1781d18f292d}{drobot\-::device\-::\-Device\-Board}.
+
+\hypertarget{classdrobot_1_1device_1_1Device_a0c28785ff2e79f99b8e9eaefe6749f2b}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!enable@{enable}}
+\index{enable@{enable}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{enable}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::device\-::\-Device\-::enable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1device_1_1Device_a0c28785ff2e79f99b8e9eaefe6749f2b}
+
+
+enables the device. 
+
+This function has to be implemented by the specific device. For physical devices like actuators this method should power on the device. 
+
+Reimplemented in \hyperlink{classdrobot_1_1device_1_1vestibular_1_1PhidgetVestibular_a23ef10594aaaddb5f3f2a9908b531c23}{drobot\-::device\-::vestibular\-::\-Phidget\-Vestibular}, \hyperlink{classdrobot_1_1robot_1_1Controller_a533a9761503d502c64c25538ce8eb35c}{drobot\-::robot\-::\-Controller}, \hyperlink{classdrobot_1_1device_1_1tactile_1_1SimpleTactileSensor_a006318b86b569b7f72605d24f1948042}{drobot\-::device\-::tactile\-::\-Simple\-Tactile\-Sensor}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetSimpleServo_ada2b985fee1f6a3891effad83fb7f738}{drobot\-::device\-::actuator\-::\-Phidget\-Simple\-Servo}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetAdvancedServo_aff32b9715c9095ed27b8b6268706b778}{drobot\-::device\-::actuator\-::\-Phidget\-Advanced\-Servo}, \hyperlink{classdrobot_1_1device_1_1DeviceBoard_a1a01810b04372666baaafaf812e5a54e}{drobot\-::device\-::\-Device\-Board}, and \hyperlink{classdrobot_1_1device_1_1tactile_1_1SimpleTactileSensorBoard_a1660e1e8cd1d5705936a28ce9294d759}{drobot\-::device\-::tactile\-::\-Simple\-Tactile\-Sensor\-Board}.
+
+\hypertarget{classdrobot_1_1device_1_1Device_a67e466715422618b28226a17f14c0170}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!get\-Channels@{get\-Channels}}
+\index{get\-Channels@{get\-Channels}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{get\-Channels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf channel\-::\-Channel\-Manager} $\ast$ drobot\-::device\-::\-Device\-::get\-Channels (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1device_1_1Device_a67e466715422618b28226a17f14c0170}
+\begin{DoxyReturn}{Returns}
+Data structure containing the devices channels. 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{classdrobot_1_1device_1_1DeviceBoard_ad62ff708f54468e97d2ba46c96b67960}{drobot\-::device\-::\-Device\-Board}.
+
+\hypertarget{classdrobot_1_1device_1_1Device_abb2094b9cb9a794eb9c8c9798b37a376}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!get\-Device\-Board@{get\-Device\-Board}}
+\index{get\-Device\-Board@{get\-Device\-Board}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{get\-Device\-Board}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Device\-Board} $\ast$ drobot\-::device\-::\-Device\-::get\-Device\-Board (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_abb2094b9cb9a794eb9c8c9798b37a376}
+\begin{DoxyReturn}{Returns}
+the \hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1device_1_1Device_aa5b7eac8638d0d2d5ee9bf10607b100e}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!is\-Enabled@{is\-Enabled}}
+\index{is\-Enabled@{is\-Enabled}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{is\-Enabled}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool drobot\-::device\-::\-Device\-::is\-Enabled (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classdrobot_1_1device_1_1Device_aa5b7eac8638d0d2d5ee9bf10607b100e}
+
+
+check if the device is enabled 
+
+\begin{DoxyReturn}{Returns}
+true if enabled else false
+\end{DoxyReturn}
+While the \hyperlink{classdrobot_1_1robot_1_1Robot}{drobot\-::robot\-::\-Robot} is running this property is checked to see whether the device should be used or not. 
+
+Implemented in \hyperlink{classdrobot_1_1device_1_1vestibular_1_1PhidgetVestibular_aed99fc288425612c447cc0df4938d9cd}{drobot\-::device\-::vestibular\-::\-Phidget\-Vestibular}, \hyperlink{classdrobot_1_1robot_1_1Controller_a8f7c73ba2adb3f7c02ff97b5c9d94b12}{drobot\-::robot\-::\-Controller}, \hyperlink{classdrobot_1_1device_1_1tactile_1_1SimpleTactileSensor_a54b5ab7b69bb3b15727ef72143799f34}{drobot\-::device\-::tactile\-::\-Simple\-Tactile\-Sensor}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetSimpleServo_a6da8b37b613ecf9c8fc12f335ec90537}{drobot\-::device\-::actuator\-::\-Phidget\-Simple\-Servo}, \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetAdvancedServo_aaae782fc07c5fea70969560713c36d8c}{drobot\-::device\-::actuator\-::\-Phidget\-Advanced\-Servo}, and \hyperlink{classdrobot_1_1device_1_1DeviceBoard_a23bae9f0c7f099bbb5f0c696ff5c126a}{drobot\-::device\-::\-Device\-Board}.
+
+\hypertarget{classdrobot_1_1device_1_1Device_a60464a906ee599de5d4368a373a368d3}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!set\-Device\-Board@{set\-Device\-Board}}
+\index{set\-Device\-Board@{set\-Device\-Board}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{set\-Device\-Board}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::device\-::\-Device\-::set\-Device\-Board (
+\begin{DoxyParamCaption}
+\item[{{\bf Device\-Board} $\ast$}]{device\-Board}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_a60464a906ee599de5d4368a373a368d3}
+
+
+sets the \hyperlink{classdrobot_1_1device_1_1DeviceBoard}{Device\-Board} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\-Board} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdrobot_1_1device_1_1Device_a4aa4ad98eb5ed0251fa48b6ebd5c96d6}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!to\-Actuator@{to\-Actuator}}
+\index{to\-Actuator@{to\-Actuator}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{to\-Actuator}]{\setlength{\rightskip}{0pt plus 5cm}{\bf actuator\-::\-Actuator} $\ast$ drobot\-::device\-::\-Device\-::to\-Actuator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_a4aa4ad98eb5ed0251fa48b6ebd5c96d6}
+
+
+cast to \hyperlink{classdrobot_1_1device_1_1actuator_1_1Actuator}{actuator\-::\-Actuator} 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classdrobot_1_1device_1_1actuator_1_1Actuator}{actuator\-::\-Actuator} Pointer 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1device_1_1Device_a2ad010960f753e0299afae8c89708d34}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!to\-Device@{to\-Device}}
+\index{to\-Device@{to\-Device}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{to\-Device}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Device} $\ast$ drobot\-::device\-::\-Device\-::to\-Device (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_a2ad010960f753e0299afae8c89708d34}
+
+
+cast to \hyperlink{classdrobot_1_1device_1_1Device}{Device} 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classdrobot_1_1device_1_1Device}{Device} Pointer 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1device_1_1Device_a2f95e9596d7fa2dffcf2e398192d46c0}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!to\-Tactile\-Sensor@{to\-Tactile\-Sensor}}
+\index{to\-Tactile\-Sensor@{to\-Tactile\-Sensor}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{to\-Tactile\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tactile\-::\-Tactile\-Sensor} $\ast$ drobot\-::device\-::\-Device\-::to\-Tactile\-Sensor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_a2f95e9596d7fa2dffcf2e398192d46c0}
+
+
+cast to \hyperlink{classdrobot_1_1device_1_1tactile_1_1TactileSensor}{tactile\-::\-Tactile\-Sensor} 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classdrobot_1_1device_1_1tactile_1_1TactileSensor}{tactile\-::\-Tactile\-Sensor} Pointer 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1device_1_1Device_a3ad656dee133fa5df9eaa466b3530234}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!to\-Vestibular@{to\-Vestibular}}
+\index{to\-Vestibular@{to\-Vestibular}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{to\-Vestibular}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vestibular\-::\-Vestibular} $\ast$ drobot\-::device\-::\-Device\-::to\-Vestibular (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_a3ad656dee133fa5df9eaa466b3530234}
+
+
+cast to \hyperlink{classdrobot_1_1device_1_1vestibular_1_1Vestibular}{vestibular\-::\-Vestibular} 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classdrobot_1_1device_1_1vestibular_1_1Vestibular}{vestibular\-::\-Vestibular} Pointer 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1device_1_1Device_a7041c41a60a8eccd694ff08c0a8f5827}{\index{drobot\-::device\-::\-Device@{drobot\-::device\-::\-Device}!to\-Vision@{to\-Vision}}
+\index{to\-Vision@{to\-Vision}!drobot::device::Device@{drobot\-::device\-::\-Device}}
+\subsubsection[{to\-Vision}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vision\-::\-Vision}$\ast$ drobot\-::device\-::\-Device\-::to\-Vision (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1device_1_1Device_a7041c41a60a8eccd694ff08c0a8f5827}
+
+
+cast to \hyperlink{classdrobot_1_1device_1_1vision_1_1Vision}{vision\-::\-Vision} 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classdrobot_1_1device_1_1vision_1_1Vision}{vision\-::\-Vision} Pointer 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/device/device.\-h\item 
+src/drobot/device/device.\-cpp\end{DoxyCompactItemize}

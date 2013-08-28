@@ -8,6 +8,9 @@
 namespace drobot {
 namespace program {
 
+/**
+ * @brief The Program class represents a running program and serves as a base class. It has a GUI associated with it. See getWidget().
+ */
 class Program : public Runnable
 {
 protected:
@@ -17,6 +20,10 @@ public:
     Program(std::string name);
     std::string getName();
     void setName(std::string name);
+    /**
+     * @brief getWidget. This method returns a widget for this program containing its GUI.
+     * @return the widget
+     */
     virtual QWidget* getWidget() = 0;
 };
 

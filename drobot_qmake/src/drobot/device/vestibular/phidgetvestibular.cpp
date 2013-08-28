@@ -50,6 +50,12 @@ PhidgetVestibular::PhidgetVestibular(std::string name, CPhidgetSpatialHandle phi
     _phidgetHandle = phidgetHandle;
 }
 
+PhidgetVestibular::~PhidgetVestibular() {
+    disable();
+    CPhidget_close((CPhidgetHandle)_phidgetHandle);
+    CPhidget_delete((CPhidgetHandle)_phidgetHandle);
+}
+
 int PhidgetVestibular::getAccelerationAxisCount() {
     int count;
     CPhidgetSpatial_getAccelerationAxisCount(_phidgetHandle, &count);

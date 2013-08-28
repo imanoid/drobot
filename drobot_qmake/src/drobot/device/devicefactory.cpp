@@ -7,8 +7,8 @@ DeviceFactory::DeviceFactory(std::string name) : Item(name) {
     _channelFactories = new object::Manager<channel::ChannelFactory>();
 }
 
-object::Manager<channel::ChannelFactory>* DeviceFactory::getChannelFactories() {
-    return _channelFactories;
+DeviceFactory::~DeviceFactory() {
+    delete _channelFactories;
 }
 
 } // namespace device

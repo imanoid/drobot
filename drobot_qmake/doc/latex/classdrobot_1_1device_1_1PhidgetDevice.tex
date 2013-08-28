@@ -1,0 +1,80 @@
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice}{\section{drobot\-:\-:device\-:\-:Phidget\-Device Class Reference}
+\label{classdrobot_1_1device_1_1PhidgetDevice}\index{drobot\-::device\-::\-Phidget\-Device@{drobot\-::device\-::\-Phidget\-Device}}
+}
+
+
+Base class for all Phidget Devices. Implements the standard functions.  
+
+
+
+
+{\ttfamily \#include $<$phidgetdevice.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:device\-:\-:Phidget\-Device\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.917808cm]{classdrobot_1_1device_1_1PhidgetDevice}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_ac28787f45dfd3c71b5975468e6367093}{std\-::string {\bfseries get\-Phidget\-Name} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_ac28787f45dfd3c71b5975468e6367093}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_a980d9075de25d1c08c66ef2516edbb1b}{int {\bfseries get\-Phidget\-Serial\-Number} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_a980d9075de25d1c08c66ef2516edbb1b}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_aa743ddee3b9c83810d9099057d36d3dd}{int {\bfseries get\-Phidget\-Version} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_aa743ddee3b9c83810d9099057d36d3dd}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_ab41dcce452b38672d3920d3a10983c2d}{int {\bfseries get\-Phidget\-Status} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_ab41dcce452b38672d3920d3a10983c2d}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_ae96e8f3e5368a5dda19e62d992dedb6e}{std\-::string {\bfseries get\-Phidget\-Type} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_ae96e8f3e5368a5dda19e62d992dedb6e}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_a8ab02715b4634ef696e1f213c3641a4e}{std\-::string {\bfseries get\-Phidget\-Label} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_a8ab02715b4634ef696e1f213c3641a4e}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_a286495c77b06ef134bebdafa39a389de}{void {\bfseries set\-Phidget\-Label} (std\-::string label)}\label{classdrobot_1_1device_1_1PhidgetDevice_a286495c77b06ef134bebdafa39a389de}
+
+\item 
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_a42bc77706b62ec51a5cbacf9025b87fb}{C\-Phidget\-\_\-\-Device\-I\-D {\bfseries get\-Phidget\-Id} ()}\label{classdrobot_1_1device_1_1PhidgetDevice_a42bc77706b62ec51a5cbacf9025b87fb}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual C\-Phidget\-Handle \hyperlink{classdrobot_1_1device_1_1PhidgetDevice_a0bcc3051d4a096d92b428a3166e78861}{get\-Phidget\-Handle} ()=0
+\begin{DoxyCompactList}\small\item\em Must be implemented by the specific phidget device to return a C\-Phidget\-Handle struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for all Phidget Devices. Implements the standard functions. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1device_1_1PhidgetDevice_a0bcc3051d4a096d92b428a3166e78861}{\index{drobot\-::device\-::\-Phidget\-Device@{drobot\-::device\-::\-Phidget\-Device}!get\-Phidget\-Handle@{get\-Phidget\-Handle}}
+\index{get\-Phidget\-Handle@{get\-Phidget\-Handle}!drobot::device::PhidgetDevice@{drobot\-::device\-::\-Phidget\-Device}}
+\subsubsection[{get\-Phidget\-Handle}]{\setlength{\rightskip}{0pt plus 5cm}virtual C\-Phidget\-Handle drobot\-::device\-::\-Phidget\-Device\-::get\-Phidget\-Handle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}}\label{classdrobot_1_1device_1_1PhidgetDevice_a0bcc3051d4a096d92b428a3166e78861}
+
+
+Must be implemented by the specific phidget device to return a C\-Phidget\-Handle struct. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classdrobot_1_1device_1_1actuator_1_1PhidgetAdvancedBoard_a67afbf98c18b80281226259f93fdb742}{drobot\-::device\-::actuator\-::\-Phidget\-Advanced\-Board}, and \hyperlink{classdrobot_1_1device_1_1vestibular_1_1PhidgetVestibular_a8292d6ebbc1910eca84081cf76bf3afe}{drobot\-::device\-::vestibular\-::\-Phidget\-Vestibular}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/device/phidgetdevice.\-h\item 
+src/drobot/device/phidgetdevice.\-cpp\end{DoxyCompactItemize}

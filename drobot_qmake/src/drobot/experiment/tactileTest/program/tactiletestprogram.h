@@ -2,6 +2,7 @@
 #define DROBOT_EXPERIMENT_TACTILETEST_PROGRAM_PROGRAM_H
 
 #include "../../../program/program.h"
+#include "../../../robot/robot.h"
 
 namespace drobot {
 namespace experiment {
@@ -10,6 +11,8 @@ namespace program {
 
 class Program : public drobot::program::Program
 {
+private:
+    drobot::robot::Robot _robo;
 public:
     Program(std::string name);
     virtual void run();

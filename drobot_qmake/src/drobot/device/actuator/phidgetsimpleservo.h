@@ -9,6 +9,12 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
+/**
+ * @brief The PhidgetSimpleServo class
+ * @details The PhidgetSimpleServo only supports movement by setting the position. The acceleration and velocity properties aren't
+ *  implemented by the Phidget Servo module but they can be simulated by setting the position according to the acceleration/velocity
+ *  set if needed.
+ */
 class PhidgetSimpleServo : public Actuator
 {
 private:

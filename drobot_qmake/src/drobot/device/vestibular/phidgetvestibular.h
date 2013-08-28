@@ -3,12 +3,16 @@
 
 #include "vestibular.h"
 #include "phidget21.h"
+#include "../phidgetdevice.h"
 
 namespace drobot {
 namespace device {
 namespace vestibular {
 
-class PhidgetVestibular : public Vestibular
+/**
+ * @brief The PhidgetVestibular class represents a Phidget Spatial module.
+ */
+class PhidgetVestibular : public Vestibular, public PhidgetDevice
 {
 private:
     CPhidgetSpatialHandle _phidgetHandle;
@@ -19,6 +23,7 @@ public:
     PhidgetVestibular(std::string name);
     PhidgetVestibular(std::string name, int serial);
     PhidgetVestibular(std::string name, CPhidgetSpatialHandle phidgetHandle);
+    virtual ~PhidgetVestibular();
     int getAccelerationAxisCount();
     int getGyroAxisCount();
     int getCompassAxisCount();

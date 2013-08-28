@@ -6,9 +6,15 @@
 namespace drobot {
 namespace object {
 
-class Item
-{
+/**
+ * @brief Base class for most of the classes.
+ *  Can be added to a Manager to prevent memory leaks.
+ */
+class Item {
 protected:
+    /**
+     * @brief name of the item
+     */
     std::string _name;
 public:
     Item(std::string name);

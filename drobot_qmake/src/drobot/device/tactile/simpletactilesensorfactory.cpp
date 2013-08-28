@@ -1,6 +1,7 @@
 #include "simpletactilesensorfactory.h"
 #include <sstream>
 #include "../../object/manager.h"
+#include "../../robot/robot.h"
 #include "simpletactilesensor.h"
 #include "simpletactilesensorboard.h"
 #include "channel/tactilesensorvaluechannelfactory.h"
@@ -13,7 +14,8 @@ SimpleTactileSensorFactory::SimpleTactileSensorFactory() : DeviceFactory("device
     _channelFactories->add(new channel::TactileSensorValueChannelFactory());
 }
 
-void SimpleTactileSensorFactory::createFromDomElement(QDomElement element, DeviceManager *devices) {
+void SimpleTactileSensorFactory::createFromDomElement(QDomElement element, robot::Robot* robot) {
+    DeviceManager* devices = robot->getDeviceManager();
     std::string path = element.attribute("path").toStdString();
     std::string name = element.attribute("name").toStdString();
     bool enabled = element.attribute("enabled", "true").compare("true") == 0;

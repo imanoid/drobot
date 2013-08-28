@@ -11,7 +11,7 @@ ChannelManager::ChannelManager(std::vector<Channel *> items) : Manager(items) {
 }
 
 std::vector<Channel*> ChannelManager::listByType(ChannelType type) {
-    std::vector<Channel*> channels = list();
+    std::vector<Channel*> channels = values();
     std::vector<Channel*> result;
 
     for (std::vector<Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
@@ -23,7 +23,7 @@ std::vector<Channel*> ChannelManager::listByType(ChannelType type) {
 }
 
 void ChannelManager::read() {
-    std::vector<Channel*> channels = list();
+    std::vector<Channel*> channels = values();
 
     for (std::vector<Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
         (*iChannel)->read();
@@ -31,7 +31,7 @@ void ChannelManager::read() {
 }
 
 void ChannelManager::write() {
-    std::vector<Channel*> channels = list();
+    std::vector<Channel*> channels = values();
 
     for (std::vector<Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
         (*iChannel)->write();

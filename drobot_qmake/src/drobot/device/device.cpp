@@ -4,13 +4,26 @@
 #include "actuator/actuator.h"
 #include "deviceboard.h"
 #include <sstream>
+#include <iostream>
 
 namespace drobot {
 namespace device {
 
 Device::Device(std::string name) : Item(name) {
-    _channelManager = new channel::ChannelManager;
+    _channels = new channel::ChannelManager;
     _deviceBoard = 0;
+}
+
+Device::~Device() {
+    this->disable();
+}
+
+void Device::enable() {
+
+}
+
+void Device::disable() {
+
 }
 
 DeviceBoard* Device::getDeviceBoard() {
@@ -38,7 +51,7 @@ vestibular::Vestibular* Device::toVestibular() {
 }
 
 channel::ChannelManager* Device::getChannels() {
-    return _channelManager;
+    return _channels;
 }
 
 }

@@ -5,17 +5,17 @@
 
 namespace drobot {
 namespace experiment {
+namespace tactileTest {
 namespace robot {
 
-class StupidController : public drobot::robot::Controller
-{
+class StupidController : public drobot::robot::Controller {
 public:
     StupidController(std::string name);
     virtual void step(long tick, device::channel::ChannelManager* channels);
-    virtual void initChannels();
 };
 
 } // namespace robot
+} // namespace tactileTest
 } // namespace experiment
 } // namespace drobot
 

@@ -7,6 +7,9 @@ namespace drobot {
 namespace device {
 namespace tactile {
 
+/**
+ * @brief The SimpleTactileSensor class represents a tactile sensor which is connected to a SimpleTactileSensorBoard
+ */
 class SimpleTactileSensor : public TactileSensor
 {
 private:
@@ -16,6 +19,9 @@ private:
 public:
     SimpleTactileSensor(std::string name, int index);
     SimpleTactileSensor(std::string name, int index, double value);
+    /**
+     * @return index of the slot the sensor is plugged into the sensor board
+     */
     int getIndex();
     virtual double getValue();
     void setValue(double value);

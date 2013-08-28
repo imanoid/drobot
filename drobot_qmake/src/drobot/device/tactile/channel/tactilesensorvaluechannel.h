@@ -11,11 +11,12 @@ namespace channel {
 
 class TactileSensorValueChannel : public device::channel::Channel
 {
+protected:
+    virtual void setValue(double value);
+    virtual double getValue();
 public:
     TactileSensorValueChannel(std::string name, device::channel::ChannelType type);
     TactileSensorValueChannel(std::string name, device::channel::ChannelType type, device::channel::Normalizer* normalizer, device::Device* device);
-    virtual void setValue(double value);
-    virtual double getValue();
 };
 
 } // namespace channel

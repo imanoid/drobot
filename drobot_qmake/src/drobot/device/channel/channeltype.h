@@ -7,7 +7,10 @@ namespace drobot {
 namespace device {
 namespace channel {
 
-enum ChannelType { INPUT, OUTPUT };
+/**
+ * @brief The ChannelType
+ */
+enum ChannelType { INPUT, OUTPUT, LOG };
 ChannelType channelTypeFromString(std::string name);
 std::string channelTypeToString(ChannelType type);
 

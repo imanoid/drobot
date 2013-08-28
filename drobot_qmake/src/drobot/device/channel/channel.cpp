@@ -29,6 +29,10 @@ Channel::Channel(std::string name, ChannelType type, Normalizer* normalizer, Dev
     }
 }
 
+Channel::~Channel() {
+    delete _normalizer;
+}
+
 void Channel::setNormalizer(Normalizer* normalizer) {
     _normalizer = normalizer;
 }

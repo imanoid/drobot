@@ -14,15 +14,15 @@ VestibularAngularRateChannelFactory::VestibularAngularRateChannelFactory() : Cha
 
 void VestibularAngularRateChannelFactory::createFromDomElement(QDomElement element, Device *device) {
     std::string name = element.attribute("name", "angularRate").toStdString();
-    int dimension = element.attribute("dimension").toInt();
-    std::stringstream fullName;
-    fullName << name << "." << dimension;
-    name = fullName.str();
-    double min = element.attribute("min", boost::lexical_cast<std::string>(device->toVestibular()->getAngularRateMin()[dimension]).c_str()).toDouble();
-    double max = element.attribute("max", boost::lexical_cast<std::string>(device->toVestibular()->getAngularRateMax()[dimension]).c_str()).toDouble();
     device::channel::ChannelType type = device::channel::channelTypeFromString(element.attribute("type").toStdString());
 
-    device->getChannels()->add(new VestibularAngularRateChannel(name, type, dimension, new device::channel::LinearNormalizer(min, max), device));
+    for (int dimension = 0; dimension < 3; dimension++) {
+        std::stringstream channelName;
+        channelName << name << "." << dimension;
+        double min = element.attribute("min", boost::lexical_cast<std::string>(device->toVestibular()->getAngularRateMin()[dimension]).c_str()).toDouble();
+        double max = element.attribute("max", boost::lexical_cast<std::string>(device->toVestibular()->getAngularRateMax()[dimension]).c_str()).toDouble();
+        device->getChannels()->add(new VestibularAngularRateChannel(channelName.str(), type, dimension, new device::channel::LinearNormalizer(min, max), device));
+    }
 }
 
 } // namespace channel

@@ -1,6 +1,7 @@
 #include "phidgetsimpleservofactory.h"
 #include "phidgetsimpleboard.h"
 #include "../devicemanager.h"
+#include "../../robot/robot.h"
 #include "channel/actuatorpositionchannelfactory.h"
 #include <sstream>
 
@@ -12,7 +13,8 @@ PhidgetSimpleServoFactory::PhidgetSimpleServoFactory() : DeviceFactory("device:p
     _channelFactories->add(new channel::ActuatorPositionChannelFactory());
 }
 
-void PhidgetSimpleServoFactory::createFromDomElement(QDomElement element, DeviceManager *devices) {
+void PhidgetSimpleServoFactory::createFromDomElement(QDomElement element, robot::Robot* robot) {
+    DeviceManager* devices = robot->getDeviceManager();
     int serial = element.attribute("serial").toInt();
     std::string name = element.attribute("name").toStdString();
     bool enabled = element.attribute("enabled", "true").compare("true") == 0;

@@ -10,6 +10,12 @@ namespace drobot {
 namespace robot {
 namespace event {
 
+/**
+ * @brief The StepEvent class. This event is fired in the robot's run method after every tick.
+ * @details It contains information about the number of the tick and the current values of the different channels in the ChannelManager
+ *  of the robot.
+ *
+ */
 class StepEvent : public drobot::event::Event
 {
 private:

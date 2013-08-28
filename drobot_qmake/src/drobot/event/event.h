@@ -6,13 +6,26 @@
 namespace drobot {
 namespace event {
 
-class Event
-{
+/**
+ * @brief The Event class
+ */
+class Event {
 private:
+    /**
+     * @brief _type of the event. Used to determine which EventListeners to use by the EventManager class
+     */
     std::string _type;
 public:
     Event(std::string type);
+    /**
+     * @brief getType. Used to determine which EventListeners to use by the EventManager class
+     * @return the type
+     */
     std::string getType();
+    /**
+     * @brief create a string representatio of this event used for console debugging
+     * @return the string representation
+     */
     virtual std::string toString() = 0;
 };
 

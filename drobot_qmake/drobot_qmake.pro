@@ -62,7 +62,6 @@ HEADERS += \
     src/drobot/device/devicefactory.h \
     src/drobot/device/tactile/simpletactilesensorfactory.h \
     src/drobot/device/channel/channelfactory.h \
-    src/drobot/device/channel/normalizerfactory.h \
     src/drobot/device/actuator/channel/actuatorpositionchannelfactory.h \
     src/drobot/device/tactile/channel/tactilesensorvaluechannelfactory.h \
     src/drobot/device/vision/pixel.h \
@@ -74,7 +73,8 @@ HEADERS += \
     src/drobot/device/actuator/channel/actuatorvelocitychannelfactory.h \
     src/drobot/device/deviceConstants.h \
     src/drobot/device/vestibular/channel/vestibularmagneticfieldchannel.h \
-    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.h
+    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.h \
+    src/drobot/experiment/tactileTest/robot/stupidcontrollerfactory.h
 
 SOURCES += \
     src/drobot/device/actuator/actuatorboard.cpp \
@@ -95,7 +95,6 @@ SOURCES += \
     src/drobot/program/program.cpp \
     src/drobot/program/programfactory.cpp \
     src/drobot/program/programmanager.cpp \
-    src/drobot/util/util.cpp \
     src/drobot/widget/mainwindow.cpp \
     src/drobot/main.cpp \
     src/drobot/experiment/tactileTest/program/tactiletestprogram.cpp \
@@ -138,7 +137,8 @@ SOURCES += \
     src/drobot/device/actuator/channel/actuatoraccelerationchannelfactory.cpp \
     src/drobot/device/actuator/channel/actuatorvelocitychannelfactory.cpp \
     src/drobot/device/vestibular/channel/vestibularmagneticfieldchannel.cpp \
-    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.cpp
+    src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.cpp \
+    src/drobot/experiment/tactileTest/robot/stupidcontrollerfactory.cpp
 
 OTHER_FILES +=
 

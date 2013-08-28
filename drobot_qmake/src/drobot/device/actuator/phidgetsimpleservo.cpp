@@ -16,7 +16,6 @@ PhidgetSimpleServo::PhidgetSimpleServo(std::string name, CPhidgetServoHandle phi
     _index = index;
 }
 
-
 void PhidgetSimpleServo::enable() {
     CPhidgetServo_setEngaged(_phidgetHandle, _index, 1);
 }

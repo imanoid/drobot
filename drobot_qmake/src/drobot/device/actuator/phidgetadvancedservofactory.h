@@ -13,7 +13,7 @@ class PhidgetAdvancedServoFactory : public DeviceFactory
 {
 public:
     PhidgetAdvancedServoFactory();
-    virtual void createFromDomElement(QDomElement element, DeviceManager *devices);
+    virtual void createFromDomElement(QDomElement element, robot::Robot* robot);
 };
 
 } // namespace actuator

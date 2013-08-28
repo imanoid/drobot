@@ -7,16 +7,17 @@
 namespace drobot {
 namespace datalogger {
 
+/**
+ * @brief The SimpleDataLogEntry struct contains the information about the channel values of one tick
+ */
 struct SimpleDataLogEntry {
     long tick;
-    std::map<device::channel::Channel*, double> inputs;
-    std::map<device::channel::Channel*, double> outputs;
+    std::map<device::channel::Channel*, double> values;
 
     SimpleDataLogEntry() {}
-    SimpleDataLogEntry(long tick, std::map<device::channel::Channel*, double> inputs, std::map<device::channel::Channel*, double> outputs) {
+    SimpleDataLogEntry(long tick, std::map<device::channel::Channel*, double> values) {
         this->tick = tick;
-        this->inputs = inputs;
-        this->outputs = outputs;
+        this->values = values;
     }
 };
 

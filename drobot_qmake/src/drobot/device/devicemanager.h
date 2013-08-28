@@ -5,38 +5,38 @@
 #include <map>
 #include <vector>
 #include "device.h"
-#include "devicefactory.h"
 #include "channel/channelmanager.h"
 #include <QtXml/QDomElement>
 #include "../object/manager.h"
-#include "actuator/phidgetadvancedservofactory.h"
-#include "tactile/simpletactilesensorfactory.h"
 
 namespace drobot {
 namespace device {
 
+/**
+ * @brief Special implementation of a Manager for Device Items.
+ * @details Additionally to the normal Manager implementation it also knows about all the Channels and DeviceBoards of the devices.
+ */
 class DeviceManager : public object::Manager<Device>
 {
 private:
-    object::Manager<DeviceFactory>* _deviceFactories;
     channel::ChannelManager* _channels;
     object::Manager<DeviceBoard>* _deviceBoards;
-
-    void parseElement(QDomElement element);
-    void parseDeviceGroup(QDomElement element);
-    void parseDevice(QDomElement element);
 public:
     DeviceManager();
     DeviceManager(std::vector<Device*> items);
+    virtual ~DeviceManager();
     virtual void onAdd(Device* item);
     virtual void onRemove(Device* item);
 
+    /**
+     * @brief enable all devices
+     */
     void enable();
+    /**
+     * @brief disable all devices
+     */
     void disable();
-
-    void loadFromFile(std::string path);
     virtual channel::ChannelManager* getChannels();
-    object::Manager<DeviceFactory>* getDeviceFactories();
     object::Manager<DeviceBoard>* getDeviceBoards();
 };
 

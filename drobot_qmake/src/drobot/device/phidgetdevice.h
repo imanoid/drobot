@@ -7,10 +7,17 @@
 namespace drobot {
 namespace device {
 
+/**
+ * @brief Base class for all Phidget Devices. Implements the standard functions.
+ */
 class PhidgetDevice
 {
 protected:
-    virtual CPhidgetHandle& getPhidgetHandle() = 0;
+    /**
+     * @brief Must be implemented by the specific phidget device to return a CPhidgetHandle struct.
+     * @return
+     */
+    virtual CPhidgetHandle getPhidgetHandle() = 0;
 public:
     std::string getPhidgetName();
     int getPhidgetSerialNumber();

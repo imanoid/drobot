@@ -7,6 +7,10 @@ namespace drobot {
 namespace device {
 namespace channel {
 
+/**
+ * @brief The LinearNormalizer class
+ * @details linearly normalizes values from _min to _max to a 0 to 1 interval
+ */
 class LinearNormalizer : public Normalizer
 {
 private:

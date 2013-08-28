@@ -9,6 +9,12 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
+/**
+ * @brief The PhidgetAdvancedServo class
+ * @details The PhidgetAdvancedServo only supports movement by setting the position. The movingAcceleration and movingVelocity properties
+ *  refer to the movement initiated in this way. The acceleration and velocity properties aren't implemented by the Phidget Servo module
+ *  but they can be simulated by setting the position according to the acceleration/velocity set if needed.
+ */
 class PhidgetAdvancedServo : public Actuator
 {
 protected:
