@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPerceptron/DRobotPerceptron.cpp
+iostream
+-
+ctime
+-
+cstdlib
+-
+DRobotPerceptron.h
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPerceptron/DRobotPerceptron.h
+
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPerceptron/DRobotPerceptron.h
+string
+-
+vector
+-
+map
+-
+eigen3/Eigen/Core
+-
+
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPerceptron/DRobotPerceptronTest.cpp
+iostream
+-
+boost/assign/list_of.hpp
+-
+eigen3/Eigen/Core
+-
+DRobotPerceptron.h
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPerceptron/DRobotPerceptron.h
+

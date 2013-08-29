@@ -1,0 +1,69 @@
+\hypertarget{classdrobot_1_1robot_1_1event_1_1StepEvent}{\section{drobot\-:\-:robot\-:\-:event\-:\-:Step\-Event Class Reference}
+\label{classdrobot_1_1robot_1_1event_1_1StepEvent}\index{drobot\-::robot\-::event\-::\-Step\-Event@{drobot\-::robot\-::event\-::\-Step\-Event}}
+}
+
+
+The \hyperlink{classdrobot_1_1robot_1_1event_1_1StepEvent}{Step\-Event} class. This event is fired in the robot's run method after every tick.  
+
+
+
+
+{\ttfamily \#include $<$stepevent.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:robot\-:\-:event\-:\-:Step\-Event\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdrobot_1_1robot_1_1event_1_1StepEvent}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1robot_1_1event_1_1StepEvent_a5e69bc4f78a26d9840e703b62d276bd2}{{\bfseries Step\-Event} (long tick, std\-::vector$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$ $>$ channels)}\label{classdrobot_1_1robot_1_1event_1_1StepEvent_a5e69bc4f78a26d9840e703b62d276bd2}
+
+\item 
+virtual std\-::string \hyperlink{classdrobot_1_1robot_1_1event_1_1StepEvent_a40504ba9d43d9db0efdd7a16551af2f3}{to\-String} ()
+\begin{DoxyCompactList}\small\item\em create a string representatio of this event used for console debugging \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1robot_1_1event_1_1StepEvent_aa4d308a5ee256ff10525cd09f2c3bbb7}{long {\bfseries \-\_\-tick}}\label{classdrobot_1_1robot_1_1event_1_1StepEvent_aa4d308a5ee256ff10525cd09f2c3bbb7}
+
+\item 
+\hypertarget{classdrobot_1_1robot_1_1event_1_1StepEvent_a80a1d789a30dd28a7b0981047087037b}{std\-::map\\*
+$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} \\*
+$\ast$, double $>$ {\bfseries \-\_\-values}}\label{classdrobot_1_1robot_1_1event_1_1StepEvent_a80a1d789a30dd28a7b0981047087037b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classdrobot_1_1robot_1_1event_1_1StepEvent}{Step\-Event} class. This event is fired in the robot's run method after every tick. 
+
+It contains information about the number of the tick and the current values of the different channels in the Channel\-Manager of the robot. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1robot_1_1event_1_1StepEvent_a40504ba9d43d9db0efdd7a16551af2f3}{\index{drobot\-::robot\-::event\-::\-Step\-Event@{drobot\-::robot\-::event\-::\-Step\-Event}!to\-String@{to\-String}}
+\index{to\-String@{to\-String}!drobot::robot::event::StepEvent@{drobot\-::robot\-::event\-::\-Step\-Event}}
+\subsubsection[{to\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string drobot\-::robot\-::event\-::\-Step\-Event\-::to\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1robot_1_1event_1_1StepEvent_a40504ba9d43d9db0efdd7a16551af2f3}
+
+
+create a string representatio of this event used for console debugging 
+
+\begin{DoxyReturn}{Returns}
+the string representation 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdrobot_1_1event_1_1Event_a25b725cbb7dbdb4a41b9c4e9fc3785d8}{drobot\-::event\-::\-Event}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/robot/event/stepevent.\-h\item 
+src/drobot/robot/event/stepevent.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPopulationCoding/DRobotPopulationCoding.cpp
+iostream
+-
+ctime
+-
+cstdlib
+-
+DRobotPopulationCoding.h
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPopulationCoding/DRobotPopulationCoding.h
+
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPopulationCoding/DRobotPopulationCoding.h
+string
+-
+vector
+-
+eigen3/Eigen/Core
+-
+
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPopulationCoding/DRobotPopulationCodingTest.cpp
+iostream
+-
+boost/assign/list_of.hpp
+-
+DRobotPopulationCoding.h
+/home/imanol/workspace/drobot/src/drobot/learning/DRobotPopulationCoding/DRobotPopulationCoding.h
+

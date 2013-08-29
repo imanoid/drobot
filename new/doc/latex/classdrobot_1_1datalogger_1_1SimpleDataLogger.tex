@@ -1,0 +1,144 @@
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger}{\section{drobot\-:\-:datalogger\-:\-:Simple\-Data\-Logger Class Reference}
+\label{classdrobot_1_1datalogger_1_1SimpleDataLogger}\index{drobot\-::datalogger\-::\-Simple\-Data\-Logger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}}
+}
+
+
+The \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger}{Simple\-Data\-Logger} class implements the \hyperlink{classdrobot_1_1datalogger_1_1DataLogger}{Data\-Logger} class to save it into a file and also load it from there.  
+
+
+
+
+{\ttfamily \#include $<$simpledatalogger.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:datalogger\-:\-:Simple\-Data\-Logger\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdrobot_1_1datalogger_1_1SimpleDataLogger}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a71822d737ffde7309da5b18a0eb71e3c}{{\bfseries Simple\-Data\-Logger} (int max\-Values, int modulo)}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a71822d737ffde7309da5b18a0eb71e3c}
+
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a46f2d6161b81c808fb6b6c6c75b457fc}{virtual void {\bfseries log} (long tick, std\-::map$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$, double $>$ values)}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a46f2d6161b81c808fb6b6c6c75b457fc}
+
+\item 
+virtual void \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger_a8e79821846b2104d7f65e64f6e8a5eb6}{set\-Max\-Values} (int max\-Values)
+\begin{DoxyCompactList}\small\item\em set\-Max\-Values. max count of values. \end{DoxyCompactList}\item 
+virtual int \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger_a2b9a75d2f73bb22e6558166e9dbcc4f4}{get\-Max\-Values} ()
+\begin{DoxyCompactList}\small\item\em get\-Max\-Values. max count of values. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger_a4365669efc4d0950cf21c30be8650a88}{set\-Modulo} (int modulo)
+\begin{DoxyCompactList}\small\item\em set\-Modulo. which ticks are recorded \end{DoxyCompactList}\item 
+virtual int \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger_a43d243494d611d7f1c6afd5204686f40}{get\-Modulo} ()
+\begin{DoxyCompactList}\small\item\em get\-Modulo. which ticks are recorded \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a37c5777c063826a05d6242c61fc454cf}{void {\bfseries save\-To\-File} (std\-::string path)}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a37c5777c063826a05d6242c61fc454cf}
+
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_ae99d6654f53748fbf22835f75bca978f}{void {\bfseries load\-From\-File} (std\-::string path, \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelManager}{device\-::channel\-::\-Channel\-Manager} channels)}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_ae99d6654f53748fbf22835f75bca978f}
+
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a9a22c15bff8f3faaaed8ebe32f95d4d1}{std\-::vector$<$ \hyperlink{structdrobot_1_1datalogger_1_1SimpleDataLogEntry}{Simple\-Data\-Log\-Entry} $\ast$ $>$ {\bfseries get\-Data} ()}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a9a22c15bff8f3faaaed8ebe32f95d4d1}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a3163664f8050b0a428f61c4c8849cb15}{std\-::vector$<$ \hyperlink{structdrobot_1_1datalogger_1_1SimpleDataLogEntry}{Simple\-Data\-Log\-Entry} $\ast$ $>$ {\bfseries \-\_\-data}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a3163664f8050b0a428f61c4c8849cb15}
+
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_af2603933a4ed7fb1231896fbee220752}{int {\bfseries \-\_\-modulo}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_af2603933a4ed7fb1231896fbee220752}
+
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_afb8dceee27c888b76b5eec720f3cff3b}{int {\bfseries \-\_\-max\-Values}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_afb8dceee27c888b76b5eec720f3cff3b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger}{Simple\-Data\-Logger} class implements the \hyperlink{classdrobot_1_1datalogger_1_1DataLogger}{Data\-Logger} class to save it into a file and also load it from there. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a2b9a75d2f73bb22e6558166e9dbcc4f4}{\index{drobot\-::datalogger\-::\-Simple\-Data\-Logger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}!get\-Max\-Values@{get\-Max\-Values}}
+\index{get\-Max\-Values@{get\-Max\-Values}!drobot::datalogger::SimpleDataLogger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}}
+\subsubsection[{get\-Max\-Values}]{\setlength{\rightskip}{0pt plus 5cm}int drobot\-::datalogger\-::\-Simple\-Data\-Logger\-::get\-Max\-Values (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a2b9a75d2f73bb22e6558166e9dbcc4f4}
+
+
+get\-Max\-Values. max count of values. 
+
+If bigger than 0 the values from the oldest ticks are deleted so that the size doesn't exceeds max\-Values \begin{DoxyReturn}{Returns}
+max\-Values 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_a8fe7bb2a626d9f9d5c69f9197490515b}{drobot\-::datalogger\-::\-Data\-Logger}.
+
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a43d243494d611d7f1c6afd5204686f40}{\index{drobot\-::datalogger\-::\-Simple\-Data\-Logger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}!get\-Modulo@{get\-Modulo}}
+\index{get\-Modulo@{get\-Modulo}!drobot::datalogger::SimpleDataLogger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}}
+\subsubsection[{get\-Modulo}]{\setlength{\rightskip}{0pt plus 5cm}int drobot\-::datalogger\-::\-Simple\-Data\-Logger\-::get\-Modulo (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a43d243494d611d7f1c6afd5204686f40}
+
+
+get\-Modulo. which ticks are recorded 
+
+if bigger than 0 only ticks with (tick \% module == 0) are recorded \begin{DoxyReturn}{Returns}
+modulo 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_a4dd79d4060e4d4d77451a50777792c0a}{drobot\-::datalogger\-::\-Data\-Logger}.
+
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a8e79821846b2104d7f65e64f6e8a5eb6}{\index{drobot\-::datalogger\-::\-Simple\-Data\-Logger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}!set\-Max\-Values@{set\-Max\-Values}}
+\index{set\-Max\-Values@{set\-Max\-Values}!drobot::datalogger::SimpleDataLogger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}}
+\subsubsection[{set\-Max\-Values}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::datalogger\-::\-Simple\-Data\-Logger\-::set\-Max\-Values (
+\begin{DoxyParamCaption}
+\item[{int}]{max\-Values}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a8e79821846b2104d7f65e64f6e8a5eb6}
+
+
+set\-Max\-Values. max count of values. 
+
+If bigger than 0 the values from the oldest ticks are deleted so that the size doesn't exceeds max\-Values 
+\begin{DoxyParams}{Parameters}
+{\em max\-Values} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_ae90262e477952f8e1c385b84e17d80c6}{drobot\-::datalogger\-::\-Data\-Logger}.
+
+\hypertarget{classdrobot_1_1datalogger_1_1SimpleDataLogger_a4365669efc4d0950cf21c30be8650a88}{\index{drobot\-::datalogger\-::\-Simple\-Data\-Logger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}!set\-Modulo@{set\-Modulo}}
+\index{set\-Modulo@{set\-Modulo}!drobot::datalogger::SimpleDataLogger@{drobot\-::datalogger\-::\-Simple\-Data\-Logger}}
+\subsubsection[{set\-Modulo}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::datalogger\-::\-Simple\-Data\-Logger\-::set\-Modulo (
+\begin{DoxyParamCaption}
+\item[{int}]{modulo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1datalogger_1_1SimpleDataLogger_a4365669efc4d0950cf21c30be8650a88}
+
+
+set\-Modulo. which ticks are recorded 
+
+if bigger than 0 only ticks with (tick \% module == 0) are recorded 
+\begin{DoxyParams}{Parameters}
+{\em modulo} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_ae463aebd8cb38c716bef83d5732042b1}{drobot\-::datalogger\-::\-Data\-Logger}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/datalogger/simpledatalogger.\-h\item 
+src/drobot/datalogger/simpledatalogger.\-cpp\end{DoxyCompactItemize}

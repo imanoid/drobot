@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/imanol/workspace/drobot/src/drobot/tactile/../utils/rs232/rs232.h
+stdio.h
+-
+string.h
+-
+termios.h
+-
+sys/ioctl.h
+-
+unistd.h
+-
+fcntl.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+limits.h
+-
+windows.h
+-
+
+/home/imanol/workspace/drobot/src/drobot/tactile/DRobotTactileSensorBoard.cpp
+DRobotTactileSensorBoard.h
+/home/imanol/workspace/drobot/src/drobot/tactile/DRobotTactileSensorBoard.h
+algorithm
+-
+boost/thread.hpp
+-
+../utils/rs232/rs232.h
+/home/imanol/workspace/drobot/src/drobot/tactile/../utils/rs232/rs232.h
+
+/home/imanol/workspace/drobot/src/drobot/tactile/DRobotTactileSensorBoard.h
+vector
+-
+string
+-
+

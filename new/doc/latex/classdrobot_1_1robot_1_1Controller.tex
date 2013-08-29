@@ -1,0 +1,132 @@
+\hypertarget{classdrobot_1_1robot_1_1Controller}{\section{drobot\-:\-:robot\-:\-:Controller Class Reference}
+\label{classdrobot_1_1robot_1_1Controller}\index{drobot\-::robot\-::\-Controller@{drobot\-::robot\-::\-Controller}}
+}
+
+
+Base class for \hyperlink{classdrobot_1_1robot_1_1Robot}{Robot} Controllers.  
+
+
+
+
+{\ttfamily \#include $<$controller.\-h$>$}
+
+Inheritance diagram for drobot\-:\-:robot\-:\-:Controller\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classdrobot_1_1robot_1_1Controller}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1robot_1_1Controller_af74be803a0338e75a68c59f444530948}{{\bfseries Controller} (std\-::string name)}\label{classdrobot_1_1robot_1_1Controller_af74be803a0338e75a68c59f444530948}
+
+\item 
+virtual void \hyperlink{classdrobot_1_1robot_1_1Controller_acbbde3e529dad162fb36074c7e25a924}{step} (long tick, \hyperlink{classdrobot_1_1device_1_1channel_1_1ChannelManager}{device\-::channel\-::\-Channel\-Manager} $\ast$channels)=0
+\begin{DoxyCompactList}\small\item\em This function is called at a specific frequency defined in the \hyperlink{classdrobot_1_1robot_1_1Robot}{Robot}. \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1robot_1_1Controller_afa7f38adf10288f9942e133cfdf26f3e}{void {\bfseries set\-Robot} (\hyperlink{classdrobot_1_1robot_1_1Robot}{Robot} $\ast$robot)}\label{classdrobot_1_1robot_1_1Controller_afa7f38adf10288f9942e133cfdf26f3e}
+
+\item 
+\hypertarget{classdrobot_1_1robot_1_1Controller_aaee713e766a87dec33c48308be4a5102}{\hyperlink{classdrobot_1_1robot_1_1Robot}{Robot} $\ast$ {\bfseries get\-Robot} ()}\label{classdrobot_1_1robot_1_1Controller_aaee713e766a87dec33c48308be4a5102}
+
+\item 
+virtual void \hyperlink{classdrobot_1_1robot_1_1Controller_a533a9761503d502c64c25538ce8eb35c}{enable} ()
+\begin{DoxyCompactList}\small\item\em enables the device. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classdrobot_1_1robot_1_1Controller_a40384f970deab8157ada1ead78d8b383}{disable} ()
+\begin{DoxyCompactList}\small\item\em disables the device. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classdrobot_1_1robot_1_1Controller_a8f7c73ba2adb3f7c02ff97b5c9d94b12}{is\-Enabled} ()
+\begin{DoxyCompactList}\small\item\em check if the device is enabled \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1robot_1_1Controller_ae2ec0e60b65c7b56db0f5da9ee8c7b2d}{\hyperlink{classdrobot_1_1robot_1_1Robot}{Robot} $\ast$ \hyperlink{classdrobot_1_1robot_1_1Controller_ae2ec0e60b65c7b56db0f5da9ee8c7b2d}{\-\_\-robot}}\label{classdrobot_1_1robot_1_1Controller_ae2ec0e60b65c7b56db0f5da9ee8c7b2d}
+
+\begin{DoxyCompactList}\small\item\em the robot being controlled \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1robot_1_1Controller_a39de453e625818a2083c4393dba021f2}{bool {\bfseries \-\_\-enabled}}\label{classdrobot_1_1robot_1_1Controller_a39de453e625818a2083c4393dba021f2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for \hyperlink{classdrobot_1_1robot_1_1Robot}{Robot} Controllers. 
+
+this class derives from the Device class so that you may add Channels of type L\-O\-G to it. See \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} for details. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1robot_1_1Controller_a40384f970deab8157ada1ead78d8b383}{\index{drobot\-::robot\-::\-Controller@{drobot\-::robot\-::\-Controller}!disable@{disable}}
+\index{disable@{disable}!drobot::robot::Controller@{drobot\-::robot\-::\-Controller}}
+\subsubsection[{disable}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::robot\-::\-Controller\-::disable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1robot_1_1Controller_a40384f970deab8157ada1ead78d8b383}
+
+
+disables the device. 
+
+This function has to be implemented by the specific device. For physical devices like actuators this method should power off the device; 
+
+Reimplemented from \hyperlink{classdrobot_1_1device_1_1Device_a289499673ae30bd72101c68fbd04cd89}{drobot\-::device\-::\-Device}.
+
+\hypertarget{classdrobot_1_1robot_1_1Controller_a533a9761503d502c64c25538ce8eb35c}{\index{drobot\-::robot\-::\-Controller@{drobot\-::robot\-::\-Controller}!enable@{enable}}
+\index{enable@{enable}!drobot::robot::Controller@{drobot\-::robot\-::\-Controller}}
+\subsubsection[{enable}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::robot\-::\-Controller\-::enable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1robot_1_1Controller_a533a9761503d502c64c25538ce8eb35c}
+
+
+enables the device. 
+
+This function has to be implemented by the specific device. For physical devices like actuators this method should power on the device. 
+
+Reimplemented from \hyperlink{classdrobot_1_1device_1_1Device_a0c28785ff2e79f99b8e9eaefe6749f2b}{drobot\-::device\-::\-Device}.
+
+\hypertarget{classdrobot_1_1robot_1_1Controller_a8f7c73ba2adb3f7c02ff97b5c9d94b12}{\index{drobot\-::robot\-::\-Controller@{drobot\-::robot\-::\-Controller}!is\-Enabled@{is\-Enabled}}
+\index{is\-Enabled@{is\-Enabled}!drobot::robot::Controller@{drobot\-::robot\-::\-Controller}}
+\subsubsection[{is\-Enabled}]{\setlength{\rightskip}{0pt plus 5cm}bool drobot\-::robot\-::\-Controller\-::is\-Enabled (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1robot_1_1Controller_a8f7c73ba2adb3f7c02ff97b5c9d94b12}
+
+
+check if the device is enabled 
+
+\begin{DoxyReturn}{Returns}
+true if enabled else false
+\end{DoxyReturn}
+While the \hyperlink{classdrobot_1_1robot_1_1Robot}{drobot\-::robot\-::\-Robot} is running this property is checked to see whether the device should be used or not. 
+
+Implements \hyperlink{classdrobot_1_1device_1_1Device_aa5b7eac8638d0d2d5ee9bf10607b100e}{drobot\-::device\-::\-Device}.
+
+\hypertarget{classdrobot_1_1robot_1_1Controller_acbbde3e529dad162fb36074c7e25a924}{\index{drobot\-::robot\-::\-Controller@{drobot\-::robot\-::\-Controller}!step@{step}}
+\index{step@{step}!drobot::robot::Controller@{drobot\-::robot\-::\-Controller}}
+\subsubsection[{step}]{\setlength{\rightskip}{0pt plus 5cm}virtual void drobot\-::robot\-::\-Controller\-::step (
+\begin{DoxyParamCaption}
+\item[{long}]{tick, }
+\item[{{\bf device\-::channel\-::\-Channel\-Manager} $\ast$}]{channels}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classdrobot_1_1robot_1_1Controller_acbbde3e529dad162fb36074c7e25a924}
+
+
+This function is called at a specific frequency defined in the \hyperlink{classdrobot_1_1robot_1_1Robot}{Robot}. 
+
+This method should first read the values of the input channels, then calculate the output and write it to the output channels. Additionally other stuff can be written to log channels for logging. 
+\begin{DoxyParams}{Parameters}
+{\em tick} & the timestep \\
+\hline
+{\em channels} & of the robot \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classdrobot_1_1experiment_1_1tactileTest_1_1robot_1_1StupidController_af18d7430f030f3cf5ce4e3d088e21ffa}{drobot\-::experiment\-::tactile\-Test\-::robot\-::\-Stupid\-Controller}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/robot/controller.\-h\item 
+src/drobot/robot/controller.\-cpp\end{DoxyCompactItemize}

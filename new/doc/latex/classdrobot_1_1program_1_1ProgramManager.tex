@@ -1,0 +1,133 @@
+\hypertarget{classdrobot_1_1program_1_1ProgramManager}{\section{drobot\-:\-:program\-:\-:Program\-Manager Class Reference}
+\label{classdrobot_1_1program_1_1ProgramManager}\index{drobot\-::program\-::\-Program\-Manager@{drobot\-::program\-::\-Program\-Manager}}
+}
+
+
+The \hyperlink{classdrobot_1_1program_1_1ProgramManager}{Program\-Manager} class keeps track of the available \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} and \hyperlink{classdrobot_1_1program_1_1Program}{Program} instances.  
+
+
+
+
+{\ttfamily \#include $<$programmanager.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classdrobot_1_1program_1_1ProgramManager_a4ea28e6c3b74b746364bbc3c2d68bd31}{register\-Program\-Factory} (\hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} $\ast$program\-Factory)
+\begin{DoxyCompactList}\small\item\em register\-Program\-Factory adds a \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} \end{DoxyCompactList}\item 
+void \hyperlink{classdrobot_1_1program_1_1ProgramManager_a190faf45e5e408b02e0b9858240244ea}{unregister\-Program\-Factory} (\hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} $\ast$program\-Factory)
+\begin{DoxyCompactList}\small\item\em unregister\-Program\-Factory removes a \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} \end{DoxyCompactList}\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classdrobot_1_1program_1_1ProgramManager_a8d67fbed1cdde2f1b0053809e2a35a7b}{list\-Program\-Factory\-Names} ()
+\begin{DoxyCompactList}\small\item\em list\-Program\-Factory\-Names \end{DoxyCompactList}\item 
+\hyperlink{classdrobot_1_1program_1_1Program}{Program} $\ast$ \hyperlink{classdrobot_1_1program_1_1ProgramManager_adf94bbb6de02d9d304e2776a9e21d40d}{launch\-Program} (std\-::string program\-Name)
+\begin{DoxyCompactList}\small\item\em launch\-Program creates a new program instance and starts it. \end{DoxyCompactList}\item 
+void \hyperlink{classdrobot_1_1program_1_1ProgramManager_a8ff0772daea03353f6473e041469093a}{kill\-Program} (std\-::string program\-Name)
+\begin{DoxyCompactList}\small\item\em kill\-Program cancels a program instance \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a193a85cf0e58c44955513aab1e7253b4}{void \hyperlink{classdrobot_1_1program_1_1ProgramManager_a193a85cf0e58c44955513aab1e7253b4}{kill\-All} ()}\label{classdrobot_1_1program_1_1ProgramManager_a193a85cf0e58c44955513aab1e7253b4}
+
+\begin{DoxyCompactList}\small\item\em kill\-All cancels all program instances \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_ad8d36ca3ae149a35055ec65b86a88f2a}{std\-::vector$<$ std\-::string $>$ {\bfseries list\-Program\-Names} ()}\label{classdrobot_1_1program_1_1ProgramManager_ad8d36ca3ae149a35055ec65b86a88f2a}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a044432fd5e26ef8f9170d2b6ab726829}{\hyperlink{classdrobot_1_1object_1_1Manager}{object\-::\-Manager}$<$ \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} $>$ {\bfseries \-\_\-program\-Factories}}\label{classdrobot_1_1program_1_1ProgramManager_a044432fd5e26ef8f9170d2b6ab726829}
+
+\item 
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a8bf1519b4720d837256c3bb139e56dff}{\hyperlink{classdrobot_1_1object_1_1Manager}{object\-::\-Manager}$<$ \hyperlink{classdrobot_1_1program_1_1Program}{Program} $>$ {\bfseries \-\_\-programs}}\label{classdrobot_1_1program_1_1ProgramManager_a8bf1519b4720d837256c3bb139e56dff}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classdrobot_1_1program_1_1ProgramManager}{Program\-Manager} class keeps track of the available \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} and \hyperlink{classdrobot_1_1program_1_1Program}{Program} instances. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a8ff0772daea03353f6473e041469093a}{\index{drobot\-::program\-::\-Program\-Manager@{drobot\-::program\-::\-Program\-Manager}!kill\-Program@{kill\-Program}}
+\index{kill\-Program@{kill\-Program}!drobot::program::ProgramManager@{drobot\-::program\-::\-Program\-Manager}}
+\subsubsection[{kill\-Program}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::program\-::\-Program\-Manager\-::kill\-Program (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{program\-Name}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1program_1_1ProgramManager_a8ff0772daea03353f6473e041469093a}
+
+
+kill\-Program cancels a program instance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em program\-Name} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_adf94bbb6de02d9d304e2776a9e21d40d}{\index{drobot\-::program\-::\-Program\-Manager@{drobot\-::program\-::\-Program\-Manager}!launch\-Program@{launch\-Program}}
+\index{launch\-Program@{launch\-Program}!drobot::program::ProgramManager@{drobot\-::program\-::\-Program\-Manager}}
+\subsubsection[{launch\-Program}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Program} $\ast$ drobot\-::program\-::\-Program\-Manager\-::launch\-Program (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{program\-Name}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1program_1_1ProgramManager_adf94bbb6de02d9d304e2776a9e21d40d}
+
+
+launch\-Program creates a new program instance and starts it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em program\-Name} & is the type of the program to launch \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the new program instance 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a8d67fbed1cdde2f1b0053809e2a35a7b}{\index{drobot\-::program\-::\-Program\-Manager@{drobot\-::program\-::\-Program\-Manager}!list\-Program\-Factory\-Names@{list\-Program\-Factory\-Names}}
+\index{list\-Program\-Factory\-Names@{list\-Program\-Factory\-Names}!drobot::program::ProgramManager@{drobot\-::program\-::\-Program\-Manager}}
+\subsubsection[{list\-Program\-Factory\-Names}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ std\-::string $>$ drobot\-::program\-::\-Program\-Manager\-::list\-Program\-Factory\-Names (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1program_1_1ProgramManager_a8d67fbed1cdde2f1b0053809e2a35a7b}
+
+
+list\-Program\-Factory\-Names 
+
+\begin{DoxyReturn}{Returns}
+the names of the known \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} instances 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a4ea28e6c3b74b746364bbc3c2d68bd31}{\index{drobot\-::program\-::\-Program\-Manager@{drobot\-::program\-::\-Program\-Manager}!register\-Program\-Factory@{register\-Program\-Factory}}
+\index{register\-Program\-Factory@{register\-Program\-Factory}!drobot::program::ProgramManager@{drobot\-::program\-::\-Program\-Manager}}
+\subsubsection[{register\-Program\-Factory}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::program\-::\-Program\-Manager\-::register\-Program\-Factory (
+\begin{DoxyParamCaption}
+\item[{{\bf Program\-Factory} $\ast$}]{program\-Factory}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1program_1_1ProgramManager_a4ea28e6c3b74b746364bbc3c2d68bd31}
+
+
+register\-Program\-Factory adds a \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em program\-Factory} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdrobot_1_1program_1_1ProgramManager_a190faf45e5e408b02e0b9858240244ea}{\index{drobot\-::program\-::\-Program\-Manager@{drobot\-::program\-::\-Program\-Manager}!unregister\-Program\-Factory@{unregister\-Program\-Factory}}
+\index{unregister\-Program\-Factory@{unregister\-Program\-Factory}!drobot::program::ProgramManager@{drobot\-::program\-::\-Program\-Manager}}
+\subsubsection[{unregister\-Program\-Factory}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::program\-::\-Program\-Manager\-::unregister\-Program\-Factory (
+\begin{DoxyParamCaption}
+\item[{{\bf Program\-Factory} $\ast$}]{program\-Factory}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1program_1_1ProgramManager_a190faf45e5e408b02e0b9858240244ea}
+
+
+unregister\-Program\-Factory removes a \hyperlink{classdrobot_1_1program_1_1ProgramFactory}{Program\-Factory} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em program\-Factory} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/program/programmanager.\-h\item 
+src/drobot/program/programmanager.\-cpp\end{DoxyCompactItemize}

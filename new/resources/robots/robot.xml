@@ -1,0 +1,33 @@
+<robot frequency="24">
+    <devices>
+        <deviceGroup name="actuator">
+            <device:phidgetAdvancedServo serial="303292" index="0" name="LeftEyeServo0">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="1" name="LeftEyeServo1">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="2" name="NeckServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+        </deviceGroup>
+        <deviceGroup name="tactile">
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="1" name="LeftHandTactileSensor">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+        </deviceGroup>
+        <deviceGroup name="vestibular">
+            <device:phidgetVestibular serial="297025" name="LeftVestibular">
+                <channel:acceleration type="INPUT" />
+                <channel:angularRate type="INPUT" />
+                <channel:magneticField type="INPUT" />
+            </device:phidgetVestibular>
+            <device:phidgetVestibular serial="297045" name="LightVestibular">
+                <channel:acceleration type="INPUT" />
+                <channel:angularRate type="INPUT" />
+                <channel:magneticField type="INPUT" />
+            </device:phidgetVestibular>
+        </deviceGroup>
+    </devices>
+    <controller:stupidController />
+</robot>

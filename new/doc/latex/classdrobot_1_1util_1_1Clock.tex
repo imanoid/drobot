@@ -1,0 +1,67 @@
+\hypertarget{classdrobot_1_1util_1_1Clock}{\section{drobot\-:\-:util\-:\-:Clock Class Reference}
+\label{classdrobot_1_1util_1_1Clock}\index{drobot\-::util\-::\-Clock@{drobot\-::util\-::\-Clock}}
+}
+
+
+The \hyperlink{classdrobot_1_1util_1_1Clock}{Clock} class can be used to synchronize a loop to a specific frequency.  
+
+
+
+
+{\ttfamily \#include $<$clock.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_abbb34db76f1b1bdc73f4da74233df96e}{{\bfseries Clock} (double frequency)}\label{classdrobot_1_1util_1_1Clock_abbb34db76f1b1bdc73f4da74233df96e}
+
+\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_a16c9d681c2d95e3cf3a8566e786eef4c}{void {\bfseries init} ()}\label{classdrobot_1_1util_1_1Clock_a16c9d681c2d95e3cf3a8566e786eef4c}
+
+\item 
+void \hyperlink{classdrobot_1_1util_1_1Clock_a7b9b7059c83a69a3805730e4101292ce}{wait\-For\-Tick} ()
+\begin{DoxyCompactList}\small\item\em wait\-For\-Tick is used to wait for the next timestep. \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_a39c8b68b1d807ba60253e72b02a2ee23}{void {\bfseries set\-Frequency} (double frequency)}\label{classdrobot_1_1util_1_1Clock_a39c8b68b1d807ba60253e72b02a2ee23}
+
+\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_af476d9c0904776c9457395b70385fab0}{double {\bfseries get\-Frequency} ()}\label{classdrobot_1_1util_1_1Clock_af476d9c0904776c9457395b70385fab0}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_a5fe7640381b84529990f33a221770000}{void {\bfseries unlock} ()}\label{classdrobot_1_1util_1_1Clock_a5fe7640381b84529990f33a221770000}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_a01dd882e7407ed6a9f91b22a30ecfa81}{bool {\bfseries \-\_\-lock}}\label{classdrobot_1_1util_1_1Clock_a01dd882e7407ed6a9f91b22a30ecfa81}
+
+\item 
+\hypertarget{classdrobot_1_1util_1_1Clock_a947834caf07b8a062fde75969a299bb8}{double {\bfseries \-\_\-frequency}}\label{classdrobot_1_1util_1_1Clock_a947834caf07b8a062fde75969a299bb8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classdrobot_1_1util_1_1Clock}{Clock} class can be used to synchronize a loop to a specific frequency. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classdrobot_1_1util_1_1Clock_a7b9b7059c83a69a3805730e4101292ce}{\index{drobot\-::util\-::\-Clock@{drobot\-::util\-::\-Clock}!wait\-For\-Tick@{wait\-For\-Tick}}
+\index{wait\-For\-Tick@{wait\-For\-Tick}!drobot::util::Clock@{drobot\-::util\-::\-Clock}}
+\subsubsection[{wait\-For\-Tick}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::util\-::\-Clock\-::wait\-For\-Tick (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1util_1_1Clock_a7b9b7059c83a69a3805730e4101292ce}
+
+
+wait\-For\-Tick is used to wait for the next timestep. 
+
+It returns immediately in the first call. After that it blocks until the next tick's time has arrived. This method should be called at the beginning of the loop. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/drobot/util/clock.\-h\item 
+src/drobot/util/clock.\-cpp\end{DoxyCompactItemize}
