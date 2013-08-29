@@ -2,6 +2,8 @@ QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+CONFIG += qwt
+
 TARGET = drobot_qtgui
 TEMPLATE = app
 
@@ -74,7 +76,13 @@ HEADERS += \
     src/drobot/device/deviceConstants.h \
     src/drobot/device/vestibular/channel/vestibularmagneticfieldchannel.h \
     src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.h \
-    src/drobot/experiment/tactileTest/robot/stupidcontrollerfactory.h
+    src/drobot/experiment/tactileTest/robot/stupidcontrollerfactory.h \
+    src/drobot/widget/plot/curveplotter.h \
+    src/drobot/experiment/demo/program/demoprogram.h \
+    src/drobot/experiment/demo/program/demoprogramfactory.h \
+    src/drobot/experiment/demo/robot/democontroller.h \
+    src/drobot/experiment/demo/robot/democontrollerfactory.h \
+    src/drobot/experiment/demo/widget/demowidget.h
 
 SOURCES += \
     src/drobot/device/actuator/actuatorboard.cpp \
@@ -138,13 +146,21 @@ SOURCES += \
     src/drobot/device/actuator/channel/actuatorvelocitychannelfactory.cpp \
     src/drobot/device/vestibular/channel/vestibularmagneticfieldchannel.cpp \
     src/drobot/device/vestibular/channel/vestibularmagneticfieldchannelfactory.cpp \
-    src/drobot/experiment/tactileTest/robot/stupidcontrollerfactory.cpp
+    src/drobot/experiment/tactileTest/robot/stupidcontrollerfactory.cpp \
+    src/drobot/widget/plot/curveplotter.cpp \
+    src/drobot/datalogger/datalogger.cpp \
+    src/drobot/experiment/demo/program/demoprogram.cpp \
+    src/drobot/experiment/demo/program/demoprogramfactory.cpp \
+    src/drobot/experiment/demo/robot/democontroller.cpp \
+    src/drobot/experiment/demo/robot/democontrollerfactory.cpp \
+    src/drobot/experiment/demo/widget/demowidget.cpp
 
 OTHER_FILES +=
 
 FORMS += \
     src/drobot/widget/mainwindow.ui \
-    src/drobot/experiment/tactileTest/widget/tactiletestmainwidget.ui
+    src/drobot/experiment/tactileTest/widget/tactiletestmainwidget.ui \
+    src/drobot/experiment/demo/widget/demowidget.ui
 
 unix|win32: LIBS += \
 -lboost_filesystem \

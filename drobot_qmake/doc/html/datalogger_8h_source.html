@@ -21,6 +21,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo_55x55.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Drobot
    </div>
@@ -95,24 +96,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>drobot {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>datalogger {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html" title="The DataLogger class is a base class for collecting data from the robot. ">DataLogger</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> log(<span class="keywordtype">long</span> tick, std::map&lt;device::channel::Channel*, double&gt; values) = 0;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#ae90262e477952f8e1c385b84e17d80c6" title="setMaxValues. max count of values. ">setMaxValues</a>(<span class="keywordtype">int</span> maxValues) = 0;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#a8fe7bb2a626d9f9d5c69f9197490515b" title="getMaxValues. max count of values. ">getMaxValues</a>() = 0;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#ae463aebd8cb38c716bef83d5732042b1" title="setModulo. which ticks are recorded ">setModulo</a>(<span class="keywordtype">int</span> modulo) = 0;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#a4dd79d4060e4d4d77451a50777792c0a" title="getModulo. which ticks are recorded ">getModulo</a>() = 0;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace datalogger</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace drobot</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif // DROBOT_DATALOGGER_DATALOGGER_H</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html" title="The DataLogger class is a base class for collecting data from the robot. ">DataLogger</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> log(<span class="keywordtype">long</span> tick, std::map&lt;device::channel::Channel*, double&gt; values) = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#ae90262e477952f8e1c385b84e17d80c6" title="setMaxValues. max count of values. ">setMaxValues</a>(<span class="keywordtype">int</span> maxValues) = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#a8fe7bb2a626d9f9d5c69f9197490515b" title="getMaxValues. max count of values. ">getMaxValues</a>() = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#ae463aebd8cb38c716bef83d5732042b1" title="setModulo. which ticks are recorded ">setModulo</a>(<span class="keywordtype">int</span> modulo) = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classdrobot_1_1datalogger_1_1DataLogger.html#a4dd79d4060e4d4d77451a50777792c0a" title="getModulo. which ticks are recorded ">getModulo</a>() = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace datalogger</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace drobot</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif // DROBOT_DATALOGGER_DATALOGGER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 28 2013 17:11:59 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 29 2013 17:11:12 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

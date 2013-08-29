@@ -24,6 +24,8 @@ private:
 public:
     StepEvent(long tick, std::vector<device::channel::Channel*> channels);
     virtual std::string toString();
+    std::map<device::channel::Channel*, double> getValues();
+    long getTick();
 };
 
 } // namespace event

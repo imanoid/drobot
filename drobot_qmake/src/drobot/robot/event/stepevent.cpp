@@ -25,6 +25,14 @@ std::string StepEvent::toString() {
     return str.str();
 }
 
+std::map<device::channel::Channel*, double> StepEvent::getValues() {
+    return _values;
+}
+
+long StepEvent::getTick() {
+    return _tick;
+}
+
 } // namespace event
 } // namespace robot
 } // namespace drobot

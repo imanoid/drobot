@@ -4,13 +4,13 @@ namespace drobot {
 namespace datalogger {
 
 SimpleDataLogger::SimpleDataLogger() {
-    _modulo = 1;
     _maxValues = 0;
+    _modulo = 1;
 }
 
 SimpleDataLogger::SimpleDataLogger(int maxValues, int modulo) {
-    _modulo = modulo;
     _maxValues = maxValues;
+    _modulo = modulo;
 }
 
 void SimpleDataLogger::log(long tick, std::map<device::channel::Channel*, double> values) {

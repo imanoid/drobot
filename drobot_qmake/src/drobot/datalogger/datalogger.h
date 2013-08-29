@@ -3,6 +3,8 @@
 
 #include <map>
 #include "../device/channel/channel.h"
+#include "../event/eventlistener.h"
+#include <vector>
 
 namespace drobot {
 namespace datalogger {
@@ -10,9 +12,15 @@ namespace datalogger {
 /**
  * @brief The DataLogger class is a base class for collecting data from the robot.
  */
-class DataLogger {
+class DataLogger : public event::EventListener {
+protected:
+    std::vector<device::channel::Channel*> _channels;
 public:
-    virtual void log(long tick, std::map<device::channel::Channel*, double> values) = 0;
+    DataLogger();
+    DataLogger(std::vector<device::channel::Channel*> channels);
+    virtual void onEvent(event::Event* event);
+    std::vector<device::channel::Channel*> getChannels();
+    virtual void log(long tick, std::map<device::channel::Channel*, double> values);
     /**
      * @brief setMaxValues. max count of values.
      * @details If bigger than 0 the values from the oldest ticks are deleted so that the size doesn't exceeds maxValues
