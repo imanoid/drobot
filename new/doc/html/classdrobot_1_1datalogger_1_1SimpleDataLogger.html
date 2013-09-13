@@ -105,7 +105,8 @@ Inheritance diagram for drobot::datalogger::SimpleDataLogger:</div>
  <div class="center">
   <img src="classdrobot_1_1datalogger_1_1SimpleDataLogger.png" usemap="#drobot::datalogger::SimpleDataLogger_map" alt=""/>
   <map id="drobot::datalogger::SimpleDataLogger_map" name="drobot::datalogger::SimpleDataLogger_map">
-<area href="classdrobot_1_1datalogger_1_1DataLogger.html" title="The DataLogger class is a base class for collecting data from the robot. " alt="drobot::datalogger::DataLogger" shape="rect" coords="0,0,223,24"/>
+<area href="classdrobot_1_1datalogger_1_1DataLogger.html" title="The DataLogger class is a base class for collecting data from the robot. " alt="drobot::datalogger::DataLogger" shape="rect" coords="0,56,223,80"/>
+<area href="classdrobot_1_1event_1_1EventListener.html" title="Abstract class to be implemented by EventListeners. " alt="drobot::event::EventListener" shape="rect" coords="0,0,223,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -138,6 +139,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromFile</b> (std
 <tr class="memitem:a9a22c15bff8f3faaaed8ebe32f95d4d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a22c15bff8f3faaaed8ebe32f95d4d1"></a>
 std::vector&lt; <a class="el" href="structdrobot_1_1datalogger_1_1SimpleDataLogEntry.html">SimpleDataLogEntry</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getData</b> ()</td></tr>
 <tr class="separator:a9a22c15bff8f3faaaed8ebe32f95d4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classdrobot_1_1datalogger_1_1DataLogger')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classdrobot_1_1datalogger_1_1DataLogger.html">drobot::datalogger::DataLogger</a></td></tr>
+<tr class="memitem:ad7afd9487ac37f503ebe9159872a79dc inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7afd9487ac37f503ebe9159872a79dc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DataLogger</b> (std::vector&lt; <a class="el" href="classdrobot_1_1device_1_1channel_1_1Channel.html">device::channel::Channel</a> * &gt; channels)</td></tr>
+<tr class="separator:ad7afd9487ac37f503ebe9159872a79dc inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830fcb8f0b8b261bba22cfce46f4d309 inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1datalogger_1_1DataLogger.html#a830fcb8f0b8b261bba22cfce46f4d309">onEvent</a> (<a class="el" href="classdrobot_1_1event_1_1Event.html">event::Event</a> *event)</td></tr>
+<tr class="memdesc:a830fcb8f0b8b261bba22cfce46f4d309 inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="mdescLeft">&#160;</td><td class="mdescRight">onEvent. This method is called when an event of this type is fired.  <a href="#a830fcb8f0b8b261bba22cfce46f4d309">More...</a><br/></td></tr>
+<tr class="separator:a830fcb8f0b8b261bba22cfce46f4d309 inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96749bea55223e65aa2857dd9582f5ee inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96749bea55223e65aa2857dd9582f5ee"></a>
+std::vector<br class="typebreak"/>
+&lt; <a class="el" href="classdrobot_1_1device_1_1channel_1_1Channel.html">device::channel::Channel</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getChannels</b> ()</td></tr>
+<tr class="separator:a96749bea55223e65aa2857dd9582f5ee inherit pub_methods_classdrobot_1_1datalogger_1_1DataLogger"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classdrobot_1_1event_1_1EventListener"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classdrobot_1_1event_1_1EventListener')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classdrobot_1_1event_1_1EventListener.html">drobot::event::EventListener</a></td></tr>
+<tr class="memitem:ad9aa9dca8021eaa6d4499f8dca868305 inherit pub_methods_classdrobot_1_1event_1_1EventListener"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9aa9dca8021eaa6d4499f8dca868305"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>EventListener</b> (std::string type)</td></tr>
+<tr class="separator:ad9aa9dca8021eaa6d4499f8dca868305 inherit pub_methods_classdrobot_1_1event_1_1EventListener"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f3b538bc3595de13959d9e35c0449e inherit pub_methods_classdrobot_1_1event_1_1EventListener"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#af6f3b538bc3595de13959d9e35c0449e">getType</a> ()</td></tr>
+<tr class="memdesc:af6f3b538bc3595de13959d9e35c0449e inherit pub_methods_classdrobot_1_1event_1_1EventListener"><td class="mdescLeft">&#160;</td><td class="mdescRight">getType. type of events that are handled by this eventListener  <a href="#af6f3b538bc3595de13959d9e35c0449e">More...</a><br/></td></tr>
+<tr class="separator:af6f3b538bc3595de13959d9e35c0449e inherit pub_methods_classdrobot_1_1event_1_1EventListener"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -150,6 +169,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_modulo</b></td></tr>
 <tr class="memitem:afb8dceee27c888b76b5eec720f3cff3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb8dceee27c888b76b5eec720f3cff3b"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>_maxValues</b></td></tr>
 <tr class="separator:afb8dceee27c888b76b5eec720f3cff3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classdrobot_1_1datalogger_1_1DataLogger"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classdrobot_1_1datalogger_1_1DataLogger')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classdrobot_1_1datalogger_1_1DataLogger.html">drobot::datalogger::DataLogger</a></td></tr>
+<tr class="memitem:a9b2db99bfd6f3b640d1a8f96c9fd9da0 inherit pro_attribs_classdrobot_1_1datalogger_1_1DataLogger"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b2db99bfd6f3b640d1a8f96c9fd9da0"></a>
+std::vector<br class="typebreak"/>
+&lt; <a class="el" href="classdrobot_1_1device_1_1channel_1_1Channel.html">device::channel::Channel</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_channels</b></td></tr>
+<tr class="separator:a9b2db99bfd6f3b640d1a8f96c9fd9da0 inherit pro_attribs_classdrobot_1_1datalogger_1_1DataLogger"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classdrobot_1_1datalogger_1_1SimpleDataLogger.html" title="The SimpleDataLogger class implements the DataLogger class to save it into a file and also load it fr...">SimpleDataLogger</a> class implements the <a class="el" href="classdrobot_1_1datalogger_1_1DataLogger.html" title="The DataLogger class is a base class for collecting data from the robot. ">DataLogger</a> class to save it into a file and also load it from there. </p>
@@ -283,13 +310,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_maxValues</b></td></t
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/drobot/datalogger/<a class="el" href="simpledatalogger_8h_source.html">simpledatalogger.h</a></li>
-<li>src/drobot/datalogger/simpledatalogger.cpp</li>
+<li>/home/imanol/workspace/drobot/new/src/drobot/datalogger/<a class="el" href="simpledatalogger_8h_source.html">simpledatalogger.h</a></li>
+<li>/home/imanol/workspace/drobot/new/src/drobot/datalogger/simpledatalogger.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 29 2013 17:11:13 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 29 2013 23:28:17 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

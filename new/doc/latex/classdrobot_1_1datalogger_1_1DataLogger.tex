@@ -13,13 +13,22 @@ The \hyperlink{classdrobot_1_1datalogger_1_1DataLogger}{Data\-Logger} class is a
 Inheritance diagram for drobot\-:\-:datalogger\-:\-:Data\-Logger\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classdrobot_1_1datalogger_1_1DataLogger}
+\includegraphics[height=3.000000cm]{classdrobot_1_1datalogger_1_1DataLogger}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classdrobot_1_1datalogger_1_1DataLogger_ad59b8bf1de2dd432d5d53c35f5453bde}{virtual void {\bfseries log} (long tick, std\-::map$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$, double $>$ values)=0}\label{classdrobot_1_1datalogger_1_1DataLogger_ad59b8bf1de2dd432d5d53c35f5453bde}
+\hypertarget{classdrobot_1_1datalogger_1_1DataLogger_ad7afd9487ac37f503ebe9159872a79dc}{{\bfseries Data\-Logger} (std\-::vector$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$ $>$ channels)}\label{classdrobot_1_1datalogger_1_1DataLogger_ad7afd9487ac37f503ebe9159872a79dc}
+
+\item 
+virtual void \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_a830fcb8f0b8b261bba22cfce46f4d309}{on\-Event} (\hyperlink{classdrobot_1_1event_1_1Event}{event\-::\-Event} $\ast$event)
+\begin{DoxyCompactList}\small\item\em on\-Event. This method is called when an event of this type is fired. \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1datalogger_1_1DataLogger_a96749bea55223e65aa2857dd9582f5ee}{std\-::vector\\*
+$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$ $>$ {\bfseries get\-Channels} ()}\label{classdrobot_1_1datalogger_1_1DataLogger_a96749bea55223e65aa2857dd9582f5ee}
+
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1DataLogger_a18e98de85b473a1e44e6f6793417b7b2}{virtual void {\bfseries log} (long tick, std\-::map$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$, double $>$ values)}\label{classdrobot_1_1datalogger_1_1DataLogger_a18e98de85b473a1e44e6f6793417b7b2}
 
 \item 
 virtual void \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_ae90262e477952f8e1c385b84e17d80c6}{set\-Max\-Values} (int max\-Values)=0
@@ -30,6 +39,13 @@ virtual void \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_ae463aebd8cb38c7
 \begin{DoxyCompactList}\small\item\em set\-Modulo. which ticks are recorded \end{DoxyCompactList}\item 
 virtual int \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_a4dd79d4060e4d4d77451a50777792c0a}{get\-Modulo} ()=0
 \begin{DoxyCompactList}\small\item\em get\-Modulo. which ticks are recorded \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classdrobot_1_1datalogger_1_1DataLogger_a9b2db99bfd6f3b640d1a8f96c9fd9da0}{std\-::vector\\*
+$<$ \hyperlink{classdrobot_1_1device_1_1channel_1_1Channel}{device\-::channel\-::\-Channel} $\ast$ $>$ {\bfseries \-\_\-channels}}\label{classdrobot_1_1datalogger_1_1DataLogger_a9b2db99bfd6f3b640d1a8f96c9fd9da0}
+
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -71,6 +87,26 @@ modulo
 
 
 Implemented in \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger_a43d243494d611d7f1c6afd5204686f40}{drobot\-::datalogger\-::\-Simple\-Data\-Logger}.
+
+\hypertarget{classdrobot_1_1datalogger_1_1DataLogger_a830fcb8f0b8b261bba22cfce46f4d309}{\index{drobot\-::datalogger\-::\-Data\-Logger@{drobot\-::datalogger\-::\-Data\-Logger}!on\-Event@{on\-Event}}
+\index{on\-Event@{on\-Event}!drobot::datalogger::DataLogger@{drobot\-::datalogger\-::\-Data\-Logger}}
+\subsubsection[{on\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::datalogger\-::\-Data\-Logger\-::on\-Event (
+\begin{DoxyParamCaption}
+\item[{{\bf event\-::\-Event} $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classdrobot_1_1datalogger_1_1DataLogger_a830fcb8f0b8b261bba22cfce46f4d309}
+
+
+on\-Event. This method is called when an event of this type is fired. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & fired \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classdrobot_1_1event_1_1EventListener_ae5e30e4a518f6752a09f44f8dc6cdc51}{drobot\-::event\-::\-Event\-Listener}.
 
 \hypertarget{classdrobot_1_1datalogger_1_1DataLogger_ae90262e477952f8e1c385b84e17d80c6}{\index{drobot\-::datalogger\-::\-Data\-Logger@{drobot\-::datalogger\-::\-Data\-Logger}!set\-Max\-Values@{set\-Max\-Values}}
 \index{set\-Max\-Values@{set\-Max\-Values}!drobot::datalogger::DataLogger@{drobot\-::datalogger\-::\-Data\-Logger}}
@@ -114,6 +150,7 @@ Implemented in \hyperlink{classdrobot_1_1datalogger_1_1SimpleDataLogger_a4365669
 
 
 
-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-src/drobot/datalogger/datalogger.\-h\end{DoxyCompactItemize}
+/home/imanol/workspace/drobot/new/src/drobot/datalogger/datalogger.\-h\item 
+/home/imanol/workspace/drobot/new/src/drobot/datalogger/datalogger.\-cpp\end{DoxyCompactItemize}
