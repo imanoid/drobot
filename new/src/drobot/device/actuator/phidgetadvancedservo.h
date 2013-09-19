@@ -43,25 +43,79 @@ public:
     virtual double getVelocityMin();
     virtual double getVelocityMax();
 
+    /**
+     * @brief getMovingAcceleration
+     * @return the acceleration of the movement
+     */
     double getMovingAcceleration();
+    /**
+     * @brief setMovingAcceleration
+     * @details this property controls the acceleration of the movement if the servo is set to a new position
+     * @param acceleration
+     */
     void setMovingAcceleration(double acceleration);
+    /**
+     * @brief getMovingAccelerationMin
+     * @return minimum acceleration
+     */
     double getMovingAccelerationMin();
+    /**
+     * @brief getMovingAccelerationMax
+     * @return maximum acceleration
+     */
     double getMovingAccelerationMax();
 
+    /**
+     * @brief getMovingVelocity
+     * @return the velocity of the movement
+     */
     double getMovingVelocity();
+    /**
+     * @brief setMovingVelocity
+     * @details this property controls the velocity of the movement if the servo is set to a new position
+     * @param velocity
+     */
     void setMovingVelocity(double velocity);
+    /**
+     * @brief getMovingVelocityMin
+     * @return minimum possible velocity of the servo device
+     */
     double getMovingVelocityMin();
+    /**
+     * @brief getMovingVelocityMax
+     * @return maximum possible velocity of the servo device
+     */
     double getMovingVelocityMax();
+    /**
+     * @brief getMovingVelocityLimit
+     * @return velocity
+     */
     double getMovingVelocityLimit();
+    /**
+     * @brief setMovingVelocityLimit
+     * @param velocityLimit
+     */
     void setMovingVelocityLimit(double velocityLimit);
 
+    /**
+     * @brief isMoving
+     * @return true if motor is moving. false otherwhise
+     */
     bool isMoving();
 
     bool isSpeedRamping();
     void setSpeedRamping(bool speedRamping);
 
+    /**
+     * @brief getIndex
+     * @return index of the motor in the servo board
+     */
     int getIndex();
 
+    /**
+     * @brief getCurrent
+     * @return amount of current the motor is using
+     */
     double getCurrent();
 private:
     CPhidgetAdvancedServoHandle _phidgetHandle;

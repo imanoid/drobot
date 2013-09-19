@@ -99,20 +99,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="classdrobot_1_1event_1_1EventListener.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classdrobot_1_1event_1_1EventListener.html" title="Abstract class to be implemented by EventListeners. ">EventListener</a> {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="code" href="classdrobot_1_1event_1_1EventListener.html#aeb0390f315d94929c93797d858d0fb6e">   18</a></span>&#160;    std::string <a class="code" href="classdrobot_1_1event_1_1EventListener.html#aeb0390f315d94929c93797d858d0fb6e" title="type of events that are handled by this eventListener ">_type</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classdrobot_1_1event_1_1EventListener.html" title="Abstract class to be implemented by EventListeners. ">EventListener</a>(std::string type);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    std::string <a class="code" href="classdrobot_1_1event_1_1EventListener.html#af6f3b538bc3595de13959d9e35c0449e" title="getType. type of events that are handled by this eventListener ">getType</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1event_1_1EventListener.html#ae5e30e4a518f6752a09f44f8dc6cdc51" title="onEvent. This method is called when an event of this type is fired. ">onEvent</a>(<a class="code" href="classdrobot_1_1event_1_1Event.html" title="The Event class. ">Event</a>* event) = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace drobot</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif // DROBOT_EVENT_EVENTLISTENER_H</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="code" href="classdrobot_1_1event_1_1EventListener.html#aa3accb46d67c2e20ff9ac6399b1cf91d">   22</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classdrobot_1_1event_1_1EventListener.html#aa3accb46d67c2e20ff9ac6399b1cf91d" title="_async is true if onEvent should be executed in a new thread. false otherwhise ">_async</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classdrobot_1_1event_1_1EventListener.html" title="Abstract class to be implemented by EventListeners. ">EventListener</a>(std::string type);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::string <a class="code" href="classdrobot_1_1event_1_1EventListener.html#af6f3b538bc3595de13959d9e35c0449e" title="getType. type of events that are handled by this eventListener ">getType</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1event_1_1EventListener.html#a2159b1adafa0d7c317b444029832b3b9" title="setAsync ">setAsync</a>(<span class="keywordtype">bool</span> async);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classdrobot_1_1event_1_1EventListener.html#abd1b9a72670da3a2ac279e7bd43f4e82" title="isAsync ">isAsync</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classdrobot_1_1event_1_1EventListener.html#ae5e30e4a518f6752a09f44f8dc6cdc51" title="onEvent. This method is called when an event of this type is fired. ">onEvent</a>(<a class="code" href="classdrobot_1_1event_1_1Event.html" title="The Event class. ">Event</a>* event) = 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace drobot</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif // DROBOT_EVENT_EVENTLISTENER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 29 2013 23:28:16 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 13 2013 18:12:48 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

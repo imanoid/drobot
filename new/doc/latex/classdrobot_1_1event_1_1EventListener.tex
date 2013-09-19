@@ -24,6 +24,10 @@ Inheritance diagram for drobot\-:\-:event\-:\-:Event\-Listener\-:\begin{figure}[
 \item 
 std\-::string \hyperlink{classdrobot_1_1event_1_1EventListener_af6f3b538bc3595de13959d9e35c0449e}{get\-Type} ()
 \begin{DoxyCompactList}\small\item\em get\-Type. type of events that are handled by this event\-Listener \end{DoxyCompactList}\item 
+void \hyperlink{classdrobot_1_1event_1_1EventListener_a2159b1adafa0d7c317b444029832b3b9}{set\-Async} (bool async)
+\begin{DoxyCompactList}\small\item\em set\-Async \end{DoxyCompactList}\item 
+bool \hyperlink{classdrobot_1_1event_1_1EventListener_abd1b9a72670da3a2ac279e7bd43f4e82}{is\-Async} ()
+\begin{DoxyCompactList}\small\item\em is\-Async \end{DoxyCompactList}\item 
 virtual void \hyperlink{classdrobot_1_1event_1_1EventListener_ae5e30e4a518f6752a09f44f8dc6cdc51}{on\-Event} (\hyperlink{classdrobot_1_1event_1_1Event}{Event} $\ast$event)=0
 \begin{DoxyCompactList}\small\item\em on\-Event. This method is called when an event of this type is fired. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
@@ -31,7 +35,10 @@ virtual void \hyperlink{classdrobot_1_1event_1_1EventListener_ae5e30e4a518f6752a
 \item 
 \hypertarget{classdrobot_1_1event_1_1EventListener_aeb0390f315d94929c93797d858d0fb6e}{std\-::string \hyperlink{classdrobot_1_1event_1_1EventListener_aeb0390f315d94929c93797d858d0fb6e}{\-\_\-type}}\label{classdrobot_1_1event_1_1EventListener_aeb0390f315d94929c93797d858d0fb6e}
 
-\begin{DoxyCompactList}\small\item\em type of events that are handled by this event\-Listener \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em type of events that are handled by this event\-Listener \end{DoxyCompactList}\item 
+\hypertarget{classdrobot_1_1event_1_1EventListener_aa3accb46d67c2e20ff9ac6399b1cf91d}{bool \hyperlink{classdrobot_1_1event_1_1EventListener_aa3accb46d67c2e20ff9ac6399b1cf91d}{\-\_\-async}}\label{classdrobot_1_1event_1_1EventListener_aa3accb46d67c2e20ff9ac6399b1cf91d}
+
+\begin{DoxyCompactList}\small\item\em \-\_\-async is true if on\-Event should be executed in a new thread. false otherwhise \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -51,6 +58,20 @@ get\-Type. type of events that are handled by this event\-Listener
 
 \begin{DoxyReturn}{Returns}
 the event type 
+\end{DoxyReturn}
+\hypertarget{classdrobot_1_1event_1_1EventListener_abd1b9a72670da3a2ac279e7bd43f4e82}{\index{drobot\-::event\-::\-Event\-Listener@{drobot\-::event\-::\-Event\-Listener}!is\-Async@{is\-Async}}
+\index{is\-Async@{is\-Async}!drobot::event::EventListener@{drobot\-::event\-::\-Event\-Listener}}
+\subsubsection[{is\-Async}]{\setlength{\rightskip}{0pt plus 5cm}bool drobot\-::event\-::\-Event\-Listener\-::is\-Async (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1event_1_1EventListener_abd1b9a72670da3a2ac279e7bd43f4e82}
+
+
+is\-Async 
+
+\begin{DoxyReturn}{Returns}
+true if asynchronous, false otherwhise 
 \end{DoxyReturn}
 \hypertarget{classdrobot_1_1event_1_1EventListener_ae5e30e4a518f6752a09f44f8dc6cdc51}{\index{drobot\-::event\-::\-Event\-Listener@{drobot\-::event\-::\-Event\-Listener}!on\-Event@{on\-Event}}
 \index{on\-Event@{on\-Event}!drobot::event::EventListener@{drobot\-::event\-::\-Event\-Listener}}
@@ -72,6 +93,22 @@ on\-Event. This method is called when an event of this type is fired.
 
 Implemented in \hyperlink{classdrobot_1_1datalogger_1_1DataLogger_a830fcb8f0b8b261bba22cfce46f4d309}{drobot\-::datalogger\-::\-Data\-Logger}.
 
+\hypertarget{classdrobot_1_1event_1_1EventListener_a2159b1adafa0d7c317b444029832b3b9}{\index{drobot\-::event\-::\-Event\-Listener@{drobot\-::event\-::\-Event\-Listener}!set\-Async@{set\-Async}}
+\index{set\-Async@{set\-Async}!drobot::event::EventListener@{drobot\-::event\-::\-Event\-Listener}}
+\subsubsection[{set\-Async}]{\setlength{\rightskip}{0pt plus 5cm}void drobot\-::event\-::\-Event\-Listener\-::set\-Async (
+\begin{DoxyParamCaption}
+\item[{bool}]{async}
+\end{DoxyParamCaption}
+)}}\label{classdrobot_1_1event_1_1EventListener_a2159b1adafa0d7c317b444029832b3b9}
+
+
+set\-Async 
+
+this property is true if on\-Event should be executed in a new thread. false otherwhise 
+\begin{DoxyParams}{Parameters}
+{\em async} & \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}

@@ -17,7 +17,7 @@ void SimpleDataLogger::log(long tick, std::map<device::channel::Channel*, double
     if (_modulo <= 1 || tick % _modulo == 0) {
         _data.push_back(new SimpleDataLogEntry(tick, values));
     }
-    if (_maxValues > -1 && _data.size() > _maxValues) {
+    while (_maxValues > -1 && _data.size() > _maxValues) {
         _data.erase(_data.begin());
     }
 }

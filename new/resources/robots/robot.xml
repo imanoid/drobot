@@ -12,7 +12,100 @@
             </device:phidgetAdvancedServo>
         </deviceGroup>
         <deviceGroup name="tactile">
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="1" name="LeftHandTactileSensor">
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="0" name="tactileSensor0">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="1" name="tactileSensor1">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="2" name="tactileSensor2">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="3" name="tactileSensor3">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="4" name="tactileSensor4">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="5" name="tactileSensor5">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="6" name="tactileSensor6">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="7" name="tactileSensor7">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="8" name="tactileSensor8">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="9" name="tactileSensor9">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="10" name="tactileSensor10">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="11" name="tactileSensor11">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="12" name="tactileSensor12">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="13" name="tactileSensor13">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="14" name="tactileSensor14">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="15" name="tactileSensor15">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="16" name="tactileSensor16">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="17" name="tactileSensor17">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="18" name="tactileSensor18">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="19" name="tactileSensor19">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="20" name="tactileSensor20">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="21" name="tactileSensor21">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="22" name="tactileSensor22">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="23" name="tactileSensor23">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="24" name="tactileSensor24">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="25" name="tactileSensor25">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="26" name="tactileSensor26">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="27" name="tactileSensor27">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="28" name="tactileSensor28">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="29" name="tactileSensor29">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="30" name="tactileSensor30">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="31" name="tactileSensor31">
                 <channel:value type="INPUT" />
             </device:simpleTactileSensor>
         </deviceGroup>

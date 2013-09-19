@@ -119,6 +119,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af6f3b538bc3595de13959d9e35c0449e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#af6f3b538bc3595de13959d9e35c0449e">getType</a> ()</td></tr>
 <tr class="memdesc:af6f3b538bc3595de13959d9e35c0449e"><td class="mdescLeft">&#160;</td><td class="mdescRight">getType. type of events that are handled by this eventListener  <a href="#af6f3b538bc3595de13959d9e35c0449e">More...</a><br/></td></tr>
 <tr class="separator:af6f3b538bc3595de13959d9e35c0449e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2159b1adafa0d7c317b444029832b3b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#a2159b1adafa0d7c317b444029832b3b9">setAsync</a> (bool async)</td></tr>
+<tr class="memdesc:a2159b1adafa0d7c317b444029832b3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">setAsync  <a href="#a2159b1adafa0d7c317b444029832b3b9">More...</a><br/></td></tr>
+<tr class="separator:a2159b1adafa0d7c317b444029832b3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd1b9a72670da3a2ac279e7bd43f4e82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#abd1b9a72670da3a2ac279e7bd43f4e82">isAsync</a> ()</td></tr>
+<tr class="memdesc:abd1b9a72670da3a2ac279e7bd43f4e82"><td class="mdescLeft">&#160;</td><td class="mdescRight">isAsync  <a href="#abd1b9a72670da3a2ac279e7bd43f4e82">More...</a><br/></td></tr>
+<tr class="separator:abd1b9a72670da3a2ac279e7bd43f4e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e30e4a518f6752a09f44f8dc6cdc51"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#ae5e30e4a518f6752a09f44f8dc6cdc51">onEvent</a> (<a class="el" href="classdrobot_1_1event_1_1Event.html">Event</a> *event)=0</td></tr>
 <tr class="memdesc:ae5e30e4a518f6752a09f44f8dc6cdc51"><td class="mdescLeft">&#160;</td><td class="mdescRight">onEvent. This method is called when an event of this type is fired.  <a href="#ae5e30e4a518f6752a09f44f8dc6cdc51">More...</a><br/></td></tr>
 <tr class="separator:ae5e30e4a518f6752a09f44f8dc6cdc51"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +135,10 @@ Private Attributes</h2></td></tr>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#aeb0390f315d94929c93797d858d0fb6e">_type</a></td></tr>
 <tr class="memdesc:aeb0390f315d94929c93797d858d0fb6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of events that are handled by this eventListener <br/></td></tr>
 <tr class="separator:aeb0390f315d94929c93797d858d0fb6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3accb46d67c2e20ff9ac6399b1cf91d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3accb46d67c2e20ff9ac6399b1cf91d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdrobot_1_1event_1_1EventListener.html#aa3accb46d67c2e20ff9ac6399b1cf91d">_async</a></td></tr>
+<tr class="memdesc:aa3accb46d67c2e20ff9ac6399b1cf91d"><td class="mdescLeft">&#160;</td><td class="mdescRight">_async is true if onEvent should be executed in a new thread. false otherwhise <br/></td></tr>
+<tr class="separator:aa3accb46d67c2e20ff9ac6399b1cf91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class to be implemented by EventListeners. </p>
@@ -148,6 +158,24 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 <p>getType. type of events that are handled by this eventListener </p>
 <dl class="section return"><dt>Returns</dt><dd>the event type </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abd1b9a72670da3a2ac279e7bd43f4e82"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool drobot::event::EventListener::isAsync </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>isAsync </p>
+<dl class="section return"><dt>Returns</dt><dd>true if asynchronous, false otherwhise </dd></dl>
 
 </div>
 </div>
@@ -185,6 +213,31 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a class="anchor" id="a2159b1adafa0d7c317b444029832b3b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void drobot::event::EventListener::setAsync </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>async</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>setAsync </p>
+<p>this property is true if onEvent should be executed in a new thread. false otherwhise </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">async</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/imanol/workspace/drobot/new/src/drobot/event/<a class="el" href="eventlistener_8h_source.html">eventlistener.h</a></li>
 <li>/home/imanol/workspace/drobot/new/src/drobot/event/eventlistener.cpp</li>
@@ -192,7 +245,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 29 2013 23:28:23 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 13 2013 18:12:55 for Drobot by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

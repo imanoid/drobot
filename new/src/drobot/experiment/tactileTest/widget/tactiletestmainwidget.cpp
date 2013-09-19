@@ -1,5 +1,5 @@
 #include "tactiletestmainwidget.h"
-#include "ui_mainwidget.h"
+#include "ui_tactiletestmainwidget.h"
 
 namespace drobot {
 namespace experiment {

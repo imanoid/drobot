@@ -13,7 +13,7 @@ Program::Program(std::string name) : drobot::program::Program::Program(name) {
 
 void Program::run() {
     try {
-        _robo.loadFromFile("/home/imanol/workspace/drobot_qmake/resources/robots/robot.xml");
+        _robo.loadFromFile("/home/imanol/workspace/drobot/new/resources/robots/tactiletest.xml");
         _robo.run();
     } catch (util::Exception ex) {
         std::cerr << ex.getMessage() << std::endl;

@@ -38,7 +38,7 @@ CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int heigh
     QwtPlot::setGeometry(x, y, width, height);
 }
 
-CurvePlotter::CurvePlotter(std::string title, int width, int height, std::vector<device::channel::Channel*> channels) : CurvePlotter(title, width, height, channels, std::vector<QColor>()) {
+CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels) : CurvePlotter(title, x, y, width, height, channels, std::vector<QColor>()) {
 }
 
 void CurvePlotter::log(long tick, std::map<device::channel::Channel*, double> values) {
@@ -51,7 +51,7 @@ void CurvePlotter::log(long tick, std::map<device::channel::Channel*, double> va
         _y[iChannel].push_back(values[channel]);
     }
 
-    if (_x.size() > DataLogger::getMaxValues()) {
+    if (_x.size() > getMaxValues()) {
         _x.remove(0);
         _y.remove(0);
     }

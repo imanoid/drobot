@@ -1,5 +1,6 @@
 #include "eventmanager.h"
 #include <iostream>
+#include <boost/thread.hpp>
 
 namespace drobot {
 namespace event {
@@ -37,7 +38,12 @@ void EventManager::fireEvent(Event* event) {
         return;
     std::vector<EventListener*> eventListeners = _eventListeners[type];
     for (std::vector<EventListener*>::iterator iEventListener = eventListeners.begin(); iEventListener != eventListeners.end(); iEventListener++) {
-        (*iEventListener)->onEvent(event);
+        EventListener* listener = (*iEventListener);
+        if (!listener->isAsync()) {
+            listener->onEvent(event);
+        } else {
+            boost::thread* t = new boost::thread(boost::bind(&EventListener::onEvent, listener, event));
+        }
     }
 }
 

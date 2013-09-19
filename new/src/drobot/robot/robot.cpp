@@ -105,7 +105,8 @@ void Robot::run() {
         //copy device values to cache
         channels->read();
         //calculate outputs
-        _controller->step(tick, channels);
+        if (_controller != 0)
+            _controller->step(tick, channels);
         //copy device outputs from cache to devices
         channels->write();
         //fire step event (for logging)
@@ -154,8 +155,9 @@ void Robot::loadFromFile(std::string path) {
     QDomDocument doc("mydocument");
     doc.setContent(file);
     QDomElement rootElement = doc.documentElement();
-    _clock->setFrequency(rootElement.attribute("frequency").toInt());
-
+    _clock->setFrequency(rootElement.attribute("frequency", "24").toInt());
+    std::cout << rootElement.childNodes().count() << std::endl;
+    std::cout << rootElement.childNodes().size() << std::endl;
     QDomNodeList children = rootElement.childNodes();
     for (int i = 0; i < children.count(); i++) {
         parseElement(children.at(i).toElement());
