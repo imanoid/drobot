@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.5
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -64,7 +64,7 @@ public:
         drobot__widget__MainWindow->setCentralWidget(mainWidget);
         menubar = new QMenuBar(drobot__widget__MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 27));
+        menubar->setGeometry(QRect(0, 0, 800, 22));
         drobot__widget__MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(drobot__widget__MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -77,7 +77,7 @@ public:
 
     void retranslateUi(QMainWindow *drobot__widget__MainWindow)
     {
-        drobot__widget__MainWindow->setWindowTitle(QApplication::translate("drobot::widget::MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
+        drobot__widget__MainWindow->setWindowTitle(QApplication::translate("drobot::widget::MainWindow", "DRobot", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -6,10 +6,6 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-CPhidgetHandle& PhidgetSimpleServo::getPhidgetHandle() {
-    return (CPhidgetHandle&) _phidgetHandle;
-}
-
 PhidgetSimpleServo::PhidgetSimpleServo(std::string name, CPhidgetServoHandle phidgetHandle, int index) :
     Actuator(name) {
     _phidgetHandle = phidgetHandle;

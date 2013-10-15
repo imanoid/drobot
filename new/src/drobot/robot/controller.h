@@ -31,7 +31,7 @@ public:
      * @param tick the timestep
      * @param channels of the robot
      */
-    virtual void step(long tick, device::channel::ChannelManager* channels) = 0;
+    virtual void tick(long tick, device::channel::ChannelManager* channels) = 0;
     void setRobot(Robot* robot);
     Robot* getRobot();
     virtual void enable();

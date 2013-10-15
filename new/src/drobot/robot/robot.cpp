@@ -1,5 +1,5 @@
 #include "robot.h"
-#include "event/stepevent.h"
+#include "event/tickevent.h"
 #include <unistd.h>
 #include <iostream>
 #include "../device/actuator/phidgetadvancedservofactory.h"
@@ -7,6 +7,7 @@
 #include "../device/tactile/simpletactilesensorfactory.h"
 #include "../device/vestibular/phidgetvestibularfactory.h"
 #include "../experiment/tactileTest/robot/stupidcontrollerfactory.h"
+#include "../experiment/demo/robot/democontrollerfactory.h"
 #include <QFile>
 #include <QDomDocument>
 #include "../util/util.h"
@@ -17,26 +18,32 @@ namespace robot {
 //private
 void Robot::parseElement(QDomElement element) {
     QString name = element.tagName();
+    //if tag is a deviceGroup call parseDeviceGroup
     if (name.compare("deviceGroup") == 0) {
         parseDeviceGroup(element);
-    } else if (name.compare("devices") == 0) {
+    } //if tag contains devices, parse each element recursively
+    else if (name.compare("devices") == 0) {
         QDomNodeList children = element.childNodes();
         for (int iChild = 0; iChild < children.count(); iChild++) {
             QDomElement child = children.item(iChild).toElement();
             parseElement(child);
         }
-    } else if (name.startsWith("device:")) {
+    } //if tag is a device call parseDevice
+    else if (name.startsWith("device:")) {
         parseDevice(element);
-    } else if (name.startsWith("controller:")) {
+    } //if tag is a controller call parseDevice (a Controller is a subclass of Device)
+    else if (name.startsWith("controller:")) {
         parseDevice(element);
     }
 }
 
 void Robot::parseDeviceGroup(QDomElement element) {
     QString skip = element.attribute("skip", "false");
+    //ignore if to be skipped
     if (skip.compare("false") == 0) {
         QDomNodeList children = element.childNodes();
 
+        //parse each child
         for (int iChild = 0; iChild < children.count(); iChild++) {
             QDomElement child = children.item(iChild).toElement();
             parseElement(child);
@@ -46,7 +53,9 @@ void Robot::parseDeviceGroup(QDomElement element) {
 
 void Robot::parseDevice(QDomElement element) {
     QString skip = element.attribute("skip", "false");
+    //ignore if to be skipped
     if (skip.compare("false") == 0) {
+        //call the deviceFactory to instanciate a device
         _deviceFactories->get(element.nodeName().toStdString())->createFromDomElement(element, this);
     }
 }
@@ -58,6 +67,7 @@ void Robot::initDeviceFactories() {
     _deviceFactories->add(new device::actuator::PhidgetSimpleServoFactory());
     _deviceFactories->add(new device::tactile::SimpleTactileSensorFactory());
     _deviceFactories->add(new device::vestibular::PhidgetVestibularFactory());
+    _deviceFactories->add(new drobot::experiment::demo::robot::DemoControllerFactory());
 }
 
 //public
@@ -106,11 +116,11 @@ void Robot::run() {
         channels->read();
         //calculate outputs
         if (_controller != 0)
-            _controller->step(tick, channels);
+            _controller->tick(tick, channels);
         //copy device outputs from cache to devices
         channels->write();
         //fire step event (for logging)
-        _eventManager->fireEvent(new event::StepEvent(tick, channels->values()));
+        _eventManager->fireEvent(new event::TickEvent(tick, channels->values()));
         tick++;
     }
     //shutdown the robot's devices
@@ -126,8 +136,13 @@ device::DeviceManager* Robot::getDeviceManager() {
 }
 
 void Robot::setController(Controller* controller) {
+    if (_controller != 0)
+        _deviceManager->remove(_controller);
     _controller = controller;
-    _controller->setRobot(this);
+    if (_controller != 0) {
+        _deviceManager->add(_controller);
+        _controller->setRobot(this);
+    }
 }
 
 Controller* Robot::getController() {

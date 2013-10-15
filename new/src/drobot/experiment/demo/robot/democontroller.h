@@ -1,15 +1,17 @@
 #ifndef DROBOT_EXPERIMENT_DEMO_ROBOT_DEMOCONTROLLER_H
 #define DROBOT_EXPERIMENT_DEMO_ROBOT_DEMOCONTROLLER_H
 
+#include "../../../robot/controller.h"
+
 namespace drobot {
 namespace experiment {
 namespace demo {
 namespace robot {
 
-class DemoController
-{
+class DemoController : public drobot::robot::Controller {
 public:
-    DemoController();
+    DemoController(std::string name);
+    virtual void tick(long tick, device::channel::ChannelManager* channels);
 };
 
 } // namespace robot

@@ -15,16 +15,12 @@ namespace datalogger {
 class SimpleDataLogger : public DataLogger {
 private:
     std::vector<SimpleDataLogEntry*> _data;
-    int _modulo;
-    int _maxValues;
 public:
     SimpleDataLogger();
-    SimpleDataLogger(int maxValues, int modulo);
+    SimpleDataLogger(int modulo, int maxValues);
+    SimpleDataLogger(std::vector<device::channel::Channel*> channels);
+    SimpleDataLogger(std::vector<device::channel::Channel*> channels, int modulo, int maxValues);
     virtual void log(long tick, std::map<device::channel::Channel*, double> values);
-    virtual void setMaxValues(int maxValues);
-    virtual int getMaxValues();
-    virtual void setModulo(int modulo);
-    virtual int getModulo();
     void saveToFile(std::string path);
     void loadFromFile(std::string path, device::channel::ChannelManager channels);
     std::vector<SimpleDataLogEntry*> getData();

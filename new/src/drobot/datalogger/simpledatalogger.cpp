@@ -3,14 +3,16 @@
 namespace drobot {
 namespace datalogger {
 
-SimpleDataLogger::SimpleDataLogger() {
-    _maxValues = 0;
-    _modulo = 1;
+SimpleDataLogger::SimpleDataLogger() : DataLogger() {
 }
 
-SimpleDataLogger::SimpleDataLogger(int maxValues, int modulo) {
-    _maxValues = maxValues;
-    _modulo = modulo;
+SimpleDataLogger::SimpleDataLogger(int modulo, int maxValues) : DataLogger(modulo, maxValues) {
+}
+
+SimpleDataLogger::SimpleDataLogger(std::vector<device::channel::Channel*> channels) : DataLogger(channels) {
+}
+
+SimpleDataLogger::SimpleDataLogger(std::vector<device::channel::Channel*> channels, int modulo, int maxValues) : DataLogger(channels, modulo, maxValues) {
 }
 
 void SimpleDataLogger::log(long tick, std::map<device::channel::Channel*, double> values) {
@@ -20,22 +22,6 @@ void SimpleDataLogger::log(long tick, std::map<device::channel::Channel*, double
     while (_maxValues > -1 && _data.size() > _maxValues) {
         _data.erase(_data.begin());
     }
-}
-
-void SimpleDataLogger::setMaxValues(int maxValues) {
-    _maxValues = maxValues;
-}
-
-int SimpleDataLogger::getMaxValues() {
-    return _maxValues;
-}
-
-void SimpleDataLogger::setModulo(int modulo) {
-    _modulo = modulo;
-}
-
-int SimpleDataLogger::getModulo() {
-    return _modulo;
 }
 
 void SimpleDataLogger::saveToFile(std::string path) {

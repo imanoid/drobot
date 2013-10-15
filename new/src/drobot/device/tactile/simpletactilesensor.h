@@ -8,7 +8,8 @@ namespace device {
 namespace tactile {
 
 /**
- * @brief The SimpleTactileSensor class represents a tactile sensor which is connected to a SimpleTactileSensorBoard
+ * @brief The SimpleTactileSensor class represents a tactile sensor which is connected to a SimpleTactileSensorBoard.
+ * The value is set by the SimpleTactileSensorBoard in a loop.
  */
 class SimpleTactileSensor : public TactileSensor
 {

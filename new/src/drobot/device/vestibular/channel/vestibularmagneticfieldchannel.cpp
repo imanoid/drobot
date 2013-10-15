@@ -1,6 +1,7 @@
 #include "vestibularmagneticfieldchannel.h"
 #include "../../device.h"
 #include "../vestibular.h"
+#include <iostream>
 
 namespace drobot {
 namespace device {
@@ -21,7 +22,13 @@ void VestibularMagneticFieldChannel::setValue(double value) {
 }
 
 double VestibularMagneticFieldChannel::getValue() {
-    return getDevice()->toVestibular()->getMagneticField()[_dimension];
+    double value = getDevice()->toVestibular()->getMagneticField()[_dimension];
+    double normalizedValue = getNormalizer()->normalize(value);
+    //magnetic field sensor bugs sometimes and sends unreasonably high values (in the order of 1e+300)
+    if (normalizedValue > 1) {
+        return getRealValue();
+    }
+    return value;
 }
 
 } // namespace channel

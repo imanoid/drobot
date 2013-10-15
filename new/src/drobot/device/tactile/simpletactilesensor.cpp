@@ -29,6 +29,8 @@ double SimpleTactileSensor::getValue() {
 }
 
 void SimpleTactileSensor::setValue(double value) {
+    if (value <= 2)
+        value = 0;
     _value = value;
 }
 

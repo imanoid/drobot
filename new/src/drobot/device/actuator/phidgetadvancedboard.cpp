@@ -9,10 +9,6 @@ namespace drobot {
 namespace device {
 namespace actuator {
 
-CPhidgetHandle PhidgetAdvancedBoard::getPhidgetHandle() {
-    return (CPhidgetHandle&) _phidgetHandle;
-}
-
 PhidgetAdvancedBoard::PhidgetAdvancedBoard(std::string name) : ActuatorBoard(name) {
     int serial = -1;
     _phidgetHandle = 0;

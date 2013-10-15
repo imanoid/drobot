@@ -8,7 +8,7 @@ namespace drobot {
 namespace program {
 
 /**
- * @brief The ProgramFactory class is used for launching programs defined by the experimenter.
+ * @brief The ProgramFactory class is used for launching programs defined by the user.
  */
 class ProgramFactory
 {

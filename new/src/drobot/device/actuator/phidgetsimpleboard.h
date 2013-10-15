@@ -3,7 +3,6 @@
 
 #include "actuatorboard.h"
 #include <phidget21.h>
-#include "../phidgetdevice.h"
 
 namespace drobot {
 namespace device {
@@ -17,8 +16,6 @@ class PhidgetSimpleBoard : public ActuatorBoard
 {
 private:
     CPhidgetServoHandle _phidgetHandle;
-protected:
-    virtual CPhidgetHandle& getPhidgetHandle();
 public:
     /**
      * @brief Initializes a random connected Phidget Simple Board

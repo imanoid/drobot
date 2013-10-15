@@ -3,7 +3,6 @@
 
 #include "actuatorboard.h"
 #include "phidget21.h"
-#include "../phidgetdevice.h"
 #include "phidgetadvancedservo.h"
 
 namespace drobot {
@@ -14,12 +13,10 @@ namespace actuator {
  * @brief The PhidgetAdvancedBoard class
  * @details The Phidget Advanced Board contains Phidget Advanced Servo objects which can be initialized and used independently.
  */
-class PhidgetAdvancedBoard : public ActuatorBoard, public PhidgetDevice
+class PhidgetAdvancedBoard : public ActuatorBoard
 {
 private:
     CPhidgetAdvancedServoHandle _phidgetHandle;
-protected:
-    virtual CPhidgetHandle getPhidgetHandle();
 public:
     /**
      * @brief Initializes a random connected Phidget Advanced Board

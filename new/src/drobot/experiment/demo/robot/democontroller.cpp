@@ -5,8 +5,11 @@ namespace experiment {
 namespace demo {
 namespace robot {
 
-DemoController::DemoController()
-{
+DemoController::DemoController(std::string name) : Controller(name) {
+    _enabled = false;
+}
+
+void DemoController::tick(long tick, device::channel::ChannelManager* channels) {
 }
 
 } // namespace robot

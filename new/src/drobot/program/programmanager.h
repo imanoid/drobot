@@ -37,10 +37,10 @@ public:
     std::vector<std::string> listProgramFactoryNames();
     /**
      * @brief launchProgram creates a new program instance and starts it.
-     * @param programName is the type of the program to launch
+     * @param programFactoryName is the type of the program to launch
      * @return the new program instance
      */
-    Program* launchProgram(std::string programName);
+    Program* launchProgram(std::string programFactoryName);
     /**
      * @brief killProgram cancels a program instance
      * @param programName

@@ -2,6 +2,7 @@
 #define DROBOT_PROGRAM_PROGRAM_H
 
 #include "runnable.h"
+#include "../object/item.h"
 #include <QWidget>
 #include <string>
 
@@ -11,15 +12,12 @@ namespace program {
 /**
  * @brief The Program class represents a running program and serves as a base class. It has a GUI associated with it. See getWidget().
  */
-class Program : public Runnable
+class Program : public Runnable, public object::Item
 {
 protected:
     QWidget* _widget;
-    std::string _name;
 public:
     Program(std::string name);
-    std::string getName();
-    void setName(std::string name);
     /**
      * @brief getWidget. This method returns a widget for this program containing its GUI.
      * @return the widget

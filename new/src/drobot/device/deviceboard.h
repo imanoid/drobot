@@ -22,7 +22,13 @@ private:
 public:
     DeviceBoard(std::string name);
     virtual ~DeviceBoard();
+    /**
+     * @brief enables all the devices contained within this DeviceBoard.
+     */
     virtual void enable();
+    /**
+     * @brief disables all the devices contained within this DeviceBoard
+     */
     virtual void disable();
     virtual bool isEnabled();
     /**

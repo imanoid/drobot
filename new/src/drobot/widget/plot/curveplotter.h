@@ -21,6 +21,10 @@ public:
     CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels, std::vector<QColor> colors);
     CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels);
     virtual void log(long tick, std::map<device::channel::Channel*, double> values);
+public slots:
+    void replot();
+signals:
+    void updateData();
 };
 
 } // namespace plot

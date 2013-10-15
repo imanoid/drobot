@@ -1,126 +1,171 @@
 <robot frequency="24">
     <devices>
-        <deviceGroup name="actuator">
-            <device:phidgetAdvancedServo serial="303292" index="0" name="LeftEyeServo0">
+
+        <deviceGroup name="head">
+
+            <device:phidgetAdvancedServo serial="303292" index="5" name="neckServo" skip="true">
                 <channel:position type="OUTPUT" />
             </device:phidgetAdvancedServo>
-            <device:phidgetAdvancedServo serial="303292" index="1" name="LeftEyeServo1">
-                <channel:position type="OUTPUT" />
-            </device:phidgetAdvancedServo>
-            <device:phidgetAdvancedServo serial="303292" index="2" name="NeckServo">
-                <channel:position type="OUTPUT" />
-            </device:phidgetAdvancedServo>
+            
+            <deviceGroup name="vision" skip="true">
+                <device:phidgetSimpleServo serial="01518" index="0" name="leftEyePanServo">
+                    <channel:position type="OUTPUT" />
+                </device:phidgetSimpleServo>
+                <device:phidgetSimpleServo serial="01518" index="1" name="leftEyeTiltServo">
+                    <channel:position type="OUTPUT" />
+                </device:phidgetSimpleServo>
+                <device:phidgetSimpleServo serial="01518" index="3" name="rightEyePanServo">
+                    <channel:position type="OUTPUT" />
+                </device:phidgetSimpleServo>
+                <device:phidgetSimpleServo serial="01518" index="2" name="rightEyeTiltServo">
+                    <channel:position type="OUTPUT" />
+                </device:phidgetSimpleServo>
+            </deviceGroup>
+
+            <deviceGroup name="vestibular">
+                <device:phidgetVestibular serial="297025" name="leftVestibular">
+                    <channel:acceleration type="INPUT" />
+                    <channel:angularRate type="INPUT" />
+                    <channel:magneticField type="INPUT" />
+                </device:phidgetVestibular>
+                <device:phidgetVestibular serial="297045" name="rightVestibular">
+                    <channel:acceleration type="INPUT" />
+                    <channel:angularRate type="INPUT" />
+                    <channel:magneticField type="INPUT" />
+                </device:phidgetVestibular>
+            </deviceGroup>
+
+            <deviceGroup name="mouth">
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="0" name="mouthSensor0">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="1" name="mouthSensor1">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="2" name="mouthSensor2">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="3" name="mouthSensor3">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="4" name="mouthSensor4">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="5" name="mouthSensor5">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="6" name="mouthSensor6">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="7" name="mouthSensor7">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="8" name="mouthSensor8">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="9" name="mouthSensor9">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="10" name="mouthSensor10">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="11" name="mouthSensor11">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="12" name="mouthSensor12">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="13" name="mouthSensor13">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="14" name="mouthSensor14">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor>
+                <device:simpleTactileSensor path="/dev/ttyUSB0" index="15" name="mouthSensor15">
+                    <channel:value type="INPUT" />
+                </device:simpleTactileSensor> 
+            </deviceGroup>
         </deviceGroup>
-        <deviceGroup name="tactile">
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="0" name="tactileSensor0">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="1" name="tactileSensor1">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="2" name="tactileSensor2">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="3" name="tactileSensor3">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="4" name="tactileSensor4">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="5" name="tactileSensor5">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="6" name="tactileSensor6">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="7" name="tactileSensor7">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="8" name="tactileSensor8">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="9" name="tactileSensor9">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="10" name="tactileSensor10">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="11" name="tactileSensor11">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="12" name="tactileSensor12">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="13" name="tactileSensor13">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="14" name="tactileSensor14">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="15" name="tactileSensor15">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="16" name="tactileSensor16">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="17" name="tactileSensor17">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="18" name="tactileSensor18">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="19" name="tactileSensor19">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="20" name="tactileSensor20">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="21" name="tactileSensor21">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="22" name="tactileSensor22">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="23" name="tactileSensor23">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="24" name="tactileSensor24">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="25" name="tactileSensor25">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="26" name="tactileSensor26">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="27" name="tactileSensor27">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="28" name="tactileSensor28">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="29" name="tactileSensor29">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="30" name="tactileSensor30">
-                <channel:value type="INPUT" />
-            </device:simpleTactileSensor>
-            <device:simpleTactileSensor path="/dev/ttyUSB0" index="31" name="tactileSensor31">
+
+        <deviceGroup name="leftArm" skip="true">
+            <device:phidgetAdvancedServo serial="303292" index="0" name="leftShoulderProximalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="1" name="leftShoulderMedialServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="2" name="leftShoulderDistalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="3" name="leftElbowServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="4" name="leftHandServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="22" name="leftHandSensor">
                 <channel:value type="INPUT" />
             </device:simpleTactileSensor>
         </deviceGroup>
-        <deviceGroup name="vestibular">
-            <device:phidgetVestibular serial="297025" name="LeftVestibular">
-                <channel:acceleration type="INPUT" />
-                <channel:angularRate type="INPUT" />
-                <channel:magneticField type="INPUT" />
-            </device:phidgetVestibular>
-            <device:phidgetVestibular serial="297045" name="LightVestibular">
-                <channel:acceleration type="INPUT" />
-                <channel:angularRate type="INPUT" />
-                <channel:magneticField type="INPUT" />
-            </device:phidgetVestibular>
+
+        <deviceGroup name="rightArm" skip="true">
+            <device:phidgetAdvancedServo serial="303292" index="6" name="rightShoulderProximalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303292" index="7" name="rightShoulderMedialServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="0" name="rightShoulderDistalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="1" name="rightElbowServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="2" name="rightHandServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:simpleTactileSensor path="/dev/ttyUSB0" index="23" name="rightHandSensor">
+                <channel:value type="INPUT" />
+            </device:simpleTactileSensor>
         </deviceGroup>
+
+        <deviceGroup name="leftLeg" skip="true">
+            <device:phidgetAdvancedServo serial="303315" index="3" name="leftHipProximalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="4" name="leftHipMedialServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="5" name="leftHipDistalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="6" name="leftKneeServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="303315" index="7" name="leftFootServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+        </deviceGroup>
+
+        <deviceGroup name="rightLeg" skip="true">
+            <device:phidgetAdvancedServo serial="302963" index="0" name="rightHipProximalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="302963" index="1" name="rightHipMedialServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="302963" index="2" name="rightHipDistalServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="302963" index="3" name="rightKneeServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+            <device:phidgetAdvancedServo serial="302963" index="4" name="rightFootServo">
+                <channel:position type="OUTPUT" />
+            </device:phidgetAdvancedServo>
+        </deviceGroup>
+
     </devices>
-    <controller:stupidController />
+
+    <controller:demoController />
 </robot>

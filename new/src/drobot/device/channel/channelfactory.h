@@ -7,8 +7,6 @@
 
 namespace drobot {
 namespace device {
-class DeviceManager;
-
 namespace channel {
 
 /**

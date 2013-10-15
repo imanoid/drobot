@@ -10,7 +10,6 @@ StupidControllerFactory::StupidControllerFactory() : DeviceFactory("controller:s
 }
 
 void StupidControllerFactory::createFromDomElement(QDomElement element, drobot::robot::Robot *robot) {
-    device::DeviceManager* devices = robot->getDeviceManager();
     std::string name = element.attribute("name").toStdString();
 
     drobot::robot::Controller* controller = new StupidController(name);
@@ -21,7 +20,6 @@ void StupidControllerFactory::createFromDomElement(QDomElement element, drobot::
             _channelFactories->get(child.nodeName().toStdString())->createFromDomElement(child, controller);
         }
     }
-    devices->add(controller);
     robot->setController(controller);
 }
 

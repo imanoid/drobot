@@ -15,7 +15,7 @@ class Robot : public program::Runnable
 {
 private:
     /**
-     * @brief _deviceManager contains all devices which make this robot
+     * @brief _deviceManager contains all devices which make up this robot
      */
     device::DeviceManager* _deviceManager;
     /**
@@ -24,6 +24,7 @@ private:
     Controller* _controller;
     /**
      * @brief _eventManager is the EventManager of this robot
+     * @details each robot has its own EventManager
      */
     event::EventManager* _eventManager;
     /**

@@ -128,6 +128,7 @@ void SimpleTactileSensorBoard::updateLoop() {
                 sensor->setValue((double) activations[iSensor]);
             }
         }
+        //the sensor readings are stored in a blocking fifo, no need to sleep
     }
     //clean up memory
     delete activations;

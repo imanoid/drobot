@@ -1,17 +1,13 @@
 #include "phidgetvestibular.h"
 #include <sstream>
-#include <iostream>
 #include "channel/vestibularaccelerationchannel.h"
 #include "channel/vestibularangularratechannel.h"
 #include "../channel/linearnormalizer.h"
+#include "../../util/exception.h"
 
 namespace drobot {
 namespace device {
 namespace vestibular {
-
-CPhidgetHandle PhidgetVestibular::getPhidgetHandle() {
-    return (CPhidgetHandle) _phidgetHandle;
-}
 
 PhidgetVestibular::PhidgetVestibular(std::string name) : Vestibular(name) {
     int serial = -1;
@@ -25,8 +21,7 @@ PhidgetVestibular::PhidgetVestibular(std::string name) : Vestibular(name) {
         CPhidget_getErrorDescription(result, &err);
         std::stringstream errorMsg;
         errorMsg << "Problem waiting for attachment: " << err;
-        std::cerr << errorMsg.str() << std::endl;
-        throw errorMsg.str();
+        throw util::Exception(errorMsg.str());
     }
 }
 
@@ -41,8 +36,7 @@ PhidgetVestibular::PhidgetVestibular(std::string name, int serial) : Vestibular(
         CPhidget_getErrorDescription(result, &err);
         std::stringstream errorMsg;
         errorMsg << "Problem waiting for attachment: " << err;
-        std::cerr << errorMsg.str() << std::endl;
-        throw errorMsg.str();
+        throw util::Exception(errorMsg.str());
     }
 }
 

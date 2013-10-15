@@ -3,7 +3,6 @@
 
 #include "actuator.h"
 #include <phidget21.h>
-#include "../phidgetdevice.h"
 
 namespace drobot {
 namespace device {
@@ -20,8 +19,6 @@ class PhidgetSimpleServo : public Actuator
 private:
     CPhidgetServoHandle _phidgetHandle;
     int _index;
-protected:
-    virtual CPhidgetHandle& getPhidgetHandle();
 public:
     PhidgetSimpleServo(std::string name, CPhidgetServoHandle phidgetHandle, int index);
 

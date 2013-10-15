@@ -1,14 +1,17 @@
 #include "programmanager.h"
 #include "../experiment/tactileTest/program/tactiletestprogramfactory.h"
+#include "../experiment/demo/program/demoprogramfactory.h"
 #include <sstream>
 #include <string>
 #include "../util/util.h"
+#include <unistd.h>
 
 namespace drobot {
 namespace program {
 
 ProgramManager::ProgramManager() {
     registerProgramFactory(new drobot::experiment::tactileTest::program::ProgramFactory());
+    registerProgramFactory(new drobot::experiment::demo::program::DemoProgramFactory());
 }
 
 ProgramManager::~ProgramManager() {
@@ -26,10 +29,11 @@ std::vector<std::string> ProgramManager::listProgramFactoryNames() {
     return _programFactories.keys();
 }
 
-Program* ProgramManager::launchProgram(std::string programName) {
-    Program* task = _programFactories.get(programName)->createInstance();
+Program* ProgramManager::launchProgram(std::string programFactoryName) {
+    Program* task = _programFactories.get(programFactoryName)->createInstance();
     _programs.add(task);
     task->run_thread();
+    usleep(1000000);
     return task;
 }
 

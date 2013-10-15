@@ -1,4 +1,5 @@
 #include "curveplotter.h"
+#include <iostream>
 
 namespace drobot {
 namespace widget {
@@ -36,6 +37,7 @@ CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int heigh
     for(int i=0; i < _curves.size(); i++)
         _curves[i]->attach(this);
     QwtPlot::setGeometry(x, y, width, height);
+    QObject::connect(this, SIGNAL(updateData()), this, SLOT(replot()));
 }
 
 CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels) : CurvePlotter(title, x, y, width, height, channels, std::vector<QColor>()) {
@@ -51,13 +53,19 @@ void CurvePlotter::log(long tick, std::map<device::channel::Channel*, double> va
         _y[iChannel].push_back(values[channel]);
     }
 
-    if (_x.size() > getMaxValues()) {
+    if (_x.size() > getMaxValues() && getMaxValues() > 0) {
         _x.remove(0);
-        _y.remove(0);
+        for (int iY = 0; iY < _y.size(); iY++) {
+            _y[iY].remove(0);
+        }
     }
+    emit updateData();
+}
 
-    for(int i=0; i < _curves.size(); i++)
+void CurvePlotter::replot() {
+    for(int i=0; i < _curves.size(); i++) {
         _curves[i]->setSamples(_x, _y[i]);
+    }
     QwtPlot::replot();
 }
 

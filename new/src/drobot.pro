@@ -25,7 +25,6 @@ HEADERS += \
     drobot/device/device.h \
     drobot/device/deviceboard.h \
     drobot/device/devicemanager.h \
-    drobot/device/phidgetdevice.h \
     drobot/device/driver/rs232.h \
     drobot/program/program.h \
     drobot/program/programfactory.h \
@@ -51,7 +50,6 @@ HEADERS += \
     drobot/program/runnable.h \
     drobot/device/channel/channelmanager.h \
     drobot/experiment/tactileTest/robot/stupidcontroller.h \
-    drobot/robot/event/stepevent.h \
     drobot/datalogger/datalogger.h \
     drobot/datalogger/simpledatalogger.h \
     drobot/datalogger/simpledatalogentry.h \
@@ -82,7 +80,8 @@ HEADERS += \
     drobot/experiment/demo/program/demoprogramfactory.h \
     drobot/experiment/demo/robot/democontroller.h \
     drobot/experiment/demo/robot/democontrollerfactory.h \
-    drobot/experiment/demo/widget/demowidget.h
+    drobot/experiment/demo/widget/demowidget.h \
+    drobot/robot/event/tickevent.h
 
 SOURCES += \
     drobot/device/actuator/actuatorboard.cpp \
@@ -126,7 +125,6 @@ SOURCES += \
     drobot/device/tactile/tactilesensor.cpp \
     drobot/device/vestibular/vestibular.cpp \
     drobot/experiment/tactileTest/robot/stupidcontroller.cpp \
-    drobot/robot/event/stepevent.cpp \
     drobot/datalogger/simpledatalogger.cpp \
     drobot/object/item.cpp \
     drobot/util/clock.cpp \
@@ -153,7 +151,8 @@ SOURCES += \
     drobot/experiment/demo/program/demoprogramfactory.cpp \
     drobot/experiment/demo/robot/democontroller.cpp \
     drobot/experiment/demo/robot/democontrollerfactory.cpp \
-    drobot/experiment/demo/widget/demowidget.cpp
+    drobot/experiment/demo/widget/demowidget.cpp \
+    drobot/robot/event/tickevent.cpp
 
 OTHER_FILES +=
 

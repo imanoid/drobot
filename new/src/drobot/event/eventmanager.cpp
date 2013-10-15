@@ -32,7 +32,7 @@ void EventManager::unregisterEventListener(EventListener* eventListener) {
 void EventManager::fireEvent(Event* event) {
     std::string type = event->getType();
 
-    std::cout << "=====fireEvent(" << type << ")=====" << std::endl << event->toString() << std::endl;
+    //std::cout << "=====fireEvent(" << type << ")=====" << std::endl << event->toString() << std::endl;
 
     if (_eventListeners.find(type) == _eventListeners.end())
         return;
