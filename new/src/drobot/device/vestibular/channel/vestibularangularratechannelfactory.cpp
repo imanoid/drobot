@@ -13,7 +13,7 @@ VestibularAngularRateChannelFactory::VestibularAngularRateChannelFactory() : Cha
 }
 
 void VestibularAngularRateChannelFactory::createFromDomElement(QDomElement element, Device *device) {
-    std::string name = element.attribute("name", "angularRate").toStdString();
+    std::string name = element.attribute("name", "angularRate").append(QString(".")).append(element.attribute("type").toLower()).toStdString();
     device::channel::ChannelType type = device::channel::channelTypeFromString(element.attribute("type").toStdString());
 
     for (int dimension = 0; dimension < 3; dimension++) {

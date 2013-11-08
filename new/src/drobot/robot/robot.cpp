@@ -116,7 +116,7 @@ void Robot::run() {
         channels->read();
         //calculate outputs
         if (_controller != 0)
-            _controller->tick(tick, channels);
+            _controller->tick(tick);
         //copy device outputs from cache to devices
         channels->write();
         //fire step event (for logging)

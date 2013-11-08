@@ -73,7 +73,7 @@ double Channel::getRealValue() {
 std::string Channel::getName() {
     if (_device != 0) {
         std::stringstream name;
-        name << _device->getName() << "_" << _name;
+        name << _device->getName() << "." << _name;
         return name.str();
     } else {
         return Item::getName();

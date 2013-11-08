@@ -11,7 +11,7 @@ namespace robot {
 class DemoController : public drobot::robot::Controller {
 public:
     DemoController(std::string name);
-    virtual void tick(long tick, device::channel::ChannelManager* channels);
+    virtual void tick(long tick);
 };
 
 } // namespace robot

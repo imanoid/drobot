@@ -29,9 +29,8 @@ public:
      * @details This method should first read the values of the input channels,
      *  then calculate the output and write it to the output channels. Additionally other stuff can be written to log channels for logging.
      * @param tick the timestep
-     * @param channels of the robot
      */
-    virtual void tick(long tick, device::channel::ChannelManager* channels) = 0;
+    virtual void tick(long tick) = 0;
     void setRobot(Robot* robot);
     Robot* getRobot();
     virtual void enable();

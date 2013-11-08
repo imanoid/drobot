@@ -57,7 +57,8 @@ int PhidgetSimpleBoard::getMaxActuators() {
 std::vector<Actuator*> PhidgetSimpleBoard::initAllActuators() {
     std::vector<Actuator*> result;
     for (int iMotor = 0; iMotor < getMaxActuators(); iMotor++) {
-        result.push_back(initActuator(iMotor));
+        Actuator* a = initActuator(iMotor);
+        result.push_back(a);
     }
     return result;
 }

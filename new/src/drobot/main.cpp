@@ -4,6 +4,9 @@
 #include "widget/mainwindow.h"
 #include <phidget21.h>
 
+#include "device/actuator/phidgetsimpleboard.h"
+#include <unistd.h>
+
 int main( int argc, char* argv[]) {
    // Q_INIT_RESOURCE(application);
 

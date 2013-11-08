@@ -33,7 +33,7 @@ Program* ProgramManager::launchProgram(std::string programFactoryName) {
     Program* task = _programFactories.get(programFactoryName)->createInstance();
     _programs.add(task);
     task->run_thread();
-    usleep(1000000);
+    usleep(4000000);
     return task;
 }
 

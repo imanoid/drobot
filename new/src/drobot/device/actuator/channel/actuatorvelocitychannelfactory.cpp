@@ -13,7 +13,7 @@ ActuatorVelocityChannelFactory::ActuatorVelocityChannelFactory() : ChannelFactor
 }
 
 void ActuatorVelocityChannelFactory::createFromDomElement(QDomElement element, Device *device) {
-    std::string name = element.attribute("name", "velocity").toStdString();
+    std::string name = element.attribute("name", "velocity").append(QString(".")).append(element.attribute("type").toLower()).toStdString();
     double min = element.attribute("min", boost::lexical_cast<std::string>(device->toActuator()->getVelocityMin()).c_str()).toDouble();
     double max = element.attribute("max", boost::lexical_cast<std::string>(device->toActuator()->getVelocityMin()).c_str()).toDouble();
     device::channel::ChannelType type = device::channel::channelTypeFromString(element.attribute("type").toStdString());

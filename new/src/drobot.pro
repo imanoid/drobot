@@ -97,7 +97,6 @@ SOURCES += \
     drobot/device/device.cpp \
     drobot/device/deviceboard.cpp \
     drobot/device/devicemanager.cpp \
-    drobot/device/phidgetdevice.cpp \
     drobot/device/driver/rs232.cpp \
     drobot/program/program.cpp \
     drobot/program/programfactory.cpp \

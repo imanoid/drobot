@@ -15,7 +15,7 @@ DemoProgram::DemoProgram(std::string name) : drobot::program::Program::Program(n
 
 void DemoProgram::run() {
     try {
-        _robo.loadFromFile("/home/imanol/workspace/drobot/new/resources/robots/robot.xml");
+        _robo.loadFromFile("/home/imanol/workspace/drobot/new/resources/robots/maggie.xml");
         _robo.run();
     } catch (util::Exception ex) {
         std::cerr << ex.getMessage() << std::endl;
@@ -25,41 +25,30 @@ void DemoProgram::run() {
 
 QWidget* DemoProgram::getWidget() {
     drobot::experiment::demo::widget::DemoWidget* mainWidget = new drobot::experiment::demo::widget::DemoWidget();
-    std::vector<device::channel::Channel*> channels = _robo.getDeviceManager()->getChannels()->values();
+    drobot::device::channel::ChannelManager* channels = _robo.getDeviceManager()->getChannels();
     mainWidget->setLayout(new QGridLayout());
     QLayout* layout = mainWidget->layout();
 
-    // init mouth plot
-    std::vector<device::channel::Channel*> mouthChannels;
-    for (std::vector<device::channel::Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
-        device::channel::Channel* channel = *iChannel;
-        if (channel->getName().find("mouthSensor") != std::string::npos) {
-            mouthChannels.push_back(channel);
-        }
-    }
-    // only show if devices are active
-    if (mouthChannels.size() > 0) {
-        drobot::widget::plot::CurvePlotter* mouthPlotter = new drobot::widget::plot::CurvePlotter("mouth", 0, 0, 100, 100, mouthChannels);
-        mouthPlotter->setMaxValues(150);
-        layout->addWidget(mouthPlotter);
-        _robo.getEventManager()->registerEventListener(mouthPlotter);
-    }
+    // init hand tactile sensor plot
+    std::vector<device::channel::Channel*> handChannels;
+    handChannels.push_back(channels->get("leftHandSensor.value.input"));
+    handChannels.push_back(channels->get("rightHandSensor.value.input"));
 
-    // init vestibular plot
-    std::vector<device::channel::Channel*> vestibularChannels;
-    for (std::vector<device::channel::Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
-        device::channel::Channel* channel = *iChannel;
-        if (channel->getName().find("Vestibular") != std::string::npos) {
-            vestibularChannels.push_back(channel);
-        }
-    }
-    // only show if devices are active
-    if (vestibularChannels.size() > 0) {
-        drobot::widget::plot::CurvePlotter* vestibularPlotter = new drobot::widget::plot::CurvePlotter("vestibular", 0, 0, 100, 100, vestibularChannels);
-        vestibularPlotter->setMaxValues(150);
-        layout->addWidget(vestibularPlotter);
-        _robo.getEventManager()->registerEventListener(vestibularPlotter);
-    }
+    drobot::widget::plot::CurvePlotter* handPlotter = new drobot::widget::plot::CurvePlotter("hands", 0, 0, 100, 100, handChannels);
+    handPlotter->setMaxValues(150);
+    layout->addWidget(handPlotter);
+    _robo.getEventManager()->registerEventListener(handPlotter);
+
+    // init eye tile servo plot
+    std::vector<device::channel::Channel*> tiltChannels;
+    tiltChannels.push_back(channels->get("leftEyeTiltServo.position.output"));
+    tiltChannels.push_back(channels->get("rightEyeTiltServo.position.output"));
+    tiltChannels.push_back(channels->get("rightEyeTiltServo.position.input"));
+
+    drobot::widget::plot::CurvePlotter* tiltPlotter = new drobot::widget::plot::CurvePlotter("eye tilt", 0, 0, 100, 100, tiltChannels);
+    tiltPlotter->setMaxValues(150);
+    layout->addWidget(tiltPlotter);
+    _robo.getEventManager()->registerEventListener(tiltPlotter);
 
     return mainWidget;
 }
