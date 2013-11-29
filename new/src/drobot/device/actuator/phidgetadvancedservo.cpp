@@ -21,9 +21,9 @@ void PhidgetAdvancedServo::disable() {
 }
 
 bool PhidgetAdvancedServo::isEnabled() {
-    int* engaged;
-    CPhidgetAdvancedServo_getEngaged(_phidgetHandle, _index, engaged);
-    return (*engaged) == 1;
+    int engaged;
+    CPhidgetAdvancedServo_getEngaged(_phidgetHandle, _index, &engaged);
+    return engaged == 1;
 }
 
 double PhidgetAdvancedServo::getPosition() {

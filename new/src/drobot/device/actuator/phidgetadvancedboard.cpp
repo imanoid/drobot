@@ -49,9 +49,9 @@ PhidgetAdvancedBoard::~PhidgetAdvancedBoard() {
 }
 
 int PhidgetAdvancedBoard::getMaxActuators() {
-    int* count;
-    CPhidgetAdvancedServo_getMotorCount(_phidgetHandle, count);
-    return *count;
+    int count;
+    CPhidgetAdvancedServo_getMotorCount(_phidgetHandle, &count);
+    return count;
 }
 
 std::vector<Actuator*> PhidgetAdvancedBoard::initAllActuators() {
