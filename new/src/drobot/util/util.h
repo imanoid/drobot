@@ -4,6 +4,10 @@
 #include <vector>
 #include <map>
 
+#ifndef __maybe_unused
+# define __maybe_unused __attribute__ ((__unused__))
+#endif
+
 namespace drobot {
 namespace util {
 
