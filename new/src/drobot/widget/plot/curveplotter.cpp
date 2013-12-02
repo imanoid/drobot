@@ -8,10 +8,11 @@ namespace plot {
 CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels, std::vector<QColor> colors) : DataLogger(channels), QwtPlot(QwtText(title.c_str())) {
     std::vector<std::string> labels;
     for (std::vector<device::channel::Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
-        labels.push_back((*iChannel)->getName());
+        if (*iChannel)
+            labels.push_back((*iChannel)->getName());
     }
 
-    for(int i=0; i<labels.size(); i++) {
+    for(unsigned int i=0; i<labels.size(); i++) {
         QwtPlotCurve *curve = new QwtPlotCurve(labels[i].c_str());
         QColor color;
 
