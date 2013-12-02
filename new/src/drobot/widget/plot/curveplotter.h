@@ -1,17 +1,19 @@
-#ifndef DROBOT_WIDGET_PLOT_CURVEPLOTTER_H
-#define DROBOT_WIDGET_PLOT_CURVEPLOTTER_H
+#ifndef _DROBOT_WIDGET_PLOT_CURVEPLOTTER_H
+#define _DROBOT_WIDGET_PLOT_CURVEPLOTTER_H
 
 #include <qwt/qwt_plot_curve.h>
-#include "../../datalogger/datalogger.h"
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_legend.h>
+
+#include "../../datalogger/datalogger.h"
 
 namespace drobot {
 namespace widget {
 namespace plot {
 
-class CurvePlotter : public QwtPlot, public datalogger::DataLogger {
-Q_OBJECT
+class CurvePlotter : public QwtPlot, public datalogger::DataLogger
+{
+    Q_OBJECT
 
 protected:
     std::vector<QwtPlotCurve*> _curves;
@@ -31,4 +33,4 @@ signals:
 } // namespace widget
 } // namespace drobot
 
-#endif // DROBOT_WIDGET_PLOT_CURVEPLOTTER_H
+#endif // _DROBOT_WIDGET_PLOT_CURVEPLOTTER_H

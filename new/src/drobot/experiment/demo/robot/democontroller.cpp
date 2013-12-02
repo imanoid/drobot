@@ -10,7 +10,8 @@ DemoController::DemoController(std::string name) : Controller(name) {
     _enabled = false;
 }
 
-void DemoController::tick(long tick) {
+void DemoController::tick(long tick __maybe_unused)
+{
     drobot::device::channel::ChannelManager* channels = getRobot()->getDeviceManager()->getChannels();
     double rightHandSensor = channels->get("rightHandSensor.value.input")->getNormalizedValue();
     double leftHandSensor = channels->get("leftHandSensor.value.input")->getNormalizedValue();

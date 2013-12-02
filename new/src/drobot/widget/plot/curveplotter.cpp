@@ -5,7 +5,9 @@ namespace drobot {
 namespace widget {
 namespace plot {
 
-CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels, std::vector<QColor> colors) : DataLogger(channels), QwtPlot(QwtText(title.c_str())) {
+CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels, std::vector<QColor> colors)
+    : DataLogger(channels), QwtPlot(QwtText(title.c_str()))
+{
     std::vector<std::string> labels;
     for (std::vector<device::channel::Channel*>::iterator iChannel = channels.begin(); iChannel != channels.end(); iChannel++) {
         if (*iChannel)
@@ -35,13 +37,15 @@ CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int heigh
     }
 
     QwtPlot::insertLegend(new QwtLegend(this), QwtPlot::BottomLegend);
-    for(int i=0; i < _curves.size(); i++)
+    for (size_t i = 0; i < _curves.size(); i++)
         _curves[i]->attach(this);
     QwtPlot::setGeometry(x, y, width, height);
     QObject::connect(this, SIGNAL(updateData()), this, SLOT(replot()));
 }
 
-CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels) : CurvePlotter(title, x, y, width, height, channels, std::vector<QColor>()) {
+CurvePlotter::CurvePlotter(std::string title, int x, int y, int width, int height, std::vector<device::channel::Channel*> channels)
+    : CurvePlotter(title, x, y, width, height, channels, std::vector<QColor>())
+{
 }
 
 void CurvePlotter::log(long tick, std::map<device::channel::Channel*, double> values) {
@@ -49,9 +53,9 @@ void CurvePlotter::log(long tick, std::map<device::channel::Channel*, double> va
         return;
 
     _x.push_back(tick);
-    for(int iChannel = 0; iChannel < _channels.size(); iChannel++) {
-        device::channel::Channel* channel = _channels[iChannel];
-        _y[iChannel].push_back(values[channel]);
+    for (size_t i = 0; i < _channels.size(); i++) {
+        device::channel::Channel* channel = _channels[i];
+        _y[i].push_back(values[channel]);
     }
 
     if (_x.size() > getMaxValues() && getMaxValues() > 0) {
@@ -64,7 +68,7 @@ void CurvePlotter::log(long tick, std::map<device::channel::Channel*, double> va
 }
 
 void CurvePlotter::replot() {
-    for(int i=0; i < _curves.size(); i++) {
+    for (size_t i = 0; i < _curves.size(); i++) {
         _curves[i]->setSamples(_x, _y[i]);
     }
     QwtPlot::replot();

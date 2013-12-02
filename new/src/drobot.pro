@@ -7,6 +7,8 @@ CONFIG += qwt
 TARGET = drobot
 TEMPLATE = app
 
+QMAKE_CXXFLAGS += -std=c++11
+
 HEADERS += \
     drobot/device/actuator/actuator.h \
     drobot/device/actuator/actuatorboard.h \
@@ -81,7 +83,14 @@ HEADERS += \
     drobot/experiment/demo/robot/democontroller.h \
     drobot/experiment/demo/robot/democontrollerfactory.h \
     drobot/experiment/demo/widget/demowidget.h \
-    drobot/robot/event/tickevent.h
+    drobot/robot/event/tickevent.h \
+    drobot/experiment/handmouth/program/handmouthprogramfactory.h \
+    drobot/experiment/handmouth/program/handmouthprogram.h \
+    drobot/experiment/handmouth/robot/handmouthcontrollerfactory.h \
+    drobot/experiment/handmouth/robot/handmouthcontroller.h \
+    drobot/widget/slider/slidergroup.h \
+    drobot/widget/slider/slider.h \
+    drobot/experiment/handmouth/widget/handmouthwidget.h
 
 SOURCES += \
     drobot/device/actuator/actuatorboard.cpp \
@@ -151,14 +160,22 @@ SOURCES += \
     drobot/experiment/demo/robot/democontroller.cpp \
     drobot/experiment/demo/robot/democontrollerfactory.cpp \
     drobot/experiment/demo/widget/demowidget.cpp \
-    drobot/robot/event/tickevent.cpp
+    drobot/robot/event/tickevent.cpp \
+    drobot/experiment/handmouth/program/handmouthprogramfactory.cpp \
+    drobot/experiment/handmouth/program/handmouthprogram.cpp \
+    drobot/experiment/handmouth/robot/handmouthcontrollerfactory.cpp \
+    drobot/experiment/handmouth/robot/handmouthcontroller.cpp \
+    drobot/widget/slider/slidergroup.cpp \
+    drobot/widget/slider/slider.cpp \
+    drobot/experiment/handmouth/widget/handmouthwidget.cpp
 
 OTHER_FILES +=
 
 FORMS += \
     drobot/widget/mainwindow.ui \
     drobot/experiment/tactileTest/widget/tactiletestmainwidget.ui \
-    drobot/experiment/demo/widget/demowidget.ui
+    drobot/experiment/demo/widget/demowidget.ui \
+    drobot/experiment/handmouth/widget/handmouthwidget.ui
 
 unix|win32: LIBS += \
 -lboost_filesystem \

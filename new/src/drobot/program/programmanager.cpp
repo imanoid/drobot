@@ -1,10 +1,12 @@
+#include <sstream>
+#include <string>
+#include <unistd.h>
+
 #include "programmanager.h"
 #include "../experiment/tactileTest/program/tactiletestprogramfactory.h"
 #include "../experiment/demo/program/demoprogramfactory.h"
-#include <sstream>
-#include <string>
+#include "../experiment/handmouth/program/handmouthprogramfactory.h"
 #include "../util/util.h"
-#include <unistd.h>
 
 namespace drobot {
 namespace program {
@@ -12,6 +14,7 @@ namespace program {
 ProgramManager::ProgramManager() {
     registerProgramFactory(new drobot::experiment::tactileTest::program::ProgramFactory());
     registerProgramFactory(new drobot::experiment::demo::program::DemoProgramFactory());
+    registerProgramFactory(new drobot::experiment::handmouth::program::HandMouthProgramFactory());
 }
 
 ProgramManager::~ProgramManager() {

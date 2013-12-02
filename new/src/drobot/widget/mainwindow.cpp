@@ -1,9 +1,10 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include <vector>
 #include <iostream>
 #include <QPushButton>
 #include <string>
+
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 namespace drobot {
 namespace widget {
