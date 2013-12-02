@@ -109,7 +109,7 @@ public:
      * @brief called when an item is added
      * @param item
      */
-    virtual void onAdd(T* item) {
+    virtual void onAdd(T* item __maybe_unused) {
 
     }
 
@@ -135,14 +135,14 @@ public:
      * @return the removed item or 0 if it's not in the list.
      */
     T* remove(T* item) {
-        remove(item->getName());
+        return remove(item->getName());
     }
 
     /**
      * @brief called when an item is removed
      * @param item
      */
-    virtual void onRemove(T* item) {
+    virtual void onRemove(T* item __maybe_unused) {
 
     }
 
