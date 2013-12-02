@@ -1,15 +1,18 @@
-#include "robot.h"
-#include "event/tickevent.h"
 #include <unistd.h>
 #include <iostream>
+
+#include <QFile>
+#include <QDomDocument>
+
+#include "robot.h"
+#include "event/tickevent.h"
 #include "../device/actuator/phidgetadvancedservofactory.h"
 #include "../device/actuator/phidgetsimpleservofactory.h"
 #include "../device/tactile/simpletactilesensorfactory.h"
 #include "../device/vestibular/phidgetvestibularfactory.h"
 #include "../experiment/tactileTest/robot/stupidcontrollerfactory.h"
 #include "../experiment/demo/robot/democontrollerfactory.h"
-#include <QFile>
-#include <QDomDocument>
+#include "../experiment/handmouth/robot/handmouthcontrollerfactory.h"
 #include "../util/util.h"
 
 namespace drobot {
@@ -53,10 +56,17 @@ void Robot::parseDeviceGroup(QDomElement element) {
 
 void Robot::parseDevice(QDomElement element) {
     QString skip = element.attribute("skip", "false");
-    //ignore if to be skipped
+
+    // ignore if to be skipped
     if (skip.compare("false") == 0) {
-        //call the deviceFactory to instanciate a device
-        _deviceFactories->get(element.nodeName().toStdString())->createFromDomElement(element, this);
+        // get and call the deviceFactory to instanciate a device
+        std::string name = element.nodeName().toStdString();
+        device::DeviceFactory *fac = _deviceFactories->get(name);
+        if (fac != 0)
+            fac->createFromDomElement(element, this);
+        else
+            std::cerr << "No DeviceFactory found for " << name
+                      << " (line " << element.lineNumber() << ")" << std::endl;
     }
 }
 
@@ -68,6 +78,7 @@ void Robot::initDeviceFactories() {
     _deviceFactories->add(new device::tactile::SimpleTactileSensorFactory());
     _deviceFactories->add(new device::vestibular::PhidgetVestibularFactory());
     _deviceFactories->add(new drobot::experiment::demo::robot::DemoControllerFactory());
+//    _deviceFactories->add(new drobot::experiment::handmouth::robot::HandMouthControllerFactory());
 }
 
 //public
