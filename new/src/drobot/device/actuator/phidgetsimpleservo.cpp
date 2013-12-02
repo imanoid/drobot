@@ -52,7 +52,7 @@ double PhidgetSimpleServo::getVelocity() {
     return 0;
 }
 
-void PhidgetSimpleServo::setVelocity(double velocity) {
+void PhidgetSimpleServo::setVelocity(double velocity __maybe_unused) {
 
 }
 
@@ -68,7 +68,7 @@ double PhidgetSimpleServo::getAcceleration() {
     return 0;
 }
 
-void PhidgetSimpleServo::setAcceleration(double acceleration) {
+void PhidgetSimpleServo::setAcceleration(double acceleration __maybe_unused) {
 
 }
 
