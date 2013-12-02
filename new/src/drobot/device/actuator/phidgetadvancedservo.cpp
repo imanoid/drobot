@@ -1,6 +1,7 @@
 #include "phidgetadvancedservo.h"
 #include "../channel/linearnormalizer.h"
 #include "../deviceConstants.h"
+#include "../../util/util.h"
 
 namespace drobot {
 namespace device {
@@ -82,7 +83,7 @@ double PhidgetAdvancedServo::getAcceleration() {
     return 0;
 }
 
-void PhidgetAdvancedServo::setAcceleration(double acceleration) {
+void PhidgetAdvancedServo::setAcceleration(double acceleration __maybe_unused) {
 
 }
 
@@ -98,7 +99,7 @@ double PhidgetAdvancedServo::getVelocity() {
     return 0;
 }
 
-void PhidgetAdvancedServo::setVelocity(double velocity) {
+void PhidgetAdvancedServo::setVelocity(double velocity __maybe_unused) {
 
 }
 
@@ -116,7 +117,7 @@ double PhidgetAdvancedServo::getMovingVelocity() {
     return velocity;
 }
 
-void PhidgetAdvancedServo::setMovingVelocity(double velocity) {
+void PhidgetAdvancedServo::setMovingVelocity(double velocity __maybe_unused) {
 }
 
 double PhidgetAdvancedServo::getMovingVelocityMin() {
