@@ -1,8 +1,9 @@
+#include <iostream>
+#include <boost/thread.hpp>
+
 #include "simpletactilesensorboard.h"
 #include "simpletactilesensor.h"
 #include "../driver/rs232.h"
-#include <iostream>
-#include <boost/thread.hpp>
 #include "../../util/util.h"
 
 namespace drobot {
@@ -10,17 +11,10 @@ namespace device {
 namespace tactile {
 
 SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string path) :
-    TactileSensorBoard(name) {
-    _path = path;
-    _maxSensors = 32;
-
-}
+    TactileSensorBoard(name), _path(path), _maxSensors(32) {}
 
 SimpleTactileSensorBoard::SimpleTactileSensorBoard(std::string name, std::string path, int maxSensors) :
-    TactileSensorBoard(name) {
-    _path = path;
-    _maxSensors = maxSensors;
-}
+    TactileSensorBoard(name), _path(path), _maxSensors(maxSensors) {}
 
 std::vector<TactileSensor*> SimpleTactileSensorBoard::initAllSensors() {
     clear();
@@ -59,7 +53,7 @@ void SimpleTactileSensorBoard::enable() {
     if (isEnabled())
         return;
     DeviceBoard::enable();
-    boost::thread* loopThread = new boost::thread(boost::bind(&SimpleTactileSensorBoard::updateLoop, this));
+    new boost::thread(boost::bind(&SimpleTactileSensorBoard::updateLoop, this));
 }
 
 void SimpleTactileSensorBoard::updateLoop() {
@@ -131,7 +125,7 @@ void SimpleTactileSensorBoard::updateLoop() {
         //the sensor readings are stored in a blocking fifo, no need to sleep
     }
     //clean up memory
-    delete activations;
+    delete[] activations;
 
     //close device
     driver::rs232::RS232_ClosePort(portFileDescriptor, &initialPortSettings);
